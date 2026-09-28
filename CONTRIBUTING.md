@@ -33,3 +33,13 @@ prek install
 - 发布分支：`release/v1.0.0`
 
 > **注意**: 默认仅通过PR 朝中央仓库推送代码
+
+---
+
+## OpenWiki 文档维护
+
+本仓库为私有仓库，未配置、也不依赖 GitHub Actions 定时更新 OpenWiki 文档：
+
+- 不要创建或恢复 `.github/workflows/openwiki-update.yml`。
+- 不要为 OpenWiki 更新配置 `OPENAI_API_KEY`、`OPENWIKI_LANGSMITH_API_KEY` 等 Actions secrets。
+- OpenWiki 初始化或更新由维护者在本地显式执行，生成结果按普通文档变更进行审查和提交。

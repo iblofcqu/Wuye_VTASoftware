@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:9e1679432502b6e05e0b2502c4a986f06cb0601e7c068d22f821ad9789923b51",
+  "claims": [
+    {
+      "id": "claim_f6808c86d2e043a8bab2d692ffb78ebb",
+      "statement": "网格离散按网格表面积除以点间距平方估算 Poisson-disk 采样点数，再返回采样点的 xyz 数组。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/Poisson_Disk_Sampling.py#L11-L18",
+          "version": "repo-lines-v1:sha256:e262193d682a927a534f5ead400553654f0a6e17b13fdff9bc802e6cfa28df36:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTliMDZkMjgzNDM3NGJlNGMzZjZhNzA2YTk0N2IwNDg2OGRjNDA0OGI2ODYwZmEzNzljN2JhMWVmZDczNjhiMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjk3MjRiYmJmNzc0ZTEyOTUxNzk0MzVhNzY0ZGVjMTZkYTU3YjYwYWFjMDBiOWJkMGNlNmI4NDE4MGZmOWRkMiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzA5NTdkNDk1YzA5NTc0NmIwYmIxMzI4MWM0NjU0YjkyYzY3ZDY1MGQ0ZWUwNTFhNzM3YmY2NTlkY2IzMTc5NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_77899a70cd024b50b7a28f495277e24b",
+      "statement": "下采样模块提供体素、均匀、最远点和随机四种采样函数，并以 NumPy 数组返回前三列点坐标。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/down_samples.py#L21-L36",
+          "version": "repo-lines-v1:sha256:464a3527c8491f832415d25c9391849edaa957ae2af8a920971e7518dd0ed0a0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2YWRiZWI4MzJmNDRkNTc1ODY4NzQwYjEzZTc0MmIyYzIwY2Q0NjY0NWM4NjVlNTQ3NmI0ZWViZGFiZTliYjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhMWQ1NTRkZDRlYWQ1ZmI3MjdkZmExMjQ4ZTk2MDk2YTNjMDk1MmNlNzRlYzY3ODg0NmZhMWYyYjJhMTdlYjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE3NWUyZmZmOGNiNDJhNzA2NjY3YjBlMGYzMjhiNTkxZWQ1Mzk3YzMwZjQ5MWM5MDBlZWZkMWVhYzg0OTQxZGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE3MWY2YWY5MjBhZmVmM2ZjMDIwNTg2N2VhOWQwZWQ5ODlkYzljNzgwODUyMzZkZWQzY2Q5YzE4NjdiNDQ1ODMifQ"
+        },
+        {
+          "resource": "repo://base_software/functions/down_samples.py#L38-L53",
+          "version": "repo-lines-v1:sha256:890cb79bd8d6f6f900ad3ea781f260d03841eb12fc3de92fe9594c7c470c76c0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjMjMxYWRhMDBiYjNlM2M0YWVlODE5YWIzM2Q4NTE4MDczMmY2ZGE0Y2RhMDU2ZjNjZDk2ZWI3OGRlYzYyZWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhMWQ1NTRkZDRlYWQ1ZmI3MjdkZmExMjQ4ZTk2MDk2YTNjMDk1MmNlNzRlYzY3ODg0NmZhMWYyYjJhMTdlYjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzNTI3NjU3NDY0YmRjNzg3MThmNmY0YmI1OGQ0YzgwOWI3N2I3NDNiYzJjNjE0OTk0NzRlMGU2OWY5YzZjNDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNlOGFhNWIzNTRhZjFhYTIxM2M0OTBiMWFhYjFjZjRhYzZkZWUyMTkxNjQ3NzM0YTFmMDc2ZDY0MTc4YzAwMzUifQ"
+        },
+        {
+          "resource": "repo://base_software/functions/down_samples.py#L4-L19",
+          "version": "repo-lines-v1:sha256:48c971bd4c06b2e71863ea871e884cbdf3c87032bad32dc47abc5f939482d05a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ2MWY1MWU3MjAzYzNjOWU4N2E3NmY1MjM2YzBhNzg5MmUyOTg3MGJmMjRiODMzMmNkOGRhYjhmOGJjYTg0M2EiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhMWQ1NTRkZDRlYWQ1ZmI3MjdkZmExMjQ4ZTk2MDk2YTNjMDk1MmNlNzRlYzY3ODg0NmZhMWYyYjJhMTdlYjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY1ZmVkN2NiNzBmNWIzZmYzZjhkMDRiM2JlMzA4NjYxZDUwYWJhNGIxNmJmZGM1NzVmMzkyNjRiOTM4ZWE5MDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM4NjFiMjQ4MmVhNTJkNzIzNTRhMTJmZmUxODdlMmUxMjZmMWQ2YjdiNzlhYWYyMGMxZmUyMzMxM2Q0MDU1MWYifQ"
+        },
+        {
+          "resource": "repo://base_software/functions/down_samples.py#L55-L70",
+          "version": "repo-lines-v1:sha256:704c373c83c38856467d165bf383a74a45fee24d9015f989ff4b7d11021fea70:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2NDIwZDRiZDA5ZGRiZjA3YWFiNmIzYmE3NGFjNzBkNjQ0NDk3M2YwMTJmYmFhZTAxNzI4OWI4ZTk2OTNlOTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhMWQ1NTRkZDRlYWQ1ZmI3MjdkZmExMjQ4ZTk2MDk2YTNjMDk1MmNlNzRlYzY3ODg0NmZhMWYyYjJhMTdlYjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjExMTA3OWUxYzJmNDljMDA2OTQ2OWM0N2NmNDQwMjU0NjY2MWNjNTM5MTM0MDNhMzAxMTAyZmFiNWY1NjdmNGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a188c6de51884070a82d1cdfbf8d8666",
+      "statement": "尺寸缩放以 m、dm、cm、mm 的单位系数比值乘点云坐标，实现线性单位换算。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py#L219-L236",
+          "version": "repo-lines-v1:sha256:6b2803ce0e4296694be2cf083a155698b3860dd6f6914b40cfa2e63b675ef5be:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFjZTAxZjE2MWY0OTc5YjA2ZTQ1YzZhZTVlY2I1MDZhZTRlNDAwYmI1MTk5M2IzMzc2NjEzOWUwYTlmZGQwYjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0YTZjZmNiYjA1NWY4NThlMGNmYTY4NmI5OGIzMjc0OTZiZjhmZmVmZGI1MGYxZDFjODdiNGU1MjJjNDliODEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEzNmZkMGQxN2FjZDlmMWE1M2FhM2YyNTVlNzAzYTRiZWY2NDBhNjFkOGI4NjYyNWUxNjU2ZDZmOTcyYzJjOTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNkOTJjMWZmM2UzYWFmM2IxNTllYWM1YzNkMjExMTJjYTFmYTY2ZmRkMTk5YjZlYmMxNDc1NTBiNWExMjA1OTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5e2dabd8561144a0be0aad398cc80b41",
+      "statement": "FPFH 粗配准使用体素尺寸的两倍和五倍分别构造法向量与特征搜索半径，并以体素尺寸的 1.5 倍作为 RANSAC 距离阈值。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/FPFH.py#L23-L33",
+          "version": "repo-lines-v1:sha256:af4b6a855c44eb40ca9fc1a7fb175fa3657667845db75ed4fee52e2818902c8f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU4ODQ1YmI3NzU3OTVkMjliOWEzNzUxMGIyZjBmOGQ5NDBhYzA2NWVmNDA1ZTc0NWQxZDZkZmQ0OWU1MTdhZDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4OTQzZDBiZWExOWZjNTgwNWE5ZDY4ZmNlNzM2ZWVjM2JlZGI2YTVhZWFhYTkwNjE1ZDZkNGExNTAyZWFiMmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUxNmM3N2FiZjUxZjY1ZGU0MjczNDM1NjUyMGE1MzU0Zjg1OTBkM2U2NmQ1ZTRmZjE2ODVkYjc0OTJkMDgwMGEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://base_software/functions/FPFH.py#L4-L20",
+          "version": "repo-lines-v1:sha256:5ee344cefb55fa60bcf27ff6cb3691ef4be5f9ecc03e6d473c4ba4cf71b9adbf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwMzk5Mjc2ZjcxOWYyZDhkNTg4YWE1NGY3YjhmNTlkMmU5NWI4NzA4YjMxYWEyMDM4OTBmNzg5NmRlODJmODgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlODVlMjk2NTQwYTdlZjIyNDczY2NlNWEyZTIxOTg3MjdiODIzNjUyYjJlMTJlOWQ0YjZhNjA5YTA5NWI2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY1ZmVkN2NiNzBmNWIzZmYzZjhkMDRiM2JlMzA4NjYxZDUwYWJhNGIxNmJmZGM1NzVmMzkyNjRiOTM4ZWE5MDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM2ZjE3ZTc0Njg1ODRlYjAxNWZhOWEzYTY5Zjg3ZWE0ODIxM2E0ZWVjY2U5YWQxMjVlMzFiNjE3MzMxMTk2YjIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_65072688d6b9457fbced6c14dad3043b",
+      "statement": "Open3d_ICP 使用点到平面 ICP，并从目标点云第二个点之后开始构造目标；因此目标点云的前两个点不参与精配准。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/Registration.py#L188-L211",
+          "version": "repo-lines-v1:sha256:f390a57cca0e63fe751d9bcfacd584604d4cf719d96549428d83e953e1edf2b5:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwYjUyYmMzODY0MTYxNDQyNTFlZDIzZDFiMjM1NWQ5MDA5OTQ3Yzk1YWViZjQ4YzkxOWVjMzUxNzNhOTUzZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM1OGQ5ODM4NjExNTFkZjg5NWExNmNkMzM2NTk2ZTIyNTUyMjk0ZTRjODc4YmRlZmRmMzYzNzQ2ODNhZTE1MjUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI4YzI0MmFhNjcxYzg1NjQ5MGRjNzdkZmNmYzNhMWIyMDg1OTliMDkzODQ3Y2MxZjQ5OWFkNWJjODlmZTIyYjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhmOGEzMzRmMzAyZTQzNTA1ZWYyYjc0ZTAxMDc2OGMxZjhkZDI4NzJkNzZkMTFlZGExNTUzNGFkMDViNGNjODcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_122fab69963047eea0d0135103b52b5d",
+      "statement": "偏差计算提供点到最近点和点到拟合平面两种度量；Point2Plane 在半径邻域少于 3 个点时把该点偏差记为 0。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/knn.py#L124-L143",
+          "version": "repo-lines-v1:sha256:b891be37c06966a6ce68951841557f05b71c30eb4d9d915ee7d442459ed4f570:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkOWZhYTk2ZDU2N2Q5YjliOTIyNGUyOTJhODFiYzNjZDkwMmM1MWM5YTdhNGE2NjRhNDQ5Y2Y4ZTVkYWRjMTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkMjEwZjlhYmFhZDEyZDczZjE0YTZmZGE3MDUyNjIxN2Q3MTMxMDc3YTgzNjUyNDM0Y2MwZmYyMTMwNmYxMGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA3N2E3Zjk5YzM3ZjQ0ZDRiN2IwODIwODJjMTQ1N2Q3Y2U3ZDcwYjU3NWUxNmI0MDQ0NTQ0MDk0ODY0OGMzNGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://base_software/functions/knn.py#L81-L88",
+          "version": "repo-lines-v1:sha256:ad48f8d46504c19e0bd6f44aa44ec0cf9a5e7d0c17cc610593de9bf36ce26855:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODdiZTdjMTA2MDg1ZTRmYjBhNjBhODJiZTMwMTEwNGVmMTliYTAxZWFjMzQwNjE2MWRhZTZlOWE0ZWE5MGJhZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQyMTBmOWFiYWFkMTJkNzNmMTRhNmZkYTcwNTI2MjE3ZDcxMzEwNzdhODM2NTI0MzRjYzBmZjIxMzA2ZjEwZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWYzMjhjMWQ5NGUyZmJjYjBmMDY3MDBhZmJmODllZmJlMmU1Mzk3NjFjNjNlZDFiNWRkZjUyYTE4M2JkZDE2NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2I5ODE2ZDRhZTIzY2FiZWViNzIyMWFmMDkyYTQ3MjZiMzgwMDk3ZjVlMmVmMDcxZTQ1MjMxZGM0ZjNiYmM0ZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_888011621da6477f99de176fc8f53999",
+      "statement": "平面拟合通过去中心化点云的 SVD 最小奇异向量确定平面法向量，并返回 Ax+By+Cz+D=0 的四个参数。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/knn.py#L5-L26",
+          "version": "repo-lines-v1:sha256:5be656fc87eed72182ec92625bb58794c4e6df1f0cda4b7d99eae0db86c8409d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjZDdjMTFmNmM4NWM5NzcxZmFkZDM1MGE5YjA3MmY2YjdiZDFhM2FlZjY5ZmRhYWIyMDY0MjUyZGQzYzgyODAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkMmRkZmUzNjMxODdiNDdhZDRiZmNmZjcxZjdkZjY1YzlkNTI5MTlhNDgwOTY3OTI3NjRjNGYwNjU0MjFiOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlkZDNmODgyNjlhNmIyYWFjODUwZTY4NmVlNDQxNTQ0NmViOWEzNTMwY2MwN2U4ODc5MzljNTE4ZDhjOWZmM2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFmY2Y2YTg1MGNkMTU0YzYzODczYWMxYzI5MmE4OTU0MGE5YjYwMmQ5YWJmMGQ3MDE4MDMyZDQzZWI4YjFhMmYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_79ff773517234a10afaa3640d57aa91f",
+      "statement": "Registration_rough_ICP 在球心配准后连续执行三次 ICP，并将变换后的源点云与目标点云堆叠后按坐标去重。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/Registration.py#L213-L238",
+          "version": "repo-lines-v1:sha256:b0b062e302c912d6dfca933480eef59f4ea13dc9ab1d4b35cc0e8d0a9fa0274a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAwNmU1NzE4OWM2Y2JiZTJlNjBmMzU0Mzc1NWVhMDQ2YjMzMDMyYTU2MTE2OWZmMTNmYWFhYjRjOGFkMmE1MTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkODE3M2YxYjk1ZjEwNGRhMjRlNTYzMGIyOWIxNTM1OGU1YjQ3YjQ3YThlMGZiZjhiZmVmNmY2Y2E4NjRmMTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ3MjM3ZjU0MTkwM2Q1NWZjNmJhZTk4OGZlZjk4NDczNDAwY2JmNmQzMDE0ODc0ODIzYjU0NzliMmQ5Yzg2ZmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU1MjVkMzQ5ZGRjYzkxOGY5YmJkM2U1YzBhYWFiZWM0N2U5MjAzNDg2OWYwYTNmNWNiYTI3MDMzYmM2NzBkYzEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_330d9cd01dc04790a6ea6a7d67fae464",
+      "statement": "精配准页面默认用 0.05、0.03、0.005 米三个阈值依次调用 Open3d_ICP。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py#L588-L625",
+          "version": "repo-lines-v1:sha256:1b359424ef1cf2f9cc8197fc419a161599c22d6cbfa744d36e574bd202447e45:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2N2Y5Yjk4ZWQwMjc5YWUzOTQzOWMxMzYyMzA4ZGVkNjU1ZjlhNWJkNzQ4NGI4MzA3OGVjNDY5MzM0ZDIyM2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkOGViODBhNTQ1YmE1ZjE1YmM4NzdiOTJiMGE0MzMyYTdjMjNiMzk3MDFhNWQwZjYwMzljYWM3ZmZiMWVkOGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUyMDI3ZGJiYzU0NGJhNmZlZGMwMmE5ZDRjZmUzM2RmMTQ5NDUyZWVmM2M2MTI5YWFhZDlmYzVkNjE4OWRlNWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZiYjEzZGM2MDEyYmMxMWU1MTcyZGE2MjljOWU5Y2ZiY2UxNzk3Y2FjNjcyZWZmYTRmMTQzMjYwOTg4OTMwNmEifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-28T07:28:45.133Z"
+  }
+}

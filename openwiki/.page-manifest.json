@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "pages": {
+    "/openwiki/algorithms/point-cloud-processing.md": {
+      "pageVersion": "sha256:9e1679432502b6e05e0b2502c4a986f06cb0601e7c068d22f821ad9789923b51",
+      "completedBy": "codex",
+      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
+      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
+      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+    },
+    "/openwiki/architecture/application-overview.md": {
+      "pageVersion": "sha256:b86a98634d4754143f35e8998f36d944a8931426979d1c7e9188d4c044e5c962",
+      "completedBy": "codex",
+      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
+      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
+      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+    },
+    "/openwiki/architecture/runtime-state-and-paths.md": {
+      "pageVersion": "sha256:0a6330e1fa3cc991e1b9ccf0f055eb6bb5c830d90520a7cd1b15eec51bd1350e",
+      "completedBy": "codex",
+      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
+      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
+      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+    },
+    "/openwiki/development/quality-workflow.md": {
+      "pageVersion": "sha256:be7ccdb8fa20b2b3e3fb5f479cc193caa9b375961420191c9cc37bcb5d22b9c2",
+      "completedBy": "codex",
+      "completedRunId": "8d116df7-8c45-4707-9729-15ad9bb9981b",
+      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
+      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+    },
+    "/openwiki/operations/runtime-and-deployment.md": {
+      "pageVersion": "sha256:1a038d3e7baa764403b2bbf0638c06d58582483f2e333363302389a3f75f7a78",
+      "completedBy": "codex",
+      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
+      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
+      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+    },
+    "/openwiki/quickstart.md": {
+      "pageVersion": "sha256:bae1e62c4af19295b2cad70f955b0eb4f9a1caa3ca5888baadfb706849c60d7d",
+      "completedBy": "codex",
+      "completedRunId": "8d116df7-8c45-4707-9729-15ad9bb9981b",
+      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
+      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+    },
+    "/openwiki/reporting/quality-report-generation.md": {
+      "pageVersion": "sha256:60b9fc362266c652c8e2bea4a1a8bc4332ede06fe3e62268d43980d72fab0e7a",
+      "completedBy": "codex",
+      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
+      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
+      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+    },
+    "/openwiki/workflows/dimension-quality-assessment.md": {
+      "pageVersion": "sha256:bb502a4947049d49e561dd30bb11e30e4a3f1de4879568a4aaaf41beab045de6",
+      "completedBy": "codex",
+      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
+      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
+      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+    },
+    "/openwiki/workflows/point-cloud-preprocessing.md": {
+      "pageVersion": "sha256:7ab1f5c50b9c3e2b53e8ee98f49aaebb9746009dd5850375474d6c476f0f8cc1",
+      "completedBy": "codex",
+      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
+      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
+      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:be7ccdb8fa20b2b3e3fb5f479cc193caa9b375961420191c9cc37bcb5d22b9c2",
+  "claims": [
+    {
+      "id": "claim_5795ee3f4775467ba874f1a1c1cea986",
+      "statement": "仓库贡献指南规定使用 Monorepo，将子模块放在根目录下的独立目录中，并预留 docs 作为文档目录。",
+      "evidence": [
+        {
+          "resource": "repo://CONTRIBUTING.md#L3-L5",
+          "version": "repo-lines-v1:sha256:552a1c5052450fb62f9de7bb504cd07bc54c37702ce0bfd0f8640fcda29df67c:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyNGZjYjI2NzIxMGY4ZDVkM2FmZmE4YjE0NWQ3OWE2NjIyODk4ZDAyOTQ3YzIwZWM1N2E2Njc0NTU3MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGYyMzkzNWJhNTZkMDNiZTA3NDEyYjc0NDVjNTRiMDMyODJkODY2NDIxNjQ1MmE4ZTJhOWQ0MDM3NmU4Njg2MyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTNjZWRkYzEzM2VlZWViYjFlZTRlMDBmYjdhNzI2MjhlNTdkYTNhM2U2ODE1M2ZiZWRjZmExMjBhNmEzOTE5OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDAxZjJlYzE3NTkzYzEwNTRlYjQ2MzY3ZDg0NTNlZjI0YTE3M2NlOTZiNzExN2Q5MWY5YTY4ZDQ0ZmVmOGIwMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_53c34900f4794859ad5e206c497e12ab",
+      "statement": "贡献者克隆仓库后应在首次提交前运行 prek install，否则提交钩子不会生效。",
+      "evidence": [
+        {
+          "resource": "repo://CONTRIBUTING.md#L9-L17",
+          "version": "repo-lines-v1:sha256:6e2fbfa470b6dee2b347393552afffbd3b89b541d2383f491439e945a2f312c2:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjliYjA0NDEzMTY2MjE5MzgwMTZlYzlmMzI3NWI3OWUwNGQ4NjhmOTM1MjE4ZmE5N2JjZjk5ZmNmZjA0MWUyMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmJjNmJmNWYwODMwMjY5ODY1MTRiMGZjZWZjZmY1YzkxMDhlYzc0OTc4ZDc5ZTk2MWM4OTkxMjBlODhkZTk5MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDAxZjJlYzE3NTkzYzEwNTRlYjQ2MzY3ZDg0NTNlZjI0YTE3M2NlOTZiNzExN2Q5MWY5YTY4ZDQ0ZmVmOGIwMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDAxZjJlYzE3NTkzYzEwNTRlYjQ2MzY3ZDg0NTNlZjI0YTE3M2NlOTZiNzExN2Q5MWY5YTY4ZDQ0ZmVmOGIwMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_7a437f86396447d8a8f2472cb70ef2a2",
+      "statement": "贡献指南声明的分支模型使用 main、develop、feature/<功能名>、fix/<问题描述> 和 release/<版本号>，并预期通过 PR 推送代码。",
+      "evidence": [
+        {
+          "resource": "repo://CONTRIBUTING.md#L21-L35",
+          "version": "repo-lines-v1:sha256:9b90be5db7801f2d2e2e3fdddd65b6e6ae23725a9f68aa194ff8230c48e9e918:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIxZmVmN2MxZDNmNGZiZDYwN2M2ZGQ0ZTlhYjc2N2FmYjVlZjg3MTFiNjNjZTY4Yzk2ODZlOGEwMGRmNDQ4NTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBkYTgxMjE3Yjg4MmVjMzdhNTk0YjVkYzVjMjhmNTA4ZTNhN2Q4MTA0ZTQ4ZTZlZTZlMGIxN2E1MGYwM2VmMDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAwMWYyZWMxNzU5M2MxMDU0ZWI0NjM2N2Q4NDUzZWYyNGExNzNjZTk2YjcxMTdkOTFmOWE2OGQ0NGZlZjhiMDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_faa77fdf5f7b45fd84bcee155f3906cb",
+      "statement": "AGENTS 要求先规划，一次提交只包含一个逻辑改动，提交信息遵循 Conventional Commits，并在提交前用 git status 和 git diff 复核。",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L53-L58",
+          "version": "repo-lines-v1:sha256:04c65808f4e3ee4c1d21bae1b2550bab66b4c91d9b199469142182b77b6fd7b3:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWNmNDBhOWEwYjU1NzFiZDFjMjY1ZDQ4YTE3YzRiYjliMzZjNTJhNmQwZjUxZjBkODZmNWJmNzc5NjgzODRkYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDcwY2Y0ZDE3MTc2Y2ZkMTFkNTNjYmRmZmJjZjRiNTJhY2JkYzUwYjNiZGQ3NjBmM2VlMzlkNDc3NmU3NGE1OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjczZDRkMjc5MTVjMWZmMDJiZjI3NTJiOTViMGM4ZjEzODAyZjM2ZWIzYjJhZGI1MDU5MzhkMmRmODBkMzNiNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzQzMzE1MTM1MmJiZGViMmQ4MGUxZjAwMmI2ZDZhODgwYzFjYTgyZjM5MDVkOTdhYjAzNmJhNzA1OWJlMzkwNyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a402a7ca58574ffc813c83dcc9a5849b",
+      "statement": "prek 使用 Python 3.11，并配置了空白/文件尾/LF、冲突、YAML/JSON/TOML、大文件、gitleaks、codespell、markdownlint 和 Conventional Commit 检查。",
+      "evidence": [
+        {
+          "resource": "repo://.pre-commit-config.yaml#L14-L61",
+          "version": "repo-lines-v1:sha256:fd7041d74ffd1db886a4a8eeadd4b163171906f9ed43e9acaea154ae6d82dcbc:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0MzliMzY0ZDI4MTViOWU3MWZjNzFlNjYyNzQ5ZjEzNDNmMzk0NDQ2Zjc3ZDlhY2I1ZmJjNGQxNzY3MTQ0MTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEyNWIxYjQxNmIwODA5YTYxN2NlNmUyMDIyNzI3MDZmMjc1YmY1OTE4Y2U0NDNjMTJkYjg3NjRmNGNiNjUzM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIxNzQzMDNiYjU5OWZiODVjY2UxNjk5OWMwODg4YjI5M2U2ZTI1ZjA1MDdhNjJmOTQ5ZDg0NzI3YTlhMDQ0ODUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d6f1c015b7324403bc38ff3e78234610",
+      "statement": "仓库文档和 prek 配置未定义单元测试、集成测试、算法回归、Streamlit 页面测试或端到端测试运行器；门禁只覆盖静态与提交规范检查。",
+      "evidence": [
+        {
+          "resource": "repo://.pre-commit-config.yaml#L20-L61",
+          "version": "repo-lines-v1:sha256:9f7bcdc9f98bd215b475b30e4e8780d190908a2e2a50eb3cd005cd3d7c5ec481:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVhMTEwZGI1YTkzNTdjZGExZDc4MjE2Y2RjMGJmOGIyNTVlMzM4Y2JjMWYzMjdlMGRmMDhjZmM3NzM5MWRkZWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEyNWIxYjQxNmIwODA5YTYxN2NlNmUyMDIyNzI3MDZmMjc1YmY1OTE4Y2U0NDNjMTJkYjg3NjRmNGNiNjUzM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZkMzlhODI5N2YzMDlkNmI4ZDY1ZTg4ZmY2NmUyYjhkZmEzOWMyYmYyMGE5NTVmMWVmZjg1YzVjNTY0NDBjMGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://CONTRIBUTING.md#L9-L17",
+          "version": "repo-lines-v1:sha256:6e2fbfa470b6dee2b347393552afffbd3b89b541d2383f491439e945a2f312c2:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjliYjA0NDEzMTY2MjE5MzgwMTZlYzlmMzI3NWI3OWUwNGQ4NjhmOTM1MjE4ZmE5N2JjZjk5ZmNmZjA0MWUyMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYmJjNmJmNWYwODMwMjY5ODY1MTRiMGZjZWZjZmY1YzkxMDhlYzc0OTc4ZDc5ZTk2MWM4OTkxMjBlODhkZTk5MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDAxZjJlYzE3NTkzYzEwNTRlYjQ2MzY3ZDg0NTNlZjI0YTE3M2NlOTZiNzExN2Q5MWY5YTY4ZDQ0ZmVmOGIwMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDAxZjJlYzE3NTkzYzEwNTRlYjQ2MzY3ZDg0NTNlZjI0YTE3M2NlOTZiNzExN2Q5MWY5YTY4ZDQ0ZmVmOGIwMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_34015bfca6c3470086f7e97e04fe1edb",
+      "statement": "Markdownlint 关闭行宽、重复标题、行内 HTML 和强制一级标题规则，忽略 OpenSpec/OpenWiki 生成文件，并禁用了自动修复。",
+      "evidence": [
+        {
+          "resource": "repo://.markdownlint-cli2.yaml#L3-L27",
+          "version": "repo-lines-v1:sha256:524d46fc2d13d70be98443f817e4879bec6bb0b39e4e9349d4b331840a27eb3d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2NzFmMWQ4OTI0NzUzZmZkZWRmOGRkODk2NjNmMDg0YmI0MjU2MDIwMzZhMmZjNzVhMGMzNGE1MjE1Nzk4YzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImViM2ZiODY4MTE0NjBiNjQ0M2U4ZWQyYjhlNWE4MzM1Yzc2YjMwNDY3NjI2NzA0NjNhMjhjMGRhZDY5ZDg3MDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEwOTBjY2YwOWQyOWQwYzViNDlmNjMxOGIzMTU0MDA3ZGNmNmY4ZmFiZWIyMjRkMDA4YTI0OTk2YjZmOWIzZjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_25ea7b7be2fd446e859cd0ff5ab87f35",
+      "statement": "OpenWiki 页面被视为生成产物；AGENTS 要求不要直接手改生成页，而应修改源码或普通文档后重新生成。",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md#L71-L80",
+          "version": "repo-lines-v1:sha256:a319ed9ec4cad54b0f94f84000c54d8088f8865b051f43dee476fcff15e7b5ac:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVmMTgwZjljMTI2OTAzYmNjMzMxYWE5NTQ1NmU0OTQ0NGE3ZDRkMDExZThhMmE4M2Y1ZGM4NzAyMzkxODEyZDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFiNTM5NTNiZmI3MmMxMjYyYmJhZTJlYWNhNzJjYWJmMWFmNDk5MjdhMGJiYTExNTdiMmQ1YmRiMjg1YzRiZDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ1YjM0YWJhMzFhMDYwNGMzNzRhYWY3ZDk5MzMyZmRjODcyY2E1YzMwMzgyMmFiNmQxYjI5MmJkZjBjNmIxNTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMwODlkZjkzZjhiYTU3YTRkZGJmZDhmMDEzOTYyYzM5NzhjZTRkYjY4MTk5YzRkYTY2NjY0OWIwOTk2Y2VkYTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c610660f90894b59aa8cff494de49b75",
+      "statement": "本仓库是私有仓库，不配置也不依赖 GitHub Actions 定时更新 OpenWiki；OpenWiki 初始化或更新只由维护者在本地显式执行。",
+      "evidence": [
+        {
+          "resource": "repo://CONTRIBUTING.md#L39-L45",
+          "version": "repo-lines-v1:sha256:990fe700d17dfc11ca843b2450430fcb21285e748f39a7a6fe43bbecf5dea34d:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmQ0YmFlYTAxZDllNjJhMzBkYWQyYWUwM2NkMDkwNjVlNTQ1YmE2YWY1ZDNiYWM2YTU0YzFiYmI5M2NmNDRjNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWIxYzNkMGY2Y2QzNDQzNWNhNzE4YTg0ZTkyZDc5NDQ1NWNkZTU1M2FhMGZmZTNmNThiNGMxYzQwNzliMGJmZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDAxZjJlYzE3NTkzYzEwNTRlYjQ2MzY3ZDg0NTNlZjI0YTE3M2NlOTZiNzExN2Q5MWY5YTY4ZDQ0ZmVmOGIwMSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d93fe4158d1a4f33b122b790f162a6ba",
+      "statement": "仓库维护规则明确禁止创建或恢复 .github/workflows/openwiki-update.yml，也禁止为 OpenWiki 更新配置 Actions secrets。",
+      "evidence": [
+        {
+          "resource": "repo://CONTRIBUTING.md#L41-L45",
+          "version": "repo-lines-v1:sha256:2fa4b64e6eb5d22b2551e2c416bc7633928e52ceff5922d54368a22fa4693999:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjg2MzY4MGFiY2MwNGRlMGVkM2M4Nzk3MzI1ZjAxNTc3NWMxMThiODMxZjZkMjY0ZWNhNmQyZTA2ZGY5OGQ3MyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWIxYzNkMGY2Y2QzNDQzNWNhNzE4YTg0ZTkyZDc5NDQ1NWNkZTU1M2FhMGZmZTNmNThiNGMxYzQwNzliMGJmZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmM3ZjZhNzFiZjRmYWMzZmY4NjU2NGFhYzVmZWNmZTdkYTU4NTEwNWE3MmQ2MmE5OGI1MDM1MTRmY2ZiMTRhZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-28T07:42:19.658Z"
+  }
+}

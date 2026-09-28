@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:bb502a4947049d49e561dd30bb11e30e4a3f1de4879568a4aaaf41beab045de6",
+  "claims": [
+    {
+      "id": "claim_0b368db7bc57409ab23e55961ebf7172",
+      "statement": "尺寸质量评估要求四个前置确认全部勾选后才显示数据选择；不完全满足时页面提示当前数据不满足检测条件。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L196-L197",
+          "version": "repo-lines-v1:sha256:6610ee36f172176b31ceb76b0ab3e18833e9cd99bfef8f46daf989fcea1c0eb7:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTk3YjQ3YmI4MWNlOTNjYmE2N2FmYzA4Njk4YTgwY2ZhMDkzYTg2NjdlOWM5Zjk2NTMzNzgxOGQ2NTc4ZDE4NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzlkYTYxZTMzNDA3ZjBhMWRmZGM5NTFjM2QxYTJmY2NjMzQwYjU2ODBjNjZjMjEwZDQ4ZTcwNzY0YTFhOTdjMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzYwYTgxOGVkNmVkNWM2ZjNlZmYyMjRlZWQ2NGY3YzhlZDI0OTgzMTI2Y2E1ZjJiOTc4N2FlMTJiYjBlMTg3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L67-L71",
+          "version": "repo-lines-v1:sha256:538add9f6eecfe14cf1663ce586bf5f337e61113819ed51025da87612053fc1e:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzE1ZDA4MGRlYTAzYjQ3MGQyNzIzYzU2N2I4ZTdiMzllZmM1OTY2ZWJhNGRkNzdhNGE5MjMxYjNhNjFkMDM1NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U2MzBlMzk2YTljODhiOTliZGQzODI3MzliNDNjODBmNDcyYWU5OGI5NGI2ZjM4ODYxNjA0MTJmYjQ0ZDRhZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTI3OTI4NjI1ZGQyNDY3NjI4OTViM2IzMmQzYjRhNWFmZTEyZmZmNDlhNDE1OGQ3Mjc5OTdhNTM1YTY5ZDk0NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjg1YzI5NTMzMDM4NGZhMTRhMmJhMTk4Y2RiZGQyMzhlODNhZmUzZDUyMWQyMTA4N2UwNWI5N2Q2ZDU0NGZiNCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_068272562ee546fb9af9924c89c99dd9",
+      "statement": "评估页将扫描点云、BIM 点云和报告目录分别保存为 QA_pcd.txt、QA_BIM.txt、QA_Report.txt，并接受单位、偏差方法、distance 和 ratio 参数。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L81-L116",
+          "version": "repo-lines-v1:sha256:f54205a53ae1b0da4e366eac6c437f380a241cbb92d47e42884ccb254f15229e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2E2MDJkODFhOWNmMDMzZTc3Nzk2YjE1NDBjNGRiZGQ0MDMzOTk2NDVmYzU4MTVhMjQ3NzFmZDIzY2U1ZTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwNmEzZmQ5MjliNTAwMmI1NGI1NzEzNTkwZDcxODdhZTA2Mjc5ZDNiMDk3NWM0Njc3MzlkNjNmNWYyNDg0ZTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRlMWI5N2Q3Yjk5NmExYWMwMGIzYzNjM2NjN2ZjODdhYWVmODRiMzE5YzBmOWFmNjg3NjdjNDkyM2M0NjU5ZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMyYWEzZjM1N2JiYmQyNzY1Y2I1YjZiNjJiN2ZkZTk2ZWMyMzY2NTMyN2ZhZDVjYTY2MmJlMmFmMzg5Mzg5ZTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_edf4f6f0cd55407d863de616a351d3b3",
+      "statement": "评估第一步读取扫描和 BIM 点云，生成 fig1a、fig1b、两者叠加预览与 fig2 截图。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L123-L142",
+          "version": "repo-lines-v1:sha256:4a5af7b76766244cecad557cce67941a6cc5cf0799725f3cbcc7153b0b27423a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzYjJkZGY2MGRiNDRlOWExODc3YzEzZWI0YmI1ZDhlZWJmZWFmMmQ1N2ExNjhiMzkyMWJjYzY4YmJiYzMyZDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE0NmVhZTQ5YmI1ZjgxZDE0NThlMjJhOWU4YzNiZDRiZDQyZTJkMjViOThhMzlhOWQ4YmY1MjU1ZGVlZmJkZTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYzODQ2NTQ4MjI0YzIyNWNkNjcwOGM4MGJjZWM3NWMxNmZhNjI1ZDEwMWQzYzhiZTM5YTcyN2E1MjkwMTJjOWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMwZTJiYzhiN2JlODYyMTYxMTdjZmVlNzNkOTU2MTQwMzhmNjE5OGQ1NTFhMjY3NDhkZjdjZTU3MDNkN2NjOGEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d7be31f05f8140c580f7987b1ce0910e",
+      "statement": "环境与缺失点剔除先把 BIM 点云按固定 0.1 体素下采样，再以 distance×10 为扫描点云邻域半径筛选，并从 BIM 中取最近点作为检测点。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L146-L150",
+          "version": "repo-lines-v1:sha256:ed366b5c75b1d67a9c763665e8ec8565c77c6575c62f9ed1b8a756ce2b285cb0:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzQ0MzI0NjdjYTFkNzc2OWY3NWJiN2I4NzhhY2NjOWNiNmZkNDljYzYyNzAyN2VkNDU0MzViM2U2ZWNlN2U0ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjVkY2E1N2ZjZmNkZDVmZDAwNzk2OWRmMTRlOWI5ZTM0ODIwZThmMTAwNGIwMDcxMmEzOWU1M2IyMjNmOGIzMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzBlMmJjOGI3YmU4NjIxNjExN2NmZWU3M2Q5NTYxNDAzOGY2MTk4ZDU1MWEyNjc0OGRmN2NlNTcwM2Q3Y2M4YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiN2ZlMDNlMjM3NmRiZTBhMzQyN2E1YWVkNGQ4YzdlMmYxYjkyMjNhM2RkZTBmZDFmZjZhZDE4ZWQxNWJlN2Y4ZCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_bed5fd57541d4f458af9408f3998ac06",
+      "statement": "distance 被环境剔除固定用于生成 r=distance×10，因此即使选择 Point2Point，修改 distance 仍会改变检测点集合。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L109-L112",
+          "version": "repo-lines-v1:sha256:7a8933830ce4429507a960c046cee8553db2a9958d94bb7d4a947f51cbde0326:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjNmMTE4MWVlODA3MzUxZjE2YmQ4NTQ3OWRmNTRmMTFlODU2YWQyODcxODAxYzAyNGZlMjAzN2JmNWM3NDBlMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjI0OGNiNDdiZDFhMzRiZGViNjYxY2U4MjAyMGRhNjdmNmMxNDdkODNhY2Q4OGVhM2NhOGM4YmNjNGU2MzljMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTQwZWZkOTdmMjZlZDM5OGYzOTMyNDFmNDY4YTE4YmVlMzY1OGEyMjMxYjU0NGFkYzgyYzljNmY1YzRjNmEzYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjMzMzIxODdhYzNmNWE2NzAwYmY3N2E0MWRkZDVlM2IxNDBiYjY2MzUxYzAxMGE4YjgwZmU5ZWU2NjYxYWM1MiJ9"
+        },
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L146-L149",
+          "version": "repo-lines-v1:sha256:ea7bf37493593ff8f424ede1fc44d15268a17653361206b6a66839a054d16f60:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzQ0MzI0NjdjYTFkNzc2OWY3NWJiN2I4NzhhY2NjOWNiNmZkNDljYzYyNzAyN2VkNDU0MzViM2U2ZWNlN2U0ZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjZlMDFiMDY5YzI0OTVkZTJjMTlmZWI2MmIzOGI2MmU2ODdkNmQ0NTZkYTI4ZWI2NTBiNTM2ODkxNDU0ZmVmYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzBlMmJjOGI3YmU4NjIxNjExN2NmZWU3M2Q5NTYxNDAzOGY2MTk4ZDU1MWEyNjc0OGRmN2NlNTcwM2Q3Y2M4YSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2I2MzZhYTgxM2Q4NTU4MzJjZTFjZjJmYmYyYmNlYTkxZTM0OTNmNzRhOTEyNzFhMWRlZmE3ZTQ2OGI0YjI5NiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8b0bbe6d13fa4658a7a46cc80355a85e",
+      "statement": "Point2Point 计算检测点到清洁扫描点云的最近距离；Point2Plane 用 distance 邻域拟合局部平面并计算到平面的距离。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/knn.py#L124-L143",
+          "version": "repo-lines-v1:sha256:b891be37c06966a6ce68951841557f05b71c30eb4d9d915ee7d442459ed4f570:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkOWZhYTk2ZDU2N2Q5YjliOTIyNGUyOTJhODFiYzNjZDkwMmM1MWM5YTdhNGE2NjRhNDQ5Y2Y4ZTVkYWRjMTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkMjEwZjlhYmFhZDEyZDczZjE0YTZmZGE3MDUyNjIxN2Q3MTMxMDc3YTgzNjUyNDM0Y2MwZmYyMTMwNmYxMGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA3N2E3Zjk5YzM3ZjQ0ZDRiN2IwODIwODJjMTQ1N2Q3Y2U3ZDcwYjU3NWUxNmI0MDQ0NTQ0MDk0ODY0OGMzNGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://base_software/functions/knn.py#L81-L88",
+          "version": "repo-lines-v1:sha256:ad48f8d46504c19e0bd6f44aa44ec0cf9a5e7d0c17cc610593de9bf36ce26855:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODdiZTdjMTA2MDg1ZTRmYjBhNjBhODJiZTMwMTEwNGVmMTliYTAxZWFjMzQwNjE2MWRhZTZlOWE0ZWE5MGJhZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQyMTBmOWFiYWFkMTJkNzNmMTRhNmZkYTcwNTI2MjE3ZDcxMzEwNzdhODM2NTI0MzRjYzBmZjIxMzA2ZjEwZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWYzMjhjMWQ5NGUyZmJjYjBmMDY3MDBhZmJmODllZmJlMmU1Mzk3NjFjNjNlZDFiNWRkZjUyYTE4M2JkZDE2NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2I5ODE2ZDRhZTIzY2FiZWViNzIyMWFmMDkyYTQ3MjZiMzgwMDk3ZjVlMmVmMDcxZTQ1MjMxZGM0ZjNiYmM0ZCJ9"
+        },
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L156-L168",
+          "version": "repo-lines-v1:sha256:f1a6000ddd9d3ca8c87776b9a6e7de1c5a61b7caccf3a4036883e1c826d150f1:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5MWMzNzA4NTQ4N2EyYWVlODBhMTZlYjJhZjVjNTgwOTVmMGNkY2UzZDBjNzhhNDYwODMzZDljMzA1MDBiY2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1ZjU5MDBhYmEzMDI3MTAwZTRmNmM4MzdmNmNjY2QwMzFkNGI4N2MxZWFjMWUwNzhkYzNkZTcxNWYwODU4NGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhjNmRmMjgwOWMxMmMxZWQzNDlhZWE4N2E2MTZiNDU4ZWIxY2VhYTZjZmY1MGIyNTI2NThlZGMxMDhkYWYyZTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY0ZmEzMWM4NjMwOGVjYTllYzJiZGVlOGY2YzRkMjQ3M2M3Njg0YzVmZGZhYjQ4ZWY2YmM3NzIwMThjNGNlY2MifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7520452698b2413f9d2807650ff5b997",
+      "statement": "偏差在统计和可视化前乘 1000；剔除线是偏差降序数组中索引 int(len(errors)×ratio) 的值。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L159-L175",
+          "version": "repo-lines-v1:sha256:f1cbfe33f404366ef542a55a9b8eaf4e006f8c2eb7307c4a5a41b5bc139ba9d5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5MzRkN2FjMTEzZjA3ZGFiMTk4YTBkNGNkODdjN2U4ZGZhMGMxMzZkODgzMzkxN2I1ZTg2OGM5M2Y1NDZiMzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJiZDFhNGUzNDQ0MTJmNTJkNGVkNmU0NmU3YjEwZWNkODZjZDA3YzVkZTI5NGMyMjYxZWRkYmFjZjA2Mzg3ZjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYwMGY0NDA2ZGJiMTM3YWI0ZDNhODg1ZDI0ODU0ZGMwNDk0MGRiNjQxYTJkOGZmNGJlMzQ1MzdkYzVlZDdhNDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZjMzA2MDE2ZGRiOWQ2NDMwMzc0NjRmODM2ZWVmOWNhOTVhNjdmMzc2NjY1MzI5NDM3MGEwNWMyY2UwZGZhYjIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9451e9547d894ed18ddb8c5a2a28abd5",
+      "statement": "评估页同时展示并写入报告检测点数、剔除后最大值、全量最大值和平均值，连同输入路径、单位、方法、邻域大小、比例和两侧点数。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L177-L188",
+          "version": "repo-lines-v1:sha256:0cffe0e039f267700b5d739f2fced9dd7085785d4d3ce4451211058386b6f372:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBmMjAwNjViN2RiYjY5M2YyNzE1NWM0NDllN2Y2NzQ4ZmNkZmVhMzJiNzk5YjFlZmYyN2Q0NGQzNWU2NDg2MGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZjYjczNGNhZDFjY2FhMzY1Njc0YTNhYzk5ODU0MjNhMWM2NGY2ZDE4M2Q1NDQ0MzFmYjU3MjY1NzZkMjBlYzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU0MmE4Y2E2MGVkMjMzYzAzOTM2N2JlNDJhNWE0MGU3ZTQ4MzU5YTA0MjY3NTljZDcxM2I1ZjExNzgyMDg3MTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdkN2Y1YTEwYzhkMGQ0NWQzNDc4YThkZmVhMzFhMTg5OTQ1NjJmNDRmOGYzYzVkNzE4MzFmYzQ2YWM3ODAwZTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d2342f1d16a94cf583d5a490e5489a7a",
+      "statement": "distance 和 ratio 只执行 float 转换，没有范围校验；ratio=1 会导致剔除线索引越界，且空中间集合没有统一错误处理。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L114-L115",
+          "version": "repo-lines-v1:sha256:0b81dae328f64bdfc1859adac9fe39e067ef69e46893c7f6ad5eab8f49ebca6b:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWE5MGI3ZDM0MGVkYThmYzM3YjhhNTc4NWY2NjkwNzhmMTI2ZWI3MTY3NThlZjAzNTFiNzYzODE5N2I5NDRiMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODc1MmRhNDQwMDA3ODQ0OTNhZWY3ZDAzYmIxMmZkNmQxMzhiZGM1MjgzMDg0ZWJlZjVmYmVlMWM0Mjg5NjAxZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGIwMTUzNDY1YmQxNDQyZmFkNzA5NWMzOTRkYWFiYjMwODQ1NjAwODQzNzZmOTQ4MWExMjQxYTUwNTA3MTM3OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzcxNzFjODU1MDY3MWFjYjc4NmNiMjY4NzM2YTQxMzhjNGEzMjFmNDUwZTZjODczYjJlZmU3NjNlMjI2ZjhlZCJ9"
+        },
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L171-L174",
+          "version": "repo-lines-v1:sha256:4c1f36cf053128cecfbae7d13d73b3e0de1f902f87b49c6e1d60e00a94471ce0:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTNkM2MwY2E2ZDVjYTMxYjU5YTZkM2IzNjMxNTdhMjk3MzU2MDkyMGYyYzI1MWIzNjUxN2Y3NmVjODI4MzFlZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjEzZTVlMDEyYTI0MDkzYjkzMGU5YTJkOGQzNDc3MDM3YmY2NGVjNjEzZGU3NGFkODY2MzZkODljYzVhNjM4NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzQ2NTVkN2JiZDIyYmU0NzNmYWRlNmMxNmQzOWE2OWVlZDgwZmIxY2I5NmM5YWNhMTc4MDA0MzYyZTg0OWFjNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjIxOTA5ZTg5NzcxN2Y2YzMxZTllZjBhYWY3NmMzMjIwZmU1YzUyODI4MjQ2NjMwMjc4YmEyZmNiY2ZjMTljYSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-28T07:28:45.133Z"
+  }
+}

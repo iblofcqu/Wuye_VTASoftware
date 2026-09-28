@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:60b9fc362266c652c8e2bea4a1a8bc4332ede06fe3e62268d43980d72fab0e7a",
+  "claims": [
+    {
+      "id": "claim_d8650d972e834654b06f93702467991a",
+      "statement": "尺寸质量评估按阶段生成固定名称的 fig1a.jpg、fig1b.jpg、fig2.jpg、fig3.jpg、fig4.jpg、fig5.jpg 和 Error_Analysis.jpg。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L136-L175",
+          "version": "repo-lines-v1:sha256:bc07d0a84a831c7dce81506521614960a2018d3c38b375f086468da4f3bf33bf:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVkZjZjNzYyZDRlNTNjODNiNDQ3MDhjM2ZkOGEwNDY0Y2FkZGE1ZmFkZjRiNzQ1ZTNiZWYwZjg0MGMwNTQwYzIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJiZDFhNGUzNDQ0MTJmNTJkNGVkNmU0NmU3YjEwZWNkODZjZDA3YzVkZTI5NGMyMjYxZWRkYmFjZjA2Mzg3ZjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhmYjg5MWQzODg5MTgzOWNjZDViMmQzODQ3NTlhOTNjMGM4OWQzMmViNzZmNWViZmM2ZDdmYzY0MzNhYjlkN2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZjMzA2MDE2ZGRiOWQ2NDMwMzc0NjRmODM2ZWVmOWNhOTVhNjdmMzc2NjY1MzI5NDM3MGEwNWMyY2UwZGZhYjIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a02f24f7d2824b62a6d10810ff0f77bf",
+      "statement": "偏差云图展示前先把按偏差降序排列的前 int(检测点数×ratio) 个点的显示值置为 0，但保留这些点。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/draw_functions.py#L356-L390",
+          "version": "repo-lines-v1:sha256:d0026f6389296662977125a99c180677943cf7bd6f38d6822bbeaf88f33c7a3b:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEzN2YzNWNmNzE4MDQwMjk3ZThhZTczOTRiNzBhYWQ2NmQ4ZjJlMWRiOTZhMTJiOGQ3YjZlMWI0NTgzNTVmMDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc0Njg5Yjc5NGM0YzdhOTFjNTgxZGVmMWI3OWU1YWQzNzhlNDc3MDc3ZWFjMGQxZTMxZjdkODEyYTEwNDY0ZjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAyYzBkMWQyNDk2NTA0MGZiZGVjM2IxY2U0Y2U0NWM1MWM0ZDFjZjg3MTJlMDViN2UxNDkxZDIxYWNiODdhYTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBmOWQ3YzljNGIwMDhlMzczNDRlOTQ4MmQyM2IxNTE4YWRkMTc2ZTM0NjllNDE1ZmRiYmE0MTJhYTUzY2JjZmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_16b67dc53eda4e228a2b78f5bc26efc1",
+      "statement": "偏差直方图以 1 mm 为区间步长，用 Plotly 绘制频数，并在剔除线位置添加红色虚线和统计标注。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/draw_functions.py#L261-L355",
+          "version": "repo-lines-v1:sha256:b0dd3bfbb13d233b1bfcd4f30bb63e0f3e77b56764648bdebccc3923561dd8bd:eyJzZWxlY3RlZExpbmVDb3VudCI6OTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjZWY2NmY4OWEwMDlkYTk3MTM3YWZlMDk1MzhkNjAxNWI4NDE2NWMxOTdlYTM2NzQ5MGUzMDcwMGM4NjNmMmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5ODMzOTI5ODFhNGYzYzJlMTk5NTJhMmE0MjUxNjNhYTJiNTUwODA5OGMyYTE4MGNmZjIyMWI5NzExM2VkNmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlNjA1NjdlNTljZTVkYWQ5YjYzZjVmMmU0ZGQ3ZTBmZjhmZTJkNTJlYTdmNjU3ZGIzYTZlMGI5ZDFkMjhmMjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU2MzA1M2U4NDJiMGZlOWQ5MzFiMTBjOTQ4MWM0YzU1NTY5Y2M1NTkzYzc1ZDQxMWUzNGQzZjRhYzJkOWQyMjIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_98e96dd270044094b5810fd8ab834fb2",
+      "statement": "页面把偏差乘 1000 作为 mm 统计，并把检测点数、剔除后最大偏差、最大偏差、平均值、输入路径、单位、方法、邻域和比例传给 PDF 报告。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L171-L188",
+          "version": "repo-lines-v1:sha256:99131cf8d20c475bb376a8a801cde1e049656864f675e430738c433763885142:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzZDNjMGNhNmQ1Y2EzMWI1OWE2ZDNiMzYzMTU3YTI5NzM1NjA5MjBmMmMyNTFiMzY1MTdmNzZlYzgyODMxZWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZjYjczNGNhZDFjY2FhMzY1Njc0YTNhYzk5ODU0MjNhMWM2NGY2ZDE4M2Q1NDQ0MzFmYjU3MjY1NzZkMjBlYzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM0NjU1ZDdiYmQyMmJlNDczZmFkZTZjMTZkMzlhNjllZWQ4MGZiMWNiOTZjOWFjYTE3ODAwNDM2MmU4NDlhYzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdkN2Y1YTEwYzhkMGQ0NWQzNDc4YThkZmVhMzFhMTg5OTQ1NjJmNDRmOGYzYzVkNzE4MzFmYzQ2YWM3ODAwZTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8a566dab17e94306b9d81733d2fda59a",
+      "statement": "中文 PDF 使用 PyLaTeX 生成，并依赖 ctex、indentfirst、float 三个 LaTeX 包。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/PDF.py#L12-L17",
+          "version": "repo-lines-v1:sha256:9702f31e75f76207465f2843d29c273086512691b01adc29e75bbfa77b23562c:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjQzMzVmMDA0OTc2ZDdlZDgwYmFjOTk2ZDIwZjY0OTkyNjBjMGFjYzkyYzMyYWRhNGI5YTc3OGU2N2IyM2Q5OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWZjM2RiNDU1ZjkyN2U5ODRlODFiMTE4MjkwZmU2OTVmOTZkOTE4YTBiYjVjN2JmM2NhMGIxNzk5NWRhZjljYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGFmNzQwYmZjOTFmOWRjN2NlMTU2NzM4ZWY3YTFiNzJjNThhMjZmYzdiMjlkZTVmNjgyNThlOTFlOWZhODk0NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTcwOTQzZjUyZWQ0MDVjOWQ1YjEzOWM3ZjhkY2M3MTg5MTE5YTZhMDMwOGExYjgyZTdhNmVkZjc5MzI2NDU0OCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_5ddd7d744a2b421086cc8f26cabf58ce",
+      "statement": "PDF 依次包含封面、基本信息、方法流程和尺寸评估结果，并从 cache 读取 fig1a/fig1b/fig2/fig3/fig4/fig5 与 Error_Analysis.jpg。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/PDF.py#L19-L150",
+          "version": "repo-lines-v1:sha256:17aa19693eedca0391e0200aad9ee19a049bb0916ae98cae1393dc8808857ff8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjMGU1OGM4NGIyNWY5MDgxMGEwYTJlOWVjOTYyZDk2MDM2YjVmY2EzNjVmM2FiNmY5MGViZGE1ZjM4NjEwYzk1IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIzZjQ1YWY5MzE0YmM3YWIzYWQ4NTUxMDhjODZkYjc1Yzc3NDVhOWNiZDYzMjBmY2ZmMzYwM2NkOGZkODc0NTUyIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlMjI4ZWYxNzU5ZTIyMjNhNTQwMTA3ZWNlNjIyYWU1YzUxOWM2ZTU4Zjk5ZWNjZDdiMjdmMjAzNjQwZTI2NzE1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_1df157eb49014ab783a2a78e5fd78946",
+      "statement": "PDF 的方法流程段落是固定技术路线描述，不会根据本次实际执行了哪些预处理步骤动态改写。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/PDF.py#L96-L118",
+          "version": "repo-lines-v1:sha256:7cd681c9f0f15510a77554eee2af87788e7452235a41b0b5cf27d85a507c2624:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwMGM4ZTRiYTZhYjA3MTQ2MjZiMzhjZTk3OGNmY2ZhNWFkNDgwYWY4NjBjYTc2ZmI1OGU2YjIxZWY4NDdmYjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwZTY1Y2UwNmFjYzExZTRjNWNiYmQ2ODQwMWU2MmRlOWYwYTIxNGE3OWE1YTFhZjQ3YzQyN2Q1ZGY5NTI0MGIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhNWExM2U0MTllZGI0NDdjYmNhMzdmMTQxMzdlNDExMjIwOTI3ZjUyMzFiOTU2Mjc3YmJhMDZhMTgxMzVkMTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjViNjY2Zjk5Yzg0ZjgyYTAxZDI3Mzc5Y2ZiYzBhMjdjYmUxNjQwNGY0OWE1M2I1YzU4ZDMyMDNlYTBlNzhmYWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_249d09904e924f16b1d1dccc67add83a",
+      "statement": "报告文件名由输出目录、扫描点云主名、固定后缀和年月日组成，不含时分秒，因此同日同名点云会复用同一路径。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/functions/PDF.py#L150-L150",
+          "version": "repo-lines-v1:sha256:3f45af9314bc7ab3ad855108c86db75c7745a9cbd6320fcff3603cd8fd874552:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiM2Y0NWFmOTMxNGJjN2FiM2FkODU1MTA4Yzg2ZGI3NWM3NzQ1YTljYmQ2MzIwZmNmZjM2MDNjZDhmZDg3NDU1MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiM2Y0NWFmOTMxNGJjN2FiM2FkODU1MTA4Yzg2ZGI3NWM3NzQ1YTljYmQ2MzIwZmNmZjM2MDNjZDhmZDg3NDU1MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGQyMTFlY2Q5YTNmMjk0OTJhZWI4MTY2NTkwNzM3ZDQyMmUxZGI1Yzg0NTBmZjcwOGIyYmMxYWUyOTY4ZmI4YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://base_software/functions/PDF.py#L19-L33",
+          "version": "repo-lines-v1:sha256:62927465f06c2e23fa013f93b1c0339bce97899c6d85c18880e11917b3afcd1b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwZTU4Yzg0YjI1ZjkwODEwYTBhMmU5ZWM5NjJkOTYwMzZiNWZjYTM2NWYzYWI2ZjkwZWJkYTVmMzg2MTBjOTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzZGIzZTNmMTgwZWIyNzA1ZjA3YWY4ZDFiZDMxMTk2MTdhMmZhMzgyZjUzYzgxMDg0NDgxODY3MDEzZWQ4NzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUyMjhlZjE3NTllMjIyM2E1NDAxMDdlY2U2MjJhZTVjNTE5YzZlNThmOTllY2NkN2IyN2YyMDM2NDBlMjY3MTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA1NDc4N2UyOWQ4ZWZmMDliMGFhMTI5ZWU4NDVlZmI1YWRiZTYzNGE0MDMwNzAyZTY3MGQ5MGVlMWY2ZWExODQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ad515f2982034642b50780a68d6cfc12",
+      "statement": "页面只把 ratio 文本转为浮点数，没有限制其范围；ratio 为 1 时 line_number 等于数组长度并会在取剔除线时索引越界。",
+      "evidence": [
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L112-L116",
+          "version": "repo-lines-v1:sha256:447b3e4ee38abf8cc7aefe2e1ac07879f991bbbe28a18892de69395c0b98978e:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjI0OGNiNDdiZDFhMzRiZGViNjYxY2U4MjAyMGRhNjdmNmMxNDdkODNhY2Q4OGVhM2NhOGM4YmNjNGU2MzljMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDA2YTNmZDkyOWI1MDAyYjU0YjU3MTM1OTBkNzE4N2FlMDYyNzlkM2IwOTc1YzQ2NzczOWQ2M2Y1ZjI0ODRlMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiM2Q2NDNiYmQ5MzczMmVmYzllMDdiM2NmMTZkMWU5OGFkMTU4Y2ViM2NiNTIwYTVmYzEyMmY2MzZjNDFiZDgzZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzJhYTNmMzU3YmJiZDI3NjVjYjViNmI2MmI3ZmRlOTZlYzIzNjY1MzI3ZmFkNWNhNjYyYmUyYWYzODkzODllMiJ9"
+        },
+        {
+          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L171-L174",
+          "version": "repo-lines-v1:sha256:4c1f36cf053128cecfbae7d13d73b3e0de1f902f87b49c6e1d60e00a94471ce0:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTNkM2MwY2E2ZDVjYTMxYjU5YTZkM2IzNjMxNTdhMjk3MzU2MDkyMGYyYzI1MWIzNjUxN2Y3NmVjODI4MzFlZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjEzZTVlMDEyYTI0MDkzYjkzMGU5YTJkOGQzNDc3MDM3YmY2NGVjNjEzZGU3NGFkODY2MzZkODljYzVhNjM4NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzQ2NTVkN2JiZDIyYmU0NzNmYWRlNmMxNmQzOWE2OWVlZDgwZmIxY2I5NmM5YWNhMTc4MDA0MzYyZTg0OWFjNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjIxOTA5ZTg5NzcxN2Y2YzMxZTllZjBhYWY3NmMzMjIwZmU1YzUyODI4MjQ2NjMwMjc4YmEyZmNiY2ZjMTljYSJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-28T07:28:45.133Z"
+  }
+}
