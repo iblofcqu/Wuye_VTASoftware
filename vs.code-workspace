@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "name": "文档",
+      "path": "docs"
+    },
+    {
+      "name": "原始演示代码",
+      "path": "base_software"
+    },
+    {
+      "name": "根目录",
+      "path": "."
+    }
+  ]
+}

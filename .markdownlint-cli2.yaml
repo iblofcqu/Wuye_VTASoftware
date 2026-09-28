@@ -1,0 +1,27 @@
+# Markdown 文档统一风格（对全仓库 *.md 生效）
+# 规则说明：https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+config:
+  default: true
+
+  # 中文排版不限制行宽
+  MD013: false
+
+  # 多语言/多场景文档允许重复标题
+  MD024: false
+
+  # 允许行内 HTML（徽章、复杂表格等）
+  MD033: false
+
+  # 不强制文档首行是一级标题（子文档常用）
+  MD041: false
+
+# OpenSpec CLI 生成的技能文件（openspec-*）不按仓库文档风格约束：
+# 它们是上游生成物，改格式会在下次重新生成时冲突。
+ignores:
+  - ".agents/skills/openspec-*/SKILL.md"
+  # OpenWiki 生成页使用 OKF frontmatter（含 title）加正文 H1，不按仓库文档风格约束：
+  # 它们是生成物，改格式会在下次重新生成时冲突。
+  - "openwiki/**"
+
+# 不自动修复；由作者确认后修改（修复方式：npx markdownlint-cli2 --fix）
+fix: false

@@ -1,0 +1,61 @@
+# ============================================================
+# prek / pre-commit 根配置（monorepo 通用硬门禁）
+# ------------------------------------------------------------
+# 本配置在 prek workspace 模式下是“祖先项目”，能看到整个仓库；
+# 语言专项检查放在各 projects/<name>/.pre-commit-config.yaml，
+# 子项目配置只处理自己目录内的文件。
+#
+# 安装（只需一次，不带 --config，否则会关闭 workspace 模式）：
+#   prek install
+# 全仓校验：
+#   prek run --all-files
+# ============================================================
+
+default_language_version:
+  python: python3.11
+
+default_install_hook_types: [pre-commit, commit-msg, pre-push]
+default_stages: [pre-commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+      - id: mixed-line-ending
+        args: [--fix=lf]
+
+  # 密钥与敏感信息扫描
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+
+  # 拼写检查（代码注释/文档中的英文词汇）
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.3
+    hooks:
+      - id: codespell
+        args: [-I, .codespell-ignore]
+
+  # Markdown 文档统一风格
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.23.2
+    hooks:
+      - id: markdownlint-cli2
+
+  # Conventional Commits（只装在 commit-msg 阶段）
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.4.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
