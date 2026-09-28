@@ -41,3 +41,11 @@ rules:
 #     archive:
 #       guidance:
 #         - Summarize the archive outcome before finishing
+
+operations:
+  archive:
+    guidance:
+      - "归档目录移动完成后必须立即创建 Git 提交；提交范围只包含本次归档移动的 Change 目录、同步产生的主 specs 变更及必要的 OpenSpec 配置变更。"
+      - "提交信息使用 Conventional Commits：docs(openspec): archive <change-name>；不得夹带无关工作区文件或其他未完成改动。"
+      - "提交前运行 git status 和 git diff --cached 复核暂存内容；提交失败时立即停止并显式报告，不得把归档标记为成功。"
+      - "生成的提交末尾必须添加 Assisted-by: Codex，并默认只提交到本地仓库，不自动推送。"
