@@ -1,0 +1,35 @@
+[project]
+name = "wuye-vtasoftware"
+version = "0.1.0"
+description = "基于点云预拼装的结构构件尺寸质量评定演示系统"
+readme = "README.md"
+requires-python = ">=3.10.18,<3.11"
+dependencies = [
+  "kaleido~=1.0.0",
+  "matplotlib~=3.10.3",
+  "numpy~=2.2.6",
+  "open3d==0.16.0",
+  "pandas~=2.3.1",
+  "pillow~=11.3.0",
+  "plotly~=6.2.0",
+  "pylatex~=1.4.2",
+  "pyransac3d~=0.6.0",
+  "pyvista~=0.45.3",
+  "scikit-learn~=1.7.1",
+  "scipy~=1.15.3",
+  "streamlit~=1.47.0",
+  "stpyvista~=0.1.4",
+  "tqdm~=4.67.1",
+  'pywin32==311; sys_platform == "win32"',
+]
+
+[dependency-groups]
+build = ["pyinstaller~=6.14.2"]
+
+[tool.uv]
+package = false
+
+[[tool.uv.index]]
+name = "aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple"
+default = true
