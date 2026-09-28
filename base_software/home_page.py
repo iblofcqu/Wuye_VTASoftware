@@ -48,12 +48,12 @@ with col3:
 
 st.markdown("---")
 st.markdown("""
-           <b style="color:steelBlue ; font-size:50px; text-align: center; padding:150px;"> 
-           三维扫描分析系统 
+           <b style="color:steelBlue ; font-size:50px; text-align: center; padding:150px;">
+           三维扫描分析系统
            """, unsafe_allow_html=True)
 st.markdown("""
            <b style="color:LightSlateGray ; font-size:40px; text-align: center; padding:200px;">
-            DeviScan-3D V1.0  
+            DeviScan-3D V1.0
            """, unsafe_allow_html=True)
 
 col9, col10, col11 = st.columns([1, 4, 1])
@@ -63,7 +63,6 @@ with col10:
     st.image(Image.open(TJBridge_path), caption='')
 
 st.markdown("""
-           <n style="color:gray ; font-size:10px; text-align: center; padding:10px;"> 
+           <n style="color:gray ; font-size:10px; text-align: center; padding:10px;">
            Updata on:2025/07/23
            """, unsafe_allow_html=True)
-

@@ -41,9 +41,9 @@ if __name__ == "__main__":
 
     if pre_function == '说明书':
         st.markdown("""
-                    <b style="color:black; 
-                    font-family:KaiTi_GB2312; 
-                    font-style:norm; font-size: 40px"> 
+                    <b style="color:black;
+                    font-family:KaiTi_GB2312;
+                    font-style:norm; font-size: 40px">
                     **{} - {}** :
                     """.format(module, pre_function), unsafe_allow_html=True)
         st.markdown("---")
@@ -54,9 +54,9 @@ if __name__ == "__main__":
         pre_function2 = st.sidebar.radio("模块", ['说明书', '网格离散'])
 
         if pre_function2 == "说明书":
-            st.markdown("""<b style="color:black; 
-                                       font-family:KaiTi_GB2312; 
-                                       font-style:norm; font-size: 40px"> 
+            st.markdown("""<b style="color:black;
+                                       font-family:KaiTi_GB2312;
+                                       font-style:norm; font-size: 40px">
                                        **{} - {}** :
                                        """.format(pre_function, pre_function2), unsafe_allow_html=True)
             st.markdown("---")
@@ -64,8 +64,8 @@ if __name__ == "__main__":
                         本软件采用:red[泊松圆盘采样(Poisson-Disk Sampling)]来实现网格文件与点云文件的格式转换。
                                """)
             st.markdown("---")
-            st.markdown("""<b style="color:gray; 
-                                       font-style:norm; font-size: 20px"> 
+            st.markdown("""<b style="color:gray;
+                                       font-style:norm; font-size: 20px">
                                        :cat2:**泊松圆盘采样**
                                     """, unsafe_allow_html=True)
             st.markdown("""在一个宽高分别为w,h的网格平面内平均生成一堆的点，且这些点之间的距离不能小于采样半径R""")
@@ -76,16 +76,16 @@ if __name__ == "__main__":
 
         if pre_function2 == "网格离散":
             inforA = 0
-            st.markdown("""<b style="color:gray; 
-                                       font-style:norm; font-size: 30px"> 
+            st.markdown("""<b style="color:gray;
+                                       font-style:norm; font-size: 30px">
                                        :cat2:**网格离散**
                                     """, unsafe_allow_html=True)
             st.markdown("---")
             st.markdown("""
-                                   <b style="color:gray; 
-                                   font-family:Times New Roman; 
-                                   font-style:norm; 
-                                   font-size: 25px"> 
+                                   <b style="color:gray;
+                                   font-family:Times New Roman;
+                                   font-style:norm;
+                                   font-size: 25px">
                                     **步骤1：输入点云**
                                     """, unsafe_allow_html=True)
 
@@ -105,10 +105,10 @@ if __name__ == "__main__":
 
             st.markdown("---")
             st.markdown("""
-                                   <b style="color:gray; 
-                                   font-family:Times New Roman; 
-                                   font-style:norm; 
-                                   font-size: 25px"> 
+                                   <b style="color:gray;
+                                   font-family:Times New Roman;
+                                   font-style:norm;
+                                   font-size: 25px">
                                     **步骤2：输入点云间距**
                                     """, unsafe_allow_html=True)
             st.write('你正在使用网格离散功能!')
@@ -171,10 +171,10 @@ if __name__ == "__main__":
         pre_function2 = st.sidebar.radio("模块", ['说明书', '尺寸缩放'])
         st.sidebar.text('更多功能敬请期待')
         if pre_function2 == '说明书':
-            st.markdown("""<b style="color:black; 
-                                  font-family:KaiTi_GB2312; 
-                                  font-style:norm; font-size: 40px"> 
-                                  **{} - {}** 
+            st.markdown("""<b style="color:black;
+                                  font-family:KaiTi_GB2312;
+                                  font-style:norm; font-size: 40px">
+                                  **{} - {}**
                                   """.format(pre_function, pre_function2), unsafe_allow_html=True)
             st.markdown("---")
             st.markdown(""" 🏠简介：\n
@@ -184,15 +184,15 @@ if __name__ == "__main__":
             \n可通过本模块将点云单位进行更改
                           """)
         if pre_function2== "尺寸缩放":
-            st.markdown("""<b style="color:gray; 
-                                       font-style:norm; font-size: 30px"> 
+            st.markdown("""<b style="color:gray;
+                                       font-style:norm; font-size: 30px">
                                        :leopard:**尺寸缩放**
                                         """, unsafe_allow_html=True)
             st.markdown("---")
-            st.markdown("""<b style="color:gray; 
-                                       font-family:Times New Roman; 
-                                       font-style:norm; 
-                                       font-size: 25px"> 
+            st.markdown("""<b style="color:gray;
+                                       font-family:Times New Roman;
+                                       font-style:norm;
+                                       font-size: 25px">
                                         **步骤1：输入点云信息**
                                         """, unsafe_allow_html=True)
             col1, col2 = st.columns([1, 1])
@@ -210,10 +210,10 @@ if __name__ == "__main__":
                         f.write(output_path)
             st.markdown("---")
             st.markdown("""
-                                  <b style="color:gray; 
-                                  font-family:Times New Roman; 
-                                  font-style:norm; 
-                                  font-size: 25px"> 
+                                  <b style="color:gray;
+                                  font-family:Times New Roman;
+                                  font-style:norm;
+                                  font-size: 25px">
                                    **步骤2：输入转换参数**
                                    """, unsafe_allow_html=True)
             Dictionary={'m':1,'dm':0.1,'cm':0.01,'mm':0.001}
@@ -246,18 +246,18 @@ if __name__ == "__main__":
     if pre_function == '下采样':
         pre_function2 = st.sidebar.radio("下采样方式", ['工具说明书', '体素下采样', '均匀下采样'])
         if pre_function2 == '工具说明书':
-            st.markdown("""<b style="color:black; 
-                           font-family:KaiTi_GB2312; 
-                           font-style:norm; font-size: 40px"> 
-                           **{} - {}** 
+            st.markdown("""<b style="color:black;
+                           font-family:KaiTi_GB2312;
+                           font-style:norm; font-size: 40px">
+                           **{} - {}**
                            """.format(pre_function, pre_function2), unsafe_allow_html=True)
             st.markdown("---")
             st.markdown(""" 🏠简介：点云数据通常数据量庞大,数据冗余度高。为了降低计算成本，需要从大量数据点中筛选出能够较好保留数据特征的点云，用来替代原点云数据进行相关操作。
             筛选的过程就是下采样 (也称降采样)，其本质就是将点云数据均匀化和轻量化的过程。本软件包含点云下采样的常用方法：:red[体素下采样、均匀下采样]。
                    """)
             st.markdown("---")
-            st.markdown("""<b style="color:gray; 
-                           font-style:norm; font-size: 20px"> 
+            st.markdown("""<b style="color:gray;
+                           font-style:norm; font-size: 20px">
                            :cat2:**体素下采样**
                         """, unsafe_allow_html=True)
             st.markdown("""将点云数据集所占据的三维空间划分成多个体素，以每个体素中所有点计算得到的重心作为采样点。""")
@@ -266,8 +266,8 @@ if __name__ == "__main__":
             st.markdown(""" 体素尺寸：体素尺寸越大，采样程度越高。""")
             st.markdown("---")
 
-            st.markdown("""<b style="color:gray; 
-                           font-style:norm; font-size: 20px"> 
+            st.markdown("""<b style="color:gray;
+                           font-style:norm; font-size: 20px">
                            :cat2:**均匀下采样**
                             """, unsafe_allow_html=True)
             st.markdown("""将点云数据按照索引顺序，从第一个点开始，以固定间隔进行采样。""")
@@ -277,16 +277,16 @@ if __name__ == "__main__":
 
         if pre_function2 == '体素下采样':
             inforA=0
-            st.markdown("""<b style="color:gray; 
-                           font-style:norm; font-size: 30px"> 
+            st.markdown("""<b style="color:gray;
+                           font-style:norm; font-size: 30px">
                            :cat2:**体素下采样**
                         """, unsafe_allow_html=True)
             st.markdown("---")
             st.markdown("""
-                       <b style="color:gray; 
-                       font-family:Times New Roman; 
-                       font-style:norm; 
-                       font-size: 25px"> 
+                       <b style="color:gray;
+                       font-family:Times New Roman;
+                       font-style:norm;
+                       font-size: 25px">
                         **步骤1：输入点云**
                         """, unsafe_allow_html=True)
             col1,col2=st.columns([1,1])
@@ -304,10 +304,10 @@ if __name__ == "__main__":
                         f.write(output_path)
             st.markdown("---")
             st.markdown("""
-                       <b style="color:gray; 
-                       font-family:Times New Roman; 
-                       font-style:norm; 
-                       font-size: 25px"> 
+                       <b style="color:gray;
+                       font-family:Times New Roman;
+                       font-style:norm;
+                       font-size: 25px">
                         **步骤2：输入采样的体素尺寸**
                         """, unsafe_allow_html=True)
             st.write('你正在使用体素下采样功能，体素尺寸越大，下采样程度越高!')
@@ -351,16 +351,16 @@ if __name__ == "__main__":
 
         if pre_function2 == '均匀下采样':
             inforA = 0
-            st.markdown("""<b style="color:gray; 
-                                       font-style:norm; font-size: 30px"> 
+            st.markdown("""<b style="color:gray;
+                                       font-style:norm; font-size: 30px">
                                        :cat2:**均匀下采样**
                                     """, unsafe_allow_html=True)
             st.markdown("---")
             st.markdown("""
-                                   <b style="color:gray; 
-                                   font-family:Times New Roman; 
-                                   font-style:norm; 
-                                   font-size: 25px"> 
+                                   <b style="color:gray;
+                                   font-family:Times New Roman;
+                                   font-style:norm;
+                                   font-size: 25px">
                                     **步骤1：输入点云**
                                     """, unsafe_allow_html=True)
             col1, col2 = st.columns([1, 1])
@@ -425,9 +425,9 @@ if __name__ == "__main__":
     if pre_function == '配准':
         pre_function2 = st.sidebar.radio("配准方式", ['说明书', '粗配准', '精配准'])
         if pre_function2 == '说明书':
-            st.markdown("""<b style="color:black; 
-                                  font-family:KaiTi_GB2312; 
-                                  font-style:norm; font-size: 40px"> 
+            st.markdown("""<b style="color:black;
+                                  font-family:KaiTi_GB2312;
+                                  font-style:norm; font-size: 40px">
                                   **{} - {}** :book:
                                   """.format(pre_function, pre_function2), unsafe_allow_html=True)
             st.markdown("---")
@@ -446,16 +446,16 @@ if __name__ == "__main__":
                           """)
 
         if pre_function2 == '粗配准':
-            st.markdown("""<b style="color:gray; 
-                           font-style:norm; font-size: 30px"> 
+            st.markdown("""<b style="color:gray;
+                           font-style:norm; font-size: 30px">
                            :leopard:**基于FPFH特征的配准**
                             """, unsafe_allow_html=True)
             st.markdown("---")
             st.markdown("""
-                       <b style="color:gray; 
-                       font-family:Times New Roman; 
-                       font-style:norm; 
-                       font-size: 25px"> 
+                       <b style="color:gray;
+                       font-family:Times New Roman;
+                       font-style:norm;
+                       font-size: 25px">
                         **步骤1：输入点云信息**
                         """, unsafe_allow_html=True)
             col1, col2,col3 = st.columns([1, 1, 1])
@@ -486,20 +486,20 @@ if __name__ == "__main__":
             st.markdown("---")
 
             st.markdown("""
-                       <b style="color:gray; 
-                       font-family:Times New Roman; 
-                       font-style:norm; 
-                       font-size: 25px"> 
+                       <b style="color:gray;
+                       font-family:Times New Roman;
+                       font-style:norm;
+                       font-size: 25px">
                         **步骤2：输入体素大小**
                         """, unsafe_allow_html=True)
             voxel_size = st.text_input('体素大小', '0.3')
             voxel_size=float(voxel_size)
             st.markdown("---")
             if st.button('开始配准'):
-                st.markdown(""" <b style="color:gray; 
-                                   font-family:Times New Roman; 
-                                   font-style:norm; 
-                                   font-size: 20px"> 
+                st.markdown(""" <b style="color:gray;
+                                   font-family:Times New Roman;
+                                   font-style:norm;
+                                   font-size: 20px">
                                     **正在配准，请勿操作界面直至配准结束！！！**
                                     """, unsafe_allow_html=True)
                 with open(os.path.join(cache_path , "Tool_Registration_FPFH_SCENE.txt"), "r") as f:
@@ -531,10 +531,10 @@ if __name__ == "__main__":
                     f.write(save_path)
                 vd2=show2(pcd_scene2bim,pcd_bim,w=600,h=300,size1=1,size2=1,color1="red",color2="blue")
                 stpv(vd2)
-                st.markdown(""" <b style="color:gray; 
-                                                   font-family:Times New Roman; 
-                                                   font-style:norm; 
-                                                   font-size: 20px"> 
+                st.markdown(""" <b style="color:gray;
+                                                   font-family:Times New Roman;
+                                                   font-style:norm;
+                                                   font-size: 20px">
                                                     **请检查粗配准效果，不理想时请重新运行程序**
                                                     """, unsafe_allow_html=True)
             if st.button('打开输出文件夹'):
@@ -547,15 +547,15 @@ if __name__ == "__main__":
 
 
         if pre_function2 == '精配准':
-            st.markdown("""<b style="color:gray; 
-                           font-style:norm; font-size: 30px"> 
+            st.markdown("""<b style="color:gray;
+                           font-style:norm; font-size: 30px">
                            :leopard:**基于ICP算法的精配准**
                             """, unsafe_allow_html=True)
             st.markdown("---")
-            st.markdown("""<b style="color:gray; 
-                           font-family:Times New Roman; 
-                           font-style:norm; 
-                           font-size: 25px"> 
+            st.markdown("""<b style="color:gray;
+                           font-family:Times New Roman;
+                           font-style:norm;
+                           font-size: 25px">
                             **步骤1：输入点云信息**
                             """, unsafe_allow_html=True)
             col1, col2, col3 = st.columns([1, 1, 1])
@@ -579,10 +579,10 @@ if __name__ == "__main__":
                         f.write(output_path)
             st.markdown("---")
             st.markdown("""
-                      <b style="color:gray; 
-                      font-family:Times New Roman; 
-                      font-style:norm; 
-                      font-size: 25px"> 
+                      <b style="color:gray;
+                      font-family:Times New Roman;
+                      font-style:norm;
+                      font-size: 25px">
                        **步骤2：输入配准参数**
                        """, unsafe_allow_html=True)
             col4, col5, col6 = st.columns([1, 1, 1])
@@ -597,10 +597,10 @@ if __name__ == "__main__":
             Parameter2 = float(Parameter2)
             Parameter3 = float(Parameter3)
             if st.button('开始配准'):
-                st.markdown(""" <b style="color:gray; 
-                                   font-family:Times New Roman; 
-                                   font-style:norm; 
-                                   font-size: 20px"> 
+                st.markdown(""" <b style="color:gray;
+                                   font-family:Times New Roman;
+                                   font-style:norm;
+                                   font-size: 20px">
                                     **正在配准，请勿操作界面直至配准结束！！！**
                                     """, unsafe_allow_html=True)
                 with open(os.path.join(cache_path ,"Tool_Registration_ICP_SCENE.txt"), "r") as f:
@@ -635,7 +635,3 @@ if __name__ == "__main__":
                     os.startfile(output_path)
                 except:
                     st.caption(':red[_无输出文件夹信息_]')
-
-
-
-

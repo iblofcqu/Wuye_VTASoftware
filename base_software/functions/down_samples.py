@@ -68,4 +68,3 @@ def random_down_sample(point_cloud, sampling_ratio):
     random_down_pcd = pcd.random_down_sample(sampling_ratio=sampling_ratio)
     sample_point_array = np.array(random_down_pcd.points)
     return sample_point_array
-

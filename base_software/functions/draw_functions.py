@@ -567,4 +567,3 @@ def draw4_and_save(point_array1, point_array2, point_array3, point_array4,
     p.set_background('w')
     # print(path)
     p.screenshot(save_dir)
-

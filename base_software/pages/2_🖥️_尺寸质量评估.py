@@ -53,15 +53,15 @@ if __name__ == "__main__":
                                   """)
 
     if pre_function == '几何质量评估':
-        st.markdown("""<b style="color:gray; 
-                                       font-style:norm; font-size: 30px"> 
+        st.markdown("""<b style="color:gray;
+                                       font-style:norm; font-size: 30px">
                                        :leopard:**几何质量评估**
                                         """, unsafe_allow_html=True)
         st.markdown("---")
-        st.markdown("""<b style="color:gray; 
-                                       font-family:Times New Roman; 
-                                       font-style:norm; 
-                                       font-size: 25px"> 
+        st.markdown("""<b style="color:gray;
+                                       font-family:Times New Roman;
+                                       font-style:norm;
+                                       font-size: 25px">
                                         **步骤1：预处理信息确认**
                                         """, unsafe_allow_html=True)
         one = st.checkbox('我已获取:red[离散点云]')
@@ -70,10 +70,10 @@ if __name__ == "__main__":
         four = st.checkbox('我已进行扫描点云和离散点云的:red[匹配]')
         if one and two and three and four:
             st.markdown("---")
-            st.markdown("""<b style="color:gray; 
-                                                   font-family:Times New Roman; 
-                                                   font-style:norm; 
-                                                   font-size: 25px"> 
+            st.markdown("""<b style="color:gray;
+                                                   font-family:Times New Roman;
+                                                   font-style:norm;
+                                                   font-size: 25px">
                                                     **步骤2：数据信息输入**
                                                     """, unsafe_allow_html=True)
             col1, col2, col3 = st.columns([1, 1, 1])
@@ -96,10 +96,10 @@ if __name__ == "__main__":
                     with open(output_path_save, "w") as f:
                         f.write(output_path)
             st.markdown("---")
-            st.markdown("""<b style="color:gray; 
-                                                               font-family:Times New Roman; 
-                                                               font-style:norm; 
-                                                               font-size: 25px"> 
+            st.markdown("""<b style="color:gray;
+                                                               font-family:Times New Roman;
+                                                               font-style:norm;
+                                                               font-size: 25px">
                                                                 **步骤3：参数信息**
                                                                 """, unsafe_allow_html=True)
             col4,col5,col6=st.columns([1,1,1])
@@ -114,10 +114,10 @@ if __name__ == "__main__":
             distance=float(distance)
             ratio=float(ratio)
             if st.button('计算偏差并生成报告'):
-                st.markdown(""" <b style="color:gray; 
-                                                   font-family:Times New Roman; 
-                                                   font-style:norm; 
-                                                   font-size: 20px"> 
+                st.markdown(""" <b style="color:gray;
+                                                   font-family:Times New Roman;
+                                                   font-style:norm;
+                                                   font-size: 20px">
                                                     **正在计算偏差，请勿操作界面直至报告输出！！！**
                                                     """, unsafe_allow_html=True)
                 with open(os.path.join(cache_path,"QA_pcd.txt"), "r") as f:
@@ -195,7 +195,3 @@ if __name__ == "__main__":
                     st.caption(':red[_无输出文件夹信息_]')
         else:
             st.write(':red[当前数据尚未满足检测条件]')
-
-
-
-

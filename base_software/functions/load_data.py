@@ -77,7 +77,3 @@ def get_file_list(file_path):
     else:
         dir_list = sorted(dir_list, key=lambda x: os.path.getmtime(os.path.join(file_path, x)))
         return dir_list
-
-
-
-

@@ -7,16 +7,16 @@ def get_app_base_path():
     if getattr(sys, 'frozen', False):
         # 打包后环境
         return sys._MEIPASS
-    
+
     # 开发环境 - 获取项目根目录
     # 方法1: 检查当前目录是否包含关键目录/文件
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    
+
     # 检查是否存在关键目录
     key_dirs = ['pages', 'functions', 'interface']
     if all(os.path.exists(os.path.join(current_dir, d)) for d in key_dirs):
         return current_dir
-    
+
     # 方法2: 向上查找直到找到包含关键目录的根目录
     parent_dir = os.path.dirname(current_dir)
     while parent_dir != current_dir:
@@ -24,7 +24,7 @@ def get_app_base_path():
             return parent_dir
         current_dir = parent_dir
         parent_dir = os.path.dirname(current_dir)
-    
+
     # 方法3: 如果以上都不行，返回当前文件所在目录
     return os.path.dirname(os.path.abspath(__file__))
 

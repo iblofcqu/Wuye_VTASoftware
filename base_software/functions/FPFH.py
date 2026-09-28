@@ -31,6 +31,3 @@ def FPFH_Registration(scene_pcd_path,bim_pcd_path,voxel_size):
     result_ransac = execute_global_registration(source_down, target_down, source_fpfh, target_fpfh, voxel_size)
     source_transform=source.transform(result_ransac.transformation)
     return np.asarray(source_transform.points)
-
-
-
