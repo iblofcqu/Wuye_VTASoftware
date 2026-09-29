@@ -52,7 +52,7 @@
 - [x] 7.5 Uploader 断点续传（指数退避重试、文件指纹匹配、刷新后重新选择同一文件继续）；验证：模拟断网与刷新场景下只重传缺失分片。
 - [x] 7.6 ArtifactPicker 与 JobProgress 组件；验证：双输入页面可选择两路会话产物或新上传文件，进度实时更新。
 - [x] 7.7 PointCloudViewer（vtk.js + 二进制解析，单云/双云/色带，旋转缩放平移）；验证：三种预览场景手工验收通过。
-- [ ] 7.8 DeviationHistogram 与指标卡（Plotly.js 渲染 figure JSON）；验证：悬停信息与四项指标和后端结果一致。
+- [x] 7.8 DeviationHistogram 与指标卡（Plotly.js 渲染 figure JSON）；验证：悬停信息与四项指标和后端结果一致。
 
 ## 8. 功能页面端到端
 
