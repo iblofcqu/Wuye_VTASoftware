@@ -71,4 +71,4 @@
 ## 10. 端到端验收
 
 - [x] 10.1 执行端到端演示清单（7 个工具 + 报告 + 断点续传 + 失败显式 + 重启中断）并记录结果；验证：全部场景通过。
-- [ ] 10.2 全量回归（backend pytest + frontend build/lint + golden 对比）；验证：所有命令通过。
+- [x] 10.2 全量回归（backend pytest + frontend build/lint + golden 对比）；验证：所有命令通过。

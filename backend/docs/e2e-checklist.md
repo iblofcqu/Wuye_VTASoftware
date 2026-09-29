@@ -33,3 +33,13 @@ PATH="$HOME/.local/bin:$PATH" uv run python tests/e2e_demo_checklist.py
 - UI 页面渲染（headless Chrome 截图核对）：首页（品牌图/标题/侧边导航与原 demo 一致）、网格离散页、质量评估页（四个前置确认 + 门禁提示）均正常。
 - UI 数据态（3D 视图旋转缩放、直方图悬停）已通过组件单测（WYPV 解析/色带/指标口径）与 API 级端到端覆盖；
   建议正式演示前按使用说明手册做一次人工点击走查（上传→任务→预览→下载）。
+
+## 全量回归记录（2026-09-29）
+
+| 回归项 | 命令 | 结果 |
+| --- | --- | --- |
+| 后端测试 | `cd backend && PATH="$HOME/.local/bin:$PATH" uv run pytest -q` | 121 passed |
+| 端到端演示清单 | `cd backend && PATH="$HOME/.local/bin:$PATH" uv run python tests/e2e_demo_checklist.py` | 16/16 通过 |
+| 前端单测 | `cd frontend && npm run test:unit` | 17 passed（6 文件） |
+| 前端静态检查 | `cd frontend && npm run lint` | 通过 |
+| 前端构建 | `cd frontend && npm run build` | 通过 |
