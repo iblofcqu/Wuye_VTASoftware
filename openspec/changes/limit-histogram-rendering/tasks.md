@@ -8,9 +8,9 @@
 
 ## 2. Frontend Display
 
-- [ ] 2.1 在 `frontend/src/utils/qa.ts` 增加 `selectHistogramFigure(summary)`，优先返回 `ui_figure`，缺失时兼容返回 `figure`；在 `frontend/src/utils/__tests__/qa.spec.ts` 覆盖两种分支。
-- [ ] 2.2 更新 `frontend/src/views/quality/QualityAssessView.vue` 使用该 helper 生成页面直方图数据，验证 `cd frontend && npm run type-check` 通过。
-- [ ] 2.3 保留 `DeviationHistogram.vue` 的悬停和 Plotly 渲染逻辑，验证受限图仍能显示聚合区间、统计注释和剔除线。
+- [x] 2.1 在 `frontend/src/utils/qa.ts` 增加 `selectHistogramFigure(summary)`，优先返回 `ui_figure`，缺失时兼容返回 `figure`；在 `frontend/src/utils/__tests__/qa.spec.ts` 覆盖两种分支。
+- [x] 2.2 更新 `frontend/src/views/quality/QualityAssessView.vue` 使用该 helper 生成页面直方图数据，验证 `cd frontend && npm run type-check` 通过。
+- [x] 2.3 保留 `DeviationHistogram.vue` 的悬停和 Plotly 渲染逻辑，验证受限图仍能显示聚合区间、统计注释和剔除线。
 
 ## 3. Integration Verification
 

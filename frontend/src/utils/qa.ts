@@ -21,3 +21,15 @@ import type { Artifact, Job } from '@/types'
 export function findReportArtifact(job: Job | null | undefined): Artifact | null {
   return job?.result?.artifacts?.find((artifact) => artifact.kind === 'report') ?? null
 }
+
+/** 选择浏览器展示直方图，优先使用受限的 ui_figure，兼容旧的 figure 字段。 */
+export function selectHistogramFigure(
+  summary: Record<string, unknown> | null | undefined,
+): Record<string, unknown> | null {
+  if (!isFigure(summary?.ui_figure)) return isFigure(summary?.figure) ? summary.figure : null
+  return summary.ui_figure
+}
+
+function isFigure(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}

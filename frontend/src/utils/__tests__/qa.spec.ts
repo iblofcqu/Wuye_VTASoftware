@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { findReportArtifact, formatDeviationMetrics } from '../qa'
+import { findReportArtifact, formatDeviationMetrics, selectHistogramFigure } from '../qa'
 
 describe('formatDeviationMetrics', () => {
   it('与基线四项指标一致', () => {
@@ -42,5 +42,25 @@ describe('findReportArtifact', () => {
     }
     expect(findReportArtifact(job)?.name).toBe('scan几何质量评估报告2026929.pdf')
     expect(findReportArtifact(null)).toBeNull()
+  })
+})
+
+describe('selectHistogramFigure', () => {
+  it('优先使用 ui_figure', () => {
+    const uiFigure = { data: [{ type: 'bar' }], layout: {} }
+    const figure = { data: [{ type: 'bar' }, { type: 'bar' }], layout: {} }
+
+    expect(selectHistogramFigure({ ui_figure: uiFigure, figure })).toBe(uiFigure)
+  })
+
+  it('缺少 ui_figure 时兼容回退到 figure', () => {
+    const figure = { data: [{ type: 'bar' }], layout: {} }
+
+    expect(selectHistogramFigure({ figure })).toBe(figure)
+  })
+
+  it('无效输入返回 null', () => {
+    expect(selectHistogramFigure(null)).toBeNull()
+    expect(selectHistogramFigure({ ui_figure: null, figure: 'invalid' })).toBeNull()
   })
 })
