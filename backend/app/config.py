@@ -20,3 +20,6 @@ UPLOAD_TTL_SECONDS = int(os.environ.get("WUYE_UPLOAD_TTL_SECONDS", str(24 * 3600
 # 任务执行
 JOB_POOL_SIZE = int(os.environ.get("WUYE_JOB_POOL_SIZE", "2"))
 JOB_WORK_DIR = "work"
+
+# 预览
+PREVIEW_MAX_POINTS = int(os.environ.get("WUYE_PREVIEW_MAX_POINTS", "1000000"))
