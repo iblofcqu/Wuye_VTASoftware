@@ -8,7 +8,7 @@ from pathlib import Path
 
 from app import config
 from app.core.artifacts import artifact_public_dict, register_artifact
-from app.core.sessions import SessionStore
+from app.core.sessions import SessionStore, utc_now_iso
 from app.jobs import store as job_store
 from app.jobs.models import new_job
 from app.jobs.tools import TOOL_REGISTRY
@@ -22,11 +22,18 @@ def _atomic_write_json(path: Path, data: dict) -> None:
 
 
 def _worker_entry(worker_fn, params: dict, input_paths: dict, work_dir: str) -> dict:
-    """在子进程中执行工具；开始前写 state.json（供 Web 层判定 running）。"""
+    """在子进程中执行工具：state.json 标记 running，progress.json 记录阶段进度。"""
     work_path = Path(work_dir)
     work_path.mkdir(parents=True, exist_ok=True)
     _atomic_write_json(work_path / "state.json", {"state": "running", "pid": os.getpid()})
-    return worker_fn(params=params, inputs=input_paths, work_dir=work_path, progress=lambda *args: None)
+
+    def progress(stage: str, done: int, total: int) -> None:
+        _atomic_write_json(
+            work_path / "progress.json",
+            {"stage": stage, "done": int(done), "total": int(total), "updated_at": utc_now_iso()},
+        )
+
+    return worker_fn(params=params, inputs=input_paths, work_dir=work_path, progress=progress)
 
 
 class JobRunner:
@@ -110,9 +117,15 @@ class JobRunner:
         if record is None:
             return None
         view = dict(record)
-        state_file = self.work_dir(session_id, job_id) / "state.json"
-        if record.get("status") == "queued" and state_file.exists():
+        work_dir = self.work_dir(session_id, job_id)
+        if record.get("status") == "queued" and (work_dir / "state.json").exists():
             view["status"] = "running"
+        progress_file = work_dir / "progress.json"
+        if progress_file.exists():
+            try:
+                view["progress"] = json.loads(progress_file.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                pass
         view.pop("internal", None)
         return view
 

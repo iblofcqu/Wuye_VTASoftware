@@ -35,7 +35,7 @@
 
 ### D2 任务模型：状态机 + 进度回传 + 轮询
 
-- 选择：任务状态 `queued → running → succeeded / failed / interrupted`；worker 通过 `multiprocessing.Queue` 回传阶段进度，Web 进程写入会话清单；前端每 1 秒轮询 `GET /api/jobs/{id}`。
+- 选择：任务状态 `queued → running → succeeded / failed / interrupted`；worker 将开始状态与阶段进度原子写入工作目录（`state.json` / `progress.json`），Web 层在 `GET /api/jobs/{id}` 时合并返回（避免跨进程写会话清单）；前端每 1 秒轮询。
 - 理由：与 specs 的分步进度、失败显式、重启中断语义直接对应；轮询实现与排障成本最低。
 - 备选与否决：SSE/WebSocket 实时性更好但演示无需求，后续如需可独立升级；同步执行违反"Web 保持响应"要求 → 否决。
 - 边界：服务启动时把清单中遗留的 `running/queued` 任务置为 `interrupted` 并写入原因；池满时任务停留在 `queued`。
