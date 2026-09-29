@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@kitware/vtk.js": "^37.3.1",
+    "@noble/hashes": "^2.4.0",
     "element-plus": "^2.14.6",
     "pinia": "^4.0.3",
     "plotly.js-dist-min": "^4.1.1",

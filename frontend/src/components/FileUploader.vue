@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 
 import { uploadFiles } from '@/api/uploader'
 import type { UploadItemState } from '@/api/uploader'
@@ -61,14 +61,14 @@ async function onChange(event: Event) {
 
   const itemByFile = new Map<File, Item>()
   files.forEach((file, index) => {
-    const item: Item = {
+    const item = reactive<Item>({
       key: Date.now() + index,
       name: file.name,
       size: file.size,
       status: 'uploading',
       uploadedChunks: 0,
       totalChunks: 0,
-    }
+    })
     itemByFile.set(file, item)
     items.value.unshift(item)
   })

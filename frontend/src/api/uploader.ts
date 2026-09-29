@@ -1,3 +1,5 @@
+import { sha256 } from '@noble/hashes/sha2.js'
+
 import { completeUpload, getUpload, initUpload, putChunk } from '@/api'
 import type { Artifact } from '@/types'
 
@@ -101,7 +103,10 @@ export async function withRetry<T>(fn: () => Promise<T>, attempts = 3, baseDelay
 }
 
 export async function sha256Hex(data: ArrayBuffer): Promise<string> {
-  const digest = await crypto.subtle.digest('SHA-256', data)
+  // HTTP 局域网访问不是安全上下文，crypto.subtle 不存在；此时用纯 JS 实现保持同一校验流程。
+  const digest = globalThis.crypto?.subtle
+    ? await globalThis.crypto.subtle.digest('SHA-256', data)
+    : sha256(new Uint8Array(data))
   return Array.from(new Uint8Array(digest))
     .map((byte) => byte.toString(16).padStart(2, '0'))
     .join('')

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { runWithConcurrency, uploadFile, uploadFiles } from '../uploader'
+import { runWithConcurrency, sha256Hex, uploadFile, uploadFiles } from '../uploader'
 
 function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } })
@@ -117,5 +117,16 @@ describe('uploader', () => {
       active -= 1
     })
     expect(maxActive).toBeLessThanOrEqual(2)
+  })
+
+  it('非安全上下文下仍能计算 SHA-256', async () => {
+    vi.stubGlobal('crypto', {})
+    try {
+      await expect(sha256Hex(new Uint8Array([0, 1, 2, 3]).buffer)).resolves.toBe(
+        '054edec1d0211f624fed0cbca9d4f9400b0e491c43742af2c5b0abebf0c990d8',
+      )
+    } finally {
+      vi.unstubAllGlobals()
+    }
   })
 })
