@@ -1,5 +1,44 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { RouterView } from 'vue-router'
+
+import { clearSession } from '@/api/session'
+import { useWorkspaceStore } from '@/stores/workspace'
+
+const workspace = useWorkspaceStore()
+const clearing = ref(false)
+
+async function confirmClearSession() {
+  if (clearing.value) return
+  try {
+    await ElMessageBox.confirm(
+      '确定清空当前会话的全部文件吗？此操作不可恢复。',
+      '清空会话文件',
+      {
+        type: 'warning',
+        confirmButtonText: '清空',
+        cancelButtonText: '取消',
+      },
+    )
+  } catch (reason) {
+    if (reason === 'cancel' || reason === 'close') return
+    ElMessage.error(reason instanceof Error ? reason.message : String(reason))
+    return
+  }
+
+  clearing.value = true
+  try {
+    await clearSession()
+    workspace.snapshot = null
+    await workspace.refresh()
+    ElMessage.success('删除成功')
+  } catch (reason) {
+    ElMessage.error(reason instanceof Error ? reason.message : String(reason))
+  } finally {
+    clearing.value = false
+  }
+}
 </script>
 
 <template>
@@ -25,6 +64,18 @@ import { RouterView } from 'vue-router'
           <el-menu-item index="/quality/assess">几何质量评估</el-menu-item>
         </el-sub-menu>
       </el-menu>
+      <div class="app-aside-footer">
+        <el-button
+          class="clear-session-button"
+          type="danger"
+          plain
+          :loading="clearing"
+          :disabled="clearing"
+          @click="confirmClearSession"
+        >
+          清空会话文件
+        </el-button>
+      </div>
     </el-aside>
     <el-main class="app-main">
       <RouterView />
@@ -38,6 +89,8 @@ import { RouterView } from 'vue-router'
 }
 
 .app-aside {
+  display: flex;
+  flex-direction: column;
   border-right: 1px solid var(--el-border-color-lighter);
   background: #f7f9fb;
 }
@@ -61,8 +114,19 @@ import { RouterView } from 'vue-router'
 }
 
 .app-menu {
+  flex: 1;
+  overflow-y: auto;
   border-right: none;
   background: transparent;
+}
+
+.app-aside-footer {
+  padding: 16px;
+  border-top: 1px solid var(--el-border-color-lighter);
+}
+
+.clear-session-button {
+  width: 100%;
 }
 
 .app-main {
