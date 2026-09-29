@@ -4,7 +4,7 @@
 
 ## 1. 仓库与工程骨架
 
-- [ ] 1.1 初始化 `backend/` uv 工程（pyproject 钉 Python 3.10.18 与基线依赖版本、目录骨架、uv.lock）；验证：`cd backend && uv sync` 成功且 `uv run python -c "import open3d"` 通过。
+- [x] 1.1 初始化 `backend/` uv 工程（pyproject 钉 Python 3.10.18 与基线依赖版本、目录骨架、uv.lock）；验证：`cd backend && uv sync` 成功且 `uv run python -c "import open3d"` 通过。
 - [ ] 1.2 初始化 `frontend/`（Vue 3 + TypeScript + Vite + Vue Router + Pinia + Element Plus + vtk.js + Plotly.js + ESLint/Prettier）；验证：`npm ci && npm run build` 成功。
 - [ ] 1.3 更新根 `.gitignore`（`data/`、`frontend/node_modules/`、`frontend/dist/`）与 README 的目录说明；验证：`git status` 不含构建产物与运行数据。
 
