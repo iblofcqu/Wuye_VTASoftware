@@ -14,3 +14,10 @@ export function formatDeviationMetrics(summary: Record<string, unknown> | null |
     { label: '平均值', value: `${Number(summary.error_mean ?? 0).toFixed(2)}` },
   ]
 }
+
+import type { Artifact, Job } from '@/types'
+
+/** 从任务结果中提取 PDF 报告产物（kind=report）。 */
+export function findReportArtifact(job: Job | null | undefined): Artifact | null {
+  return job?.result?.artifacts?.find((artifact) => artifact.kind === 'report') ?? null
+}

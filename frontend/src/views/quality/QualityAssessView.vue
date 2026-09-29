@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 
-import { artifactDownloadUrl, jobPreviewUrl } from '@/api'
+import { jobPreviewUrl } from '@/api'
 import ArtifactPicker from '@/components/ArtifactPicker.vue'
 import DeviationHistogram from '@/components/DeviationHistogram.vue'
 import JobProgress from '@/components/JobProgress.vue'
 import PointCloudViewer from '@/components/PointCloudViewer.vue'
+import ReportCard from '@/components/ReportCard.vue'
 import { useToolJob } from '@/composables/useToolJob'
 import { formatDeviationMetrics } from '@/utils/qa'
 
@@ -35,10 +36,6 @@ const figure = computed<Record<string, unknown> | null>(
   () => (summary.value?.figure as Record<string, unknown> | undefined) ?? null,
 )
 const metrics = computed(() => formatDeviationMetrics(summary.value))
-const reportArtifact = computed(
-  () => finishedJob.value?.result?.artifacts?.find((artifact) => artifact.kind === 'report') ?? null,
-)
-
 function start() {
   void run(
     'quality-assess',
@@ -106,11 +103,7 @@ function start() {
         <DeviationHistogram :figure="figure" :metrics="metrics" />
         <h4>偏差云图预览</h4>
         <PointCloudViewer :layers="[{ url: jobPreviewUrl(finishedJob.id) }]" />
-        <p v-if="reportArtifact" class="download">
-          <el-link type="primary" :href="artifactDownloadUrl(reportArtifact.id)">
-            下载 {{ reportArtifact.name }}
-          </el-link>
-        </p>
+        <ReportCard :job="finishedJob" />
       </div>
     </template>
     <el-empty v-else description="请先完成步骤1的全部确认" />
