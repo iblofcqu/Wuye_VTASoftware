@@ -12,7 +12,7 @@ from pathlib import Path
 
 from app import config
 from app.core.artifacts import register_artifact, sanitize_name
-from app.core.sessions import SessionStore, utc_now_iso
+from app.core.sessions import SessionStore, is_valid_session_id, utc_now_iso
 
 UPLOAD_DIR = "uploads"
 CHUNK_DIR = "chunks"
@@ -97,6 +97,8 @@ def create_upload(store: SessionStore, session_id: str, filename, size, chunk_si
         )
     if store.load(session_id) is None:
         raise FileNotFoundError(f"会话不存在: {session_id}")
+
+    purge_expired_uploads(store)  # 惰性清理：演示级，无需后台任务
 
     expires_at = (datetime.now(timezone.utc) + timedelta(seconds=config.UPLOAD_TTL_SECONDS)).isoformat(
         timespec="seconds"
@@ -263,3 +265,55 @@ def complete_upload(store: SessionStore, session_id: str, upload_id: str):
     updated = get_upload(store, session_id, upload_id)
     assert updated is not None
     return updated, artifact.id
+
+
+def cancel_upload(store: SessionStore, session_id: str, upload_id: str) -> UploadRecord:
+    upload = get_upload(store, session_id, upload_id)
+    if upload is None:
+        raise FileNotFoundError(f"上传不存在: {upload_id}")
+    if upload.status == "completed":
+        raise ValueError("已完成的上传不能取消")
+    if upload.status == "completing":
+        raise ValueError("上传正在合并，无法取消")
+    if upload.status == "aborted":  # 幂等
+        return upload
+
+    _update_upload(store, session_id, upload_id, lambda entry: entry.update({"status": "aborted"}))
+    shutil.rmtree(store.session_dir(session_id) / UPLOAD_DIR / upload_id, ignore_errors=True)
+    updated = get_upload(store, session_id, upload_id)
+    assert updated is not None
+    return updated
+
+
+def purge_expired_uploads(store: SessionStore, now=None) -> list[str]:
+    """清理超过保留期限的未完成上传（含崩溃遗留的 completing），返回被清理的 upload id。"""
+    now = now or datetime.now(timezone.utc)
+    purged: list[str] = []
+    if not store.root.exists():
+        return purged
+    for session_dir in sorted(store.root.iterdir()):
+        session_id = session_dir.name
+        if not session_dir.is_dir() or not is_valid_session_id(session_id):
+            continue
+        record = store.load(session_id)
+        if record is None:
+            continue
+        for entry in list(record.uploads):
+            if entry.get("status") in {"completed", "aborted"}:
+                continue
+            expires_at = entry.get("expires_at")
+            if not expires_at:
+                continue
+            try:
+                deadline = datetime.fromisoformat(expires_at)
+            except ValueError:
+                continue
+            if deadline > now:
+                continue
+            upload_id = entry["id"]
+            _update_upload(
+                store, session_id, upload_id, lambda item: item.update({"status": "aborted"})
+            )
+            shutil.rmtree(store.session_dir(session_id) / UPLOAD_DIR / upload_id, ignore_errors=True)
+            purged.append(upload_id)
+    return purged

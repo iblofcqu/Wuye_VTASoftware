@@ -9,6 +9,7 @@ from app.core.artifacts import artifact_public_dict, get_artifact
 from app.core.uploads import (
     ChecksumMismatch,
     UploadTooLarge,
+    cancel_upload,
     complete_upload,
     create_upload,
     expected_chunk_length,
@@ -124,3 +125,14 @@ def finish_upload(upload_id: str, request: Request) -> dict:
     progress = _progress(upload)
     progress["artifact"] = artifact_public_dict(artifact)
     return progress
+
+
+@router.delete("/api/uploads/{upload_id}")
+def cancel(upload_id: str, request: Request) -> dict:
+    try:
+        upload = cancel_upload(request.app.state.session_store, request.state.session_id, upload_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from None
+    except ValueError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from None
+    return _progress(upload)
