@@ -8,6 +8,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.core.artifacts import register_artifact
+from app.core.preview import parse_preview_header
 from app.main import create_app
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
@@ -104,3 +105,9 @@ def test_quality_assess_job_reports_four_steps(tmp_path: Path) -> None:
         assert final["result"]["summary"]["figure"]["data"]
         assert final["result"]["artifacts"][0]["kind"] == "report"
         assert final["result"]["artifacts"][0]["name"].startswith("scan几何质量评估报告")
+
+        preview = client.get(f"/api/jobs/{job_id}/preview")
+        assert preview.status_code == 200, preview.text
+        header = parse_preview_header(preview.content)
+        assert header["fields"] == ["x", "y", "z", "scalar"]
+        assert header["scalar_unit"] == "mm" and header["colormap"] == "seismic"

@@ -17,6 +17,7 @@ class JobRecord:
     updated_at: str = field(default_factory=utc_now_iso)
     error: str | None = None
     result: dict | None = None
+    params: dict = field(default_factory=dict)
     internal: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
@@ -32,9 +33,10 @@ class JobRecord:
             updated_at=data.get("updated_at", utc_now_iso()),
             error=data.get("error"),
             result=data.get("result"),
+            params=dict(data.get("params", {})),
             internal=dict(data.get("internal", {})),
         )
 
 
-def new_job(tool: str) -> JobRecord:
-    return JobRecord(id=str(uuid.uuid4()), tool=tool)
+def new_job(tool: str, params: dict | None = None) -> JobRecord:
+    return JobRecord(id=str(uuid.uuid4()), tool=tool, params=dict(params or {}))

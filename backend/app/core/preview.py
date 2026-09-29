@@ -143,3 +143,42 @@ def artifact_preview(
     tmp.write_bytes(data)
     os.replace(tmp, cache_path)
     return data
+
+
+def job_error_preview(store: SessionStore, session_id: str, job: dict) -> bytes:
+    """质量评估任务的偏差云预览（按基线显示语义：mm、剔除最大比例置零、seismic）。"""
+    cache_path = _cache_path(store, session_id, f"job-{job['id']}")
+    if cache_path.exists():
+        return cache_path.read_bytes()
+
+    error_cloud = job.get("internal", {}).get("internal_outputs", {}).get("error_cloud")
+    if not error_cloud or not Path(error_cloud).is_file():
+        raise ValueError("该任务没有可预览的偏差点云")
+
+    data = np.load(error_cloud)
+    if data.ndim != 2 or data.shape[1] < 4:
+        raise ValueError("偏差云数据格式不正确")
+    points = data[:, :3]
+    errors_mm = np.asarray(data[:, 3], dtype=np.float64) * 1000.0
+    ratio = float(job.get("params", {}).get("ratio", 0.0) or 0.0)
+    zero_count = int(len(errors_mm) * ratio)
+    if zero_count > 0:
+        top = np.argsort(errors_mm)[::-1][:zero_count]
+        errors_mm = errors_mm.copy()
+        errors_mm[top] = 0.0
+
+    result = job.get("result") or {}
+    summary = result.get("summary") or {}
+    payload = encode_preview(
+        points,
+        errors_mm,
+        name=f"{summary.get('method', 'QA')}-偏差云",
+        scalar_unit="mm",
+        colormap="seismic",
+        extra={"zeroed_ratio": ratio},
+    )
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = cache_path.with_name(cache_path.name + ".tmp")
+    tmp.write_bytes(payload)
+    os.replace(tmp, cache_path)
+    return payload

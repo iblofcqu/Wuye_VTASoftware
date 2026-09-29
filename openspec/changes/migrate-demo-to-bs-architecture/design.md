@@ -104,7 +104,8 @@
 | POST | `/api/tools/{tool}/jobs` | 提交任务（7 个工具 id，参数按工具校验）→ `job_id` |
 | GET | `/api/jobs/{id}` | 状态/分步进度/失败原因；成功后返回结果载荷 |
 | GET | `/api/artifacts/{id}/download` | 下载点云或 PDF（还原原名） |
-| GET | `/api/artifacts/{id}/preview` | 轻量化预览二进制（含偏差标量） |
+| GET | `/api/artifacts/{id}/preview` | 轻量化预览二进制（点云产物） |
+| GET | `/api/jobs/{id}/preview` | 任务结果预览（质量评估偏差云：mm 标量 + seismic 色带） |
 | GET | `/api/health` | 部署自检（TeX/Chromium/离屏渲染/字体） |
 
 - 工具 id：`mesh-discretize`、`scale`、`downsample-voxel`、`downsample-uniform`、`register-fpfh`、`register-icp`、`quality-assess`。

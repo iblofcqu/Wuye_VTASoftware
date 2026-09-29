@@ -7,6 +7,7 @@ from fastapi import FastAPI
 
 from app.api.artifacts import router as artifacts_router
 from app.api.jobs import router as jobs_router
+from app.api.preview import router as preview_router
 from app.api.session import install_session_support
 from app.api.uploads import router as uploads_router
 from app.config import SESSION_ROOT
@@ -36,6 +37,7 @@ def create_app(
     app.include_router(artifacts_router)
     app.include_router(uploads_router)
     app.include_router(jobs_router)
+    app.include_router(preview_router)
     return app
 
 

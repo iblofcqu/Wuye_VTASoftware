@@ -56,7 +56,7 @@ class JobRunner:
     def submit(self, session_id: str, tool: str, params: dict, input_paths: dict, input_names: dict | None = None) -> dict:
         if tool not in self.registry:
             raise ValueError(f"未知工具: {tool}")
-        job = new_job(tool)
+        job = new_job(tool, params)
         job_store.add_job(self.store, session_id, job)
         work_dir = self.work_dir(session_id, job.id)
         work_dir.mkdir(parents=True, exist_ok=True)
