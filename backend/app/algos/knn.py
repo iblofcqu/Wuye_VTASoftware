@@ -148,4 +148,3 @@ def Error_caculate_Point2Plane(check_pt, pcd, r):
 
     pcd_neat_distance = np.hstack(pcd_neat_distance)
     return pcd_neat_distance
-
