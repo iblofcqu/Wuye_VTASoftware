@@ -7,6 +7,7 @@ from typing import Callable
 import numpy as np
 
 ProgressCallback = Callable[[str, int, int], None]
+ReportProgressCallback = Callable[[str], None]
 
 
 def baseline_stem(path) -> str:
@@ -16,6 +17,10 @@ def baseline_stem(path) -> str:
 
 def noop_progress(stage: str, done: int, total: int) -> None:
     """默认进度回调（无操作）。"""
+
+
+def noop_report_progress(stage: str) -> None:
+    """默认报告阶段回调（无操作）。"""
 
 
 def require_positive_number(value, name: str) -> float:

@@ -8,7 +8,7 @@ import JobProgress from '@/components/JobProgress.vue'
 import PointCloudViewer from '@/components/PointCloudViewer.vue'
 import ReportCard from '@/components/ReportCard.vue'
 import { useToolJob } from '@/composables/useToolJob'
-import { formatDeviationMetrics } from '@/utils/qa'
+import { formatDeviationMetrics, selectHistogramFigure } from '@/utils/qa'
 
 const { workspace, jobId, finishedJob, submitting, error, run, onFinished } = useToolJob()
 
@@ -32,9 +32,7 @@ onMounted(() => void workspace.refresh())
 const summary = computed<Record<string, unknown> | null>(
   () => (finishedJob.value?.result?.summary as Record<string, unknown> | undefined) ?? null,
 )
-const figure = computed<Record<string, unknown> | null>(
-  () => (summary.value?.figure as Record<string, unknown> | undefined) ?? null,
-)
+const figure = computed<Record<string, unknown> | null>(() => selectHistogramFigure(summary.value))
 const metrics = computed(() => formatDeviationMetrics(summary.value))
 function start() {
   void run(

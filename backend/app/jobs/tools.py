@@ -1,6 +1,11 @@
 """工具注册表：把服务层封装为进程池可执行的 worker。"""
 
+from pathlib import Path
+
+from app import config
+from app.report.supervisor import run_report_phase
 from app.services import preprocessing, quality, registration
+from app.services.common import ToolResult
 
 INPUT_SPECS = {
     "mesh-discretize": ("input",),
@@ -82,17 +87,29 @@ def run_register_icp(params, inputs, input_names, work_dir, progress):
 
 
 def run_quality_assess(params, inputs, input_names, work_dir, progress):
-    result = quality.assess(
-        inputs["scan"],
-        inputs["bim"],
-        work_dir,
-        work_dir / "cache",
-        unit=params.get("unit"),
-        method=params.get("method"),
-        distance=params.get("distance"),
-        ratio=params.get("ratio"),
-        scan_name=input_names.get("scan"),
-        progress=progress,
+    # report phase writes its own progress.json in the child process; keep the
+    # runner callback in the signature for the common worker interface.
+    _ = progress
+    raw_result = run_report_phase(
+        quality.assess,
+        args=(inputs["scan"], inputs["bim"], work_dir, work_dir / "cache"),
+        kwargs={
+            "unit": params.get("unit"),
+            "method": params.get("method"),
+            "distance": params.get("distance"),
+            "ratio": params.get("ratio"),
+            "scan_name": input_names.get("scan"),
+        },
+        work_dir=work_dir,
+        timeout_seconds=config.REPORT_TIMEOUT_SECONDS,
+    )
+    result = ToolResult(
+        output_path=Path(raw_result["output_path"]),
+        display_name=raw_result["display_name"],
+        summary=dict(raw_result.get("summary", {})),
+        internal_outputs={
+            key: Path(value) for key, value in raw_result.get("internal_outputs", {}).items()
+        },
     )
     return _payload(result, kind="report")
 

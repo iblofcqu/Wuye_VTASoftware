@@ -99,7 +99,10 @@ def test_quality_assess_job_reports_four_steps(tmp_path: Path) -> None:
 
         final = client.get(f"/api/jobs/{job_id}").json()
         assert final["status"] == "succeeded", final.get("error")
-        assert any(stage.startswith("第1/4步") for stage in stages), stages
+        assert stages, stages
+        assert all(
+            stage.startswith(("第1/4步", "第2/4步", "第3/4步", "第4/4步")) for stage in stages
+        ), stages
         assert any(stage.startswith("第4/4步") for stage in stages), stages
         assert final["result"]["summary"]["check_num"] > 0
         assert final["result"]["summary"]["figure"]["data"]

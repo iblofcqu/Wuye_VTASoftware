@@ -23,3 +23,24 @@ JOB_WORK_DIR = "work"
 
 # 预览
 PREVIEW_MAX_POINTS = int(os.environ.get("WUYE_PREVIEW_MAX_POINTS", "1000000"))
+
+# 报告生成
+REPORT_TIMEOUT_DEFAULT_SECONDS = 300
+REPORT_TIMEOUT_MIN_SECONDS = 30
+REPORT_TIMEOUT_MAX_SECONDS = 3600
+
+
+def parse_report_timeout_seconds(value=None) -> int:
+    raw = os.environ.get("WUYE_REPORT_TIMEOUT_SECONDS", str(REPORT_TIMEOUT_DEFAULT_SECONDS)) if value is None else value
+    try:
+        seconds = int(raw)
+    except (TypeError, ValueError):
+        raise ValueError("WUYE_REPORT_TIMEOUT_SECONDS 必须是整数") from None
+    if not REPORT_TIMEOUT_MIN_SECONDS <= seconds <= REPORT_TIMEOUT_MAX_SECONDS:
+        raise ValueError(
+            f"WUYE_REPORT_TIMEOUT_SECONDS 必须在 {REPORT_TIMEOUT_MIN_SECONDS}~{REPORT_TIMEOUT_MAX_SECONDS} 秒之间"
+        )
+    return seconds
+
+
+REPORT_TIMEOUT_SECONDS = parse_report_timeout_seconds()
