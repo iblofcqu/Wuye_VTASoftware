@@ -5,12 +5,15 @@ import hashlib
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 
+from app.core.artifacts import artifact_public_dict, get_artifact
 from app.core.uploads import (
     ChecksumMismatch,
     UploadTooLarge,
+    complete_upload,
     create_upload,
     expected_chunk_length,
     get_upload,
+    missing_chunks,
     receive_chunk,
 )
 
@@ -27,10 +30,16 @@ def _progress(upload) -> dict:
     return {
         "upload_id": upload.id,
         "filename": upload.filename,
+        "kind": upload.kind,
+        "size": upload.size,
         "chunk_size": upload.chunk_size,
         "total_chunks": upload.total_chunks,
         "received": len(upload.received),
         "received_indices": upload.received,
+        "missing_indices": missing_chunks(upload),
+        "status": upload.status,
+        "expires_at": upload.expires_at,
+        "artifact_id": upload.artifact_id,
     }
 
 
@@ -87,3 +96,31 @@ async def put_chunk(upload_id: str, index: int, request: Request) -> dict:
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from None
     return _progress(updated)
+
+
+@router.get("/api/uploads/{upload_id}")
+def get_upload_status(upload_id: str, request: Request) -> dict:
+    upload = get_upload(request.app.state.session_store, request.state.session_id, upload_id)
+    if upload is None:
+        raise HTTPException(status_code=404, detail="上传不存在")
+    return _progress(upload)
+
+
+@router.post("/api/uploads/{upload_id}/complete")
+def finish_upload(upload_id: str, request: Request) -> dict:
+    store = request.app.state.session_store
+    session_id = request.state.session_id
+    try:
+        upload, artifact_id = complete_upload(store, session_id, upload_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from None
+    except ChecksumMismatch as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from None
+    except ValueError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from None
+
+    artifact = get_artifact(store, session_id, artifact_id)
+    assert artifact is not None
+    progress = _progress(upload)
+    progress["artifact"] = artifact_public_dict(artifact)
+    return progress

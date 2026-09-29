@@ -32,6 +32,14 @@ def install_session_support(app: FastAPI, store: SessionStore) -> None:
     def get_session(request: Request) -> dict:
         record = store.load(request.state.session_id)
         assert record is not None
-        return record.to_dict()
+        data = record.to_dict()
+        data["artifacts"] = [
+            {key: value for key, value in entry.items() if key != "path"} for entry in data["artifacts"]
+        ]
+        data["uploads"] = [
+            {key: value for key, value in entry.items() if key != "chunk_sha256"}
+            for entry in data["uploads"]
+        ]
+        return data
 
     app.include_router(router)

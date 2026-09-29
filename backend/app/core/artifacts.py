@@ -38,6 +38,13 @@ class Artifact:
         )
 
 
+def artifact_public_dict(artifact: Artifact) -> dict:
+    """API 输出：不暴露内部存储路径。"""
+    data = artifact.to_dict()
+    data.pop("path", None)
+    return data
+
+
 def sanitize_name(name) -> str:
     """去掉任何目录成分，拒绝空名、纯父目录引用与目录式名称（以分隔符结尾）。"""
     raw = str(name).replace("\\", "/")
@@ -57,6 +64,7 @@ def register_artifact(
     name: str,
     kind: str,
     source_job: str | None = None,
+    move: bool = False,
 ) -> Artifact:
     if kind not in ARTIFACT_KINDS:
         raise ValueError(f"未知产物类型: {kind}")
@@ -72,7 +80,10 @@ def register_artifact(
     relative = Path(ARTIFACT_DIR) / f"{artifact_id}{suffix}"
     destination = store.session_dir(session_id) / relative
     destination.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(source, destination)
+    if move:
+        shutil.move(str(source), str(destination))
+    else:
+        shutil.copy2(source, destination)
 
     artifact = Artifact(
         id=artifact_id,

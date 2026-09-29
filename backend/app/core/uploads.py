@@ -1,20 +1,23 @@
-"""断点续传上传：分片幂等接收 + SHA-256 校验。"""
+"""断点续传上传：分片幂等接收 + SHA-256 校验 + 合并登记。"""
 
 import hashlib
 import hmac
 import math
 import os
+import shutil
 import uuid
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from app import config
-from app.core.artifacts import sanitize_name
+from app.core.artifacts import register_artifact, sanitize_name
 from app.core.sessions import SessionStore, utc_now_iso
 
 UPLOAD_DIR = "uploads"
 CHUNK_DIR = "chunks"
+MESH_EXTENSIONS = {".stl", ".ply", ".obj", ".off", ".gltf", ".glb"}
+POINT_EXTENSIONS = {".xyz", ".asc", ".txt", ".xls"}
 
 
 class UploadTooLarge(ValueError):
@@ -22,17 +25,33 @@ class UploadTooLarge(ValueError):
 
 
 class ChecksumMismatch(ValueError):
-    """分片校验失败。"""
+    """分片或整体校验失败。"""
+
+    def __init__(self, message: str, index: int | None = None):
+        super().__init__(message)
+        self.index = index
+
+
+def guess_kind(filename: str) -> str:
+    suffix = Path(sanitize_name(filename)).suffix.lower()
+    if suffix in MESH_EXTENSIONS:
+        return "mesh"
+    if suffix in POINT_EXTENSIONS:
+        return "pointcloud"
+    raise ValueError(f"不支持的文件类型: {suffix or '(无扩展名)'}")
 
 
 @dataclass
 class UploadRecord:
     id: str
     filename: str
+    kind: str
     size: int
     chunk_size: int
     received: list = field(default_factory=list)
+    chunk_sha256: dict = field(default_factory=dict)
     status: str = "uploading"
+    artifact_id: str | None = None
     created_at: str = field(default_factory=utc_now_iso)
     expires_at: str = ""
 
@@ -48,10 +67,13 @@ class UploadRecord:
         return cls(
             id=data["id"],
             filename=data["filename"],
+            kind=data.get("kind", "pointcloud"),
             size=int(data["size"]),
             chunk_size=int(data["chunk_size"]),
             received=list(data.get("received", [])),
+            chunk_sha256=dict(data.get("chunk_sha256", {})),
             status=data.get("status", "uploading"),
+            artifact_id=data.get("artifact_id"),
             created_at=data.get("created_at", utc_now_iso()),
             expires_at=data.get("expires_at", ""),
         )
@@ -59,6 +81,7 @@ class UploadRecord:
 
 def create_upload(store: SessionStore, session_id: str, filename, size, chunk_size=None) -> UploadRecord:
     name = sanitize_name(filename)
+    kind = guess_kind(name)
     try:
         size = int(size)
     except (TypeError, ValueError):
@@ -79,7 +102,7 @@ def create_upload(store: SessionStore, session_id: str, filename, size, chunk_si
         timespec="seconds"
     )
     record = UploadRecord(
-        id=str(uuid.uuid4()), filename=name, size=size, chunk_size=chunk, expires_at=expires_at
+        id=str(uuid.uuid4()), filename=name, kind=kind, size=size, chunk_size=chunk, expires_at=expires_at
     )
     store.update(session_id, lambda session: session.uploads.append(record.to_dict()))
     return record
@@ -104,6 +127,11 @@ def expected_chunk_length(upload: UploadRecord, index: int) -> int:
         raise ValueError(f"分片序号超出范围: {index}")
     start = index * upload.chunk_size
     return min(upload.chunk_size, upload.size - start)
+
+
+def missing_chunks(upload: UploadRecord) -> list[int]:
+    received = set(upload.received)
+    return [index for index in range(upload.total_chunks) if index not in received]
 
 
 def receive_chunk(
@@ -137,6 +165,9 @@ def receive_chunk(
                 received = set(entry.get("received", []))
                 received.add(index)
                 entry["received"] = sorted(received)
+                hashes = dict(entry.get("chunk_sha256", {}))
+                hashes[str(index)] = digest
+                entry["chunk_sha256"] = hashes
                 return
         raise FileNotFoundError(f"上传不存在: {upload_id}")
 
@@ -144,3 +175,91 @@ def receive_chunk(
     updated = get_upload(store, session_id, upload_id)
     assert updated is not None
     return updated
+
+
+def _update_upload(store: SessionStore, session_id: str, upload_id: str, mutate) -> None:
+    def wrapper(session) -> None:
+        for entry in session.uploads:
+            if entry.get("id") == upload_id:
+                mutate(entry)
+                return
+        raise FileNotFoundError(f"上传不存在: {upload_id}")
+
+    store.update(session_id, wrapper)
+
+
+def _assemble(store: SessionStore, session_id: str, upload: UploadRecord) -> tuple[Path, str]:
+    missing = missing_chunks(upload)
+    if missing:
+        raise ValueError(f"存在未上传的分片: {missing}")
+
+    upload_dir = store.session_dir(session_id) / UPLOAD_DIR / upload.id
+    assembled = upload_dir / "assembled.bin"
+    file_hasher = hashlib.sha256()
+    written = 0
+    with assembled.open("wb") as out:
+        for index in range(upload.total_chunks):
+            path = chunk_path(store, session_id, upload.id, index)
+            if not path.is_file():
+                raise ChecksumMismatch(f"分片文件缺失: {index}", index=index)
+            data = path.read_bytes()
+            if len(data) != expected_chunk_length(upload, index):
+                raise ChecksumMismatch(f"分片长度不符: {index}", index=index)
+            digest = hashlib.sha256(data).hexdigest()
+            if digest != upload.chunk_sha256.get(str(index), ""):
+                raise ChecksumMismatch(f"分片校验失败: {index}", index=index)
+            out.write(data)
+            file_hasher.update(data)
+            written += len(data)
+    if written != upload.size:
+        raise ChecksumMismatch(f"文件总大小不符：期望 {upload.size}，实际 {written}")
+    return assembled, file_hasher.hexdigest()
+
+
+def complete_upload(store: SessionStore, session_id: str, upload_id: str):
+    """合并分片并登记产物；completed 状态下幂等返回既有产物。"""
+    upload = get_upload(store, session_id, upload_id)
+    if upload is None:
+        raise FileNotFoundError(f"上传不存在: {upload_id}")
+    if upload.status == "completed" and upload.artifact_id:
+        return upload, upload.artifact_id
+    if upload.status != "uploading":
+        raise ValueError(f"上传状态不可完成: {upload.status}")
+
+    def claim(entry) -> None:
+        if entry.get("status") != "uploading":
+            raise ValueError(f"上传状态不可完成: {entry.get('status')}")
+        entry["status"] = "completing"
+
+    _update_upload(store, session_id, upload_id, claim)
+
+    try:
+        assembled, _file_sha256 = _assemble(store, session_id, upload)
+    except (ValueError, ChecksumMismatch) as exc:
+        def recover(entry) -> None:
+            entry["status"] = "uploading"
+            if isinstance(exc, ChecksumMismatch) and exc.index is not None:
+                received = set(entry.get("received", []))
+                received.discard(exc.index)
+                entry["received"] = sorted(received)
+                hashes = dict(entry.get("chunk_sha256", {}))
+                hashes.pop(str(exc.index), None)
+                entry["chunk_sha256"] = hashes
+                chunk_path(store, session_id, upload_id, exc.index).unlink(missing_ok=True)
+
+        _update_upload(store, session_id, upload_id, recover)
+        raise
+
+    artifact = register_artifact(
+        store, session_id, assembled, name=upload.filename, kind=upload.kind, move=True
+    )
+    shutil.rmtree(store.session_dir(session_id) / UPLOAD_DIR / upload_id, ignore_errors=True)
+
+    def finalize(entry) -> None:
+        entry["status"] = "completed"
+        entry["artifact_id"] = artifact.id
+
+    _update_upload(store, session_id, upload_id, finalize)
+    updated = get_upload(store, session_id, upload_id)
+    assert updated is not None
+    return updated, artifact.id
