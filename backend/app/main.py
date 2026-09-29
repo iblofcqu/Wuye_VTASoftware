@@ -6,6 +6,7 @@ from pathlib import Path
 from fastapi import FastAPI
 
 from app.api.artifacts import router as artifacts_router
+from app.api.health import router as health_router
 from app.api.jobs import router as jobs_router
 from app.api.preview import router as preview_router
 from app.api.session import install_session_support
@@ -38,6 +39,7 @@ def create_app(
     app.include_router(uploads_router)
     app.include_router(jobs_router)
     app.include_router(preview_router)
+    app.include_router(health_router)
     return app
 
 
