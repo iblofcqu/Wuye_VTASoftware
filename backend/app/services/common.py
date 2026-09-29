@@ -45,3 +45,4 @@ class ToolResult:
     output_path: Path
     display_name: str
     summary: dict = field(default_factory=dict)
+    internal_outputs: dict = field(default_factory=dict)
