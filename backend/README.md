@@ -167,6 +167,7 @@ $env:Path = "C:\path\to\tex\bin;$env:Path"
 | `WUYE_SESSION_MAX_AGE_SECONDS` | 2592000（30 天） | 会话 cookie 有效期 |
 | `WUYE_JOB_POOL_SIZE` | 2 | 计算进程池容量 |
 | `WUYE_PREVIEW_MAX_POINTS` | 1000000 | 预览点数上限 |
+| `WUYE_REPORT_TIMEOUT_SECONDS` | 300 | 报告生成阶段超时秒数（30~3600）；超时任务失败并报告最后阶段 |
 | `WUYE_MAX_UPLOAD_BYTES` | 5 GiB | 单文件大小上限 |
 | `WUYE_UPLOAD_CHUNK_SIZE` | 8 MiB | 默认分片大小 |
 | `WUYE_UPLOAD_TTL_SECONDS` | 86400 | 未完成上传保留时间 |
@@ -179,3 +180,5 @@ cd backend
 uv run pytest -q                      # 全部后端测试
 PATH="$HOME/.local/bin:$PATH" uv run pytest -q   # 含真实 PDF 报告链路
 ```
+
+质量评估的报告生成阶段默认有 5 分钟超时；超时后任务会失败、不会登记 PDF 产物，错误信息包含超时秒数和最后阶段。Windows/PowerShell 使用同一 `WUYE_REPORT_TIMEOUT_SECONDS` 环境变量。

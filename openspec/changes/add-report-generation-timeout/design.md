@@ -34,7 +34,7 @@ The timeout is deliberately scoped to report generation, not to upstream point-c
 
 ### D1: Supervise the complete report phase in a dedicated child process
 
-Use a top-level, spawn-compatible child process for the quality-assess report phase. The existing worker becomes the supervisor: it starts the child, monitors a report-state file, and raises `ReportTimeoutError` if the report phase exceeds the configured timeout.
+Use a dedicated Python subprocess (`python -m app.report.worker`) for the quality-assess report phase. The existing worker becomes the supervisor: it writes an internal payload, starts the subprocess, monitors a report-state file and result/error JSON, and raises `ReportTimeoutError` if the report phase exceeds the configured timeout. The payload is internal work-directory data, not browser input.
 
 Alternative considered: interrupt `pylatex` or Kaleido with a Python thread. Rejected because native PyVista calls and external browser/LaTeX subprocesses may not observe Python cancellation.
 
@@ -42,7 +42,7 @@ Alternative considered: apply `subprocess.run(timeout=...)` only to `latexmk`. R
 
 ### D2: Start the timeout at the report-phase marker, not at worker startup
 
-`quality.assess()` (or a small report-phase wrapper) writes a state file before the first report-specific operation and updates its `stage` before each blocking sub-stage. The supervisor waits for `report_started=true`, then starts the 300-second countdown.
+`quality.assess()` first completes upstream data loading, filtering and deviation calculation, then writes a state file before the first report-specific operation and updates its `stage` before each blocking sub-stage. The supervisor waits for `report_started=true`, then starts the 300-second countdown. This ordering keeps upstream algorithm time outside the report timeout.
 
 Suggested stable stages:
 
@@ -64,10 +64,10 @@ Alternative considered: hard-code 300 in the code. Rejected because tests and fu
 
 ### D4: Terminate the whole process tree with platform-specific semantics
 
-The child process is created with the `spawn` multiprocessing context for Windows compatibility.
+The report subprocess is launched with `subprocess.Popen`:
 
-- On Linux/macOS, the child creates a new session/process group; timeout cleanup sends `SIGKILL` to that process group.
-- On Windows, cleanup invokes `taskkill /F /T /PID <pid>` so Chrome, `latexmk`, `xelatex` and other descendants are terminated with the report child.
+- On Linux/macOS, `start_new_session=True` creates a new session/process group; timeout cleanup sends `SIGKILL` to that process group.
+- On Windows, `CREATE_NEW_PROCESS_GROUP` is used and cleanup invokes `taskkill /F /T /PID <pid>` so Chrome, `latexmk`, `xelatex` and other descendants are terminated with the report child.
 
 The supervisor waits for termination and ignores already-exited children. A timeout is converted to `ReportTimeoutError(timeout_seconds, last_stage)`, which the job runner records as a normal task failure.
 
@@ -89,7 +89,7 @@ The existing progress JSON remains compatible with the frontend. The supervisor 
 
 ## Risks / Trade-offs
 
-- [The nested child process may be blocked in native code] → Kill the process tree from the supervisor; do not rely on Python-level cleanup handlers inside the child.
+- [The report subprocess or its descendants may be blocked in native code] → Kill the process tree from the supervisor; do not rely on Python-level cleanup handlers inside the child.
 - [Windows `taskkill` may be unavailable or return non-zero] → Treat cleanup as best-effort, record the timeout failure regardless, and log the cleanup command result.
 - [A legitimate report could take longer than 300 seconds] → The timeout is configurable; the default satisfies the requested behavior.
 - [Child-process startup adds overhead] → The report phase already launches Chrome and LaTeX; one additional process startup is negligible and the process is not created for non-quality tools.
