@@ -1,107 +1,170 @@
 ---
 type: workflow-guide
-title: 点云预处理工作流
-description: 说明网格离散、尺寸缩放、体素/均匀下采样、FPFH 粗配准和三次 ICP 精配准的界面输入、输出文件、缓存交接与失败边界。
-tags: [workflow, point-cloud, preprocessing, registration]
+title: 点云预处理 B/S 工作流
+description: 说明浏览器中网格离散、尺寸缩放、体素/均匀下采样、FPFH 粗配准和三次 ICP 精配准的输入选择、任务提交、输出命名、预览与会话内交接。
+tags: [workflow, preprocessing, registration, artifacts, browser-server]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-28T07:28:45.133Z
+    at: 2026-09-29T03:28:02.619Z
 sources:
+  - id: openwiki-source-641ae98462ef0e5867e3c63c
+    resource: repo://backend/app/core/sessions.py
+  - id: openwiki-source-af8bc07dd356b94582111a05
+    resource: repo://backend/app/core/uploads.py
+  - id: openwiki-source-5cd8a5b32eb393895819dfdc
+    resource: repo://backend/app/jobs/runner.py
+  - id: openwiki-source-fecf2f8a5b5c8cf503ca5e77
+    resource: repo://backend/app/jobs/tools.py
+  - id: openwiki-source-b2155c0405a34f9e4fd6857d
+    resource: repo://backend/app/services/preprocessing.py
+  - id: openwiki-source-fdf91f260fb2d57c38f672b5
+    resource: repo://backend/app/services/registration.py
   - id: openwiki-source-9b9d978afb5e2b72c2de72f8
     resource: repo://base_software/functions/Poisson_Disk_Sampling.py
   - id: openwiki-source-db642bdc773df44d5cdde189
     resource: repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py
-generated: { by: "codex", at: "2026-09-28T07:28:45.133Z" }
+  - id: openwiki-source-b4c959afbd45d736542ecd0d
+    resource: repo://frontend/src/components/ArtifactPicker.vue
+  - id: openwiki-source-77c413f182fc2eead5535edb
+    resource: repo://frontend/src/router/index.ts
+  - id: openwiki-source-0037485c266dfb010270ce6d
+    resource: repo://frontend/src/views/preprocess/DiscretizeView.vue
+  - id: openwiki-source-a9566f1024bc09f05db887ec
+    resource: repo://frontend/src/views/preprocess/DownsampleView.vue
+  - id: openwiki-source-ca64c3e18d3de19e870c8957
+    resource: repo://frontend/src/views/preprocess/RegistrationView.vue
+generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
 ---
 
-# 点云预处理工作流
+# 点云预处理 B/S 工作流
 
-## 功能导航
+## 工具与路由
 
-`base_software/pages/1_🛠️_点云预处理.py` 是统一入口，侧边栏提供说明书、网格离散、尺寸缩放、下采样和配准。前三个下采样/转换工具彼此独立；“配准”内部再分为 FPFH 粗配准和 ICP 精配准，二者通过缓存路径形成推荐衔接，但用户仍可自由选择其他点云文件。
+当前前端把预处理拆成独立页面：
 
-所有工具都使用本机 Tk 对话框选择路径，并把路径直接写入 `cache`。这些选择按钮不会校验上游文件是否存在；真正的计算按钮通常在打开缓存文件或读取点云时才失败。
+| 工具 | 路由 | 任务工具 id |
+| --- | --- | --- |
+| 网格离散 | `/preprocess/discretize` | `mesh-discretize` |
+| 尺寸缩放 | `/preprocess/scale` | `scale` |
+| 下采样 | `/preprocess/downsample` | `downsample-voxel` / `downsample-uniform` |
+| 配准 | `/preprocess/registration` | `register-fpfh` / `register-icp` |
+
+每个页面通过 `ArtifactPicker` 选择当前会话中的 pointcloud/mesh artifact，也允许直接用 `FileUploader` 上传新文件。页面只提交 artifact id 和参数，任务 API 再从会话中解析内部文件路径。
+
+## 共同交互流程
+
+典型步骤是：
+
+1. 选择或上传输入文件。
+2. 填写参数并提交任务。
+3. `JobProgress` 轮询任务状态和阶段进度。
+4. 任务成功后，页面刷新 workspace 会话快照。
+5. 结果进入 `artifacts` 列表，显示预览和下载链接，并可被后续步骤选择。
+
+所有工具都使用异步任务，不在浏览器请求线程中执行点云算法。失败任务不会登记结果 artifact，错误文本显示在任务进度卡中。
 
 ## 网格离散
 
-输入是一个三角网格文件和输出目录。页面设置默认点间距 `0.2`，调用 `Mesh_to_PCD` 后：
+输入是 mesh artifact，参数是点云间距。服务调用 `Mesh_to_PCD()`，输出：
 
-1. 以输入文件名去掉最后一个后缀作为结果主名。
-2. 将离散点云显示为蓝色预览。
-3. 通过 `np.savetxt` 保存为 `<网格主名>.xyz`。
+```text
+<网格主名>.xyz
+```
 
-代码会尝试把点间距转成浮点数，但“开始离散”按钮没有检查转换是否成功，也没有检查值是否大于零；例如输入非数字时会把字符串继续传给采样函数。输入或输出路径缓存不存在时，页面会先显示错误并停止当前脚本执行。
+输出登记为 pointcloud artifact，可立即请求 WYPV 预览。点云间距会经过正数校验；非法值使任务失败而不是把非法字符串传给算法。
+
+网格离散的主要采样调用是单个 Open3D 阻塞步骤，没有细粒度内部进度；页面的 `1/2`、`2/2` 只是服务层阶段标记，不是采样算法内部百分比。
 
 ## 尺寸缩放
 
-尺寸缩放读取一个点云文件，并让用户选择原始单位和目标单位。系数计算为：
+输入是 pointcloud artifact，参数是原单位和目标单位。支持 `m`、`dm`、`cm`、`mm`，按：
 
 ```text
-原始单位系数 / 目标单位系数
+原单位系数 / 目标单位系数
 ```
 
-点云坐标乘以该系数后保存为 `<原文件主名>_<目标单位>.xyz`。支持的目标单位包括 `m`、`dm`、`cm` 和 `mm`。页面没有提供坐标系转换、非均匀缩放或对零尺寸模型的特殊处理。
-
-## 体素下采样
-
-体素下采样接受体素尺寸，默认 `0.01`。页面读取点云后调用 `voxel_downsample`，同时展示原始点和下采样结果的点数，并保存为：
+乘坐标，输出：
 
 ```text
-<原文件主名>_VD.xyz
+<原点云主名>_<目标单位>.xyz
 ```
 
-输入尺寸虽然经过 `float` 转换尝试，但按钮逻辑没有阻止非法或非正参数继续执行。
+服务层会拒绝未知单位。缩放输出重新登记为当前会话的 pointcloud artifact，因此可以继续送往下采样、配准或质量评估。
 
-## 均匀下采样
+## 下采样
 
-均匀下采样接受整数采样间隔，默认 `2`。`uniform_downsample` 按 Open3D 的 `every_k_points` 语义取样，页面显示前后点数并保存为：
+### 体素下采样
+
+调用 `voxel_downsample(points, voxel_size)`，输出：
 
 ```text
-<原文件主名>_UD.xyz
+<输入主名>_VD.xyz
 ```
 
-与体素下采样相同，参数转换失败不会在按钮入口被拦截。
+体素尺寸必须为正数；服务层返回 summary 中的输入点数和输出点数，页面可用于快速检查采样程度。
+
+### 均匀下采样
+
+调用 `uniform_downsample(points, every_k)`，输出：
+
+```text
+<输入主名>_UD.xyz
+```
+
+采样间隔必须是正整数。该操作按 Open3D `every_k_points` 语义执行，输出同样登记为会话 artifact。
 
 ## FPFH 粗配准
 
-粗配准需要移动点云、固定点云和输出目录。选择固定点云时，页面同时写入 FPFH 和 ICP 两个 BIM 路径文件；选择输出目录时也同时写入两个输出路径文件。
+粗配准需要待配准点云和固定点云。服务调用 `FPFH_Registration(moving, fixed, voxel_size)`，输出：
 
-点击开始后，页面：
+```text
+<待配准点云主名>_FPFH.xyz
+```
 
-1. 从缓存读取两个点云路径与输出目录。
-2. 以扫描点云主名派生结果名。
-3. 显示移动/固定点云预览。
-4. 调用 `FPFH_Registration(SCENE_path, BIM_path, voxel_size)`。
-5. 保存 `<扫描点云主名>_FPFH.xyz`。
-6. 把该结果路径写入 `Tool_Registration_ICP_SCENE.txt`。
-7. 叠加显示固定点云与配准结果。
+体素大小必须为正数。FPFH/RANSAC 是随机算法，页面不能把一次完成视为配准正确；用户需要查看移动点云与固定点云的叠加预览，并在效果不理想时调整体素大小重试。
 
-页面随后明确要求用户检查粗配准效果，不理想时重跑。代码没有基于变换矩阵、重合度或残差自动判断质量。
-
-体素大小文本框在每次 Streamlit 重跑时都立即执行 `float(...)`，非法内容会导致页面异常，而不是等到点击按钮再提示。
+成功产物进入会话 artifact 列表。`RegistrationView` 在粗配准任务成功后会把该 artifact 自动填入精配准的“待配准点云”，如果精配准固定点云尚未选择，还会沿用粗配准的固定点云；用户仍可手动改选其他产物。
 
 ## ICP 精配准
 
-精配准需要移动点云、固定点云、输出目录，以及三次 ICP 的距离阈值。默认值为：
-
-| 次序 | 默认阈值（m） |
-| --- | --- |
-| 第一次 | `0.05` |
-| 第二次 | `0.03` |
-| 第三次 | `0.005` |
-
-点击开始后，页面先显示两侧点云，再依次调用三次 `Open3d_ICP`，最后保存：
+精配准默认阈值是：
 
 ```text
-<扫描点云主名>_ICP.xyz
+0.05、0.03、0.005
 ```
 
-如果用户不重新选择移动点云，精配准会读取粗配准写入的 `_FPFH.xyz`。重新选择任意输入或输出路径都会覆盖对应缓存；因此粗配准生成的建议路径不是不可变工作流状态。
+页面以数组形式提交三个阈值，服务层要求恰好三个正数。之后依次调用 `Open3d_ICP()` 三次，每次以上一次结果为源点云，最终输出：
 
-## 失败边界
+```text
+<待配准点云主名>_ICP.xyz
+```
 
-- 参数校验主要依靠文本框外的 `float/int` 转换，缺少对正数、区间和空值的统一检查。
-- 前置缓存文件缺失时，核心计算入口会出现 `FileNotFoundError`。
-- 文件对话框取消后写入的空路径不会被识别为取消。
-- 每个点云工具会成功保存结果，但除配准预览外，没有自动质量断言或测试来证明输出坐标和点数符合预期。
-- 精配准“打开输出文件夹”使用错误的绝对文件名，且各页面的打开目录方式并非全部跨平台。
+`Open3d_ICP` 使用点到平面 ICP，并有一个需要保留的基线行为：目标点云使用 `target_data[2:]`，目标前两个点不会参与本次精配准。服务不自动判断配准收敛质量。
+
+## 会话内复用与预览
+
+每个成功工具都会把输出登记为 artifact：
+
+- 网格离散、缩放、下采样和配准结果都是 pointcloud；
+- 结果可以下载，或在后续页面的 ArtifactPicker 中选择；
+- 点云预览由服务端生成 WYPV，浏览器通过 `PointCloudViewer` 加载；
+- 粗配准到精配准的交接通过 artifact id 完成，不依赖服务器文件路径或 base_software 的文本缓存文件。
+
+浏览器不具备 WebGL2 时，任务仍然可以正常完成并下载；只是三维预览会显示明确的能力错误。
+
+## 与 base_software 的差异
+
+算法参数、输出命名和数值行为以 base_software 为基线，但文件交互模型完全不同：
+
+- 当前使用浏览器上传/会话 artifact，不使用 Tk 对话框。
+- 当前使用 `data/sessions/<uuid>/artifacts/` 与 `session.json`，不写 `Tool_*` 文本路径缓存。
+- 当前每个任务使用独立 work 目录，结果由 runner 登记；失败原因通过任务 API 显式返回。
+- 结果预览和下载在浏览器中完成，不调用 `os.startfile` 打开服务器目录。
+
+## 相关页面
+
+- [会话、上传与产物工作流](session-upload-and-artifacts.md)
+- [异步任务执行与进度](async-job-execution.md)
+- [点云处理算法与基线约束](../algorithms/point-cloud-processing.md)
+- [点云预览管线](../architecture/point-cloud-preview-pipeline.md)
+- [快速开始](../quickstart.md)

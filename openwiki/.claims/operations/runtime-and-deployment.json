@@ -1,68 +1,56 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:1a038d3e7baa764403b2bbf0638c06d58582483f2e333363302389a3f75f7a78",
+  "pageVersion": "sha256:0e9cfa894af4c9751f9f2108ad301603116150081602b6c45b47f1578b685a71",
   "claims": [
     {
       "id": "claim_f2eddd8991ae4831a543b2a7552bc618",
-      "statement": "项目 README 声明界面由 Streamlit 展示、通过运行 home_page.py 使用，并声明完整运行需要 TeXstudio 和 Google Chrome。",
+      "statement": "base_software README 声明界面通过 Streamlit 展示、由 home_page.py 启动，并声明完整运行需要 TeXstudio 和 Google Chrome。",
       "evidence": [
         {
-          "resource": "repo://base_software/README.md#L1-L8",
-          "version": "repo-lines-v1:sha256:9504494ebabe73578c8f67e8987337d534e022b552f1403fb468dd01ea962daf:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWFlMzJjZjFlM2UzMTRhYjcxYWNkZWQ2MTBiMGY4MTgyYzA5OTMzMTNjZDU2NzlmYzQxMDk3OTdjMGY2OTk2NCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODY4YjA4YjVlODMyY2RjMmJhYzZhODQ3MDhlMGQxMzE0NDc0NzE0ZWY3MTZlMzU4NThiNDU0NTI1OTRiNzc3OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmUzM2NmZDI4YzQ1ZWIyYzg0MDI5YjZmMmZkOTZlODJlYTU5MDlmZjZiMWVjYTg3OWYyZWI3Yzc5Yjk1NGEwOSJ9"
+          "resource": "repo://base_software/README.md#L1-L11",
+          "version": "repo-lines-v1:sha256:a80296e8c78ce03bc3ada61f6aa96af9e235a7a4a451f2c7486ec31cce512627:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhZTMyY2YxZTNlMzE0YWI3MWFjZGVkNjEwYjBmODE4MmMwOTkzMzEzY2Q1Njc5ZmM0MTA5Nzk3YzBmNjk5NjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEwMzk5MTQxYzFiNDdhMzYxNDgwZmI0OTY3ODg3ZGMwYjIwODJjN2E4NmQ4NGE0YWIwMDYwYzI1ODE2ZmNkMjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVjM2FmNDZkNjcxYWE1NjM4ODY5OGUwNzNhNGJmZDczYjI0NjQ5OTFlNzRlZjE1YTQxN2ExNzJiNzE5MzkzMzQifQ"
         }
       ]
     },
     {
       "id": "claim_bfc51eae2fd941a08abdb3e35ba32281",
-      "statement": "首页依赖 interface/CMGC.png、interface/logo.png 和 interface/TJBridge.png；当前版本库未跟踪 interface 目录。",
+      "statement": "base_software 的 CMGC.png、logo.png 与 TJBridge.png 品牌资源现已由 git 跟踪，不再处于缺失界面资源状态。",
       "evidence": [
         {
-          "resource": "repo://base_software/home_page.py#L43-L47",
-          "version": "repo-lines-v1:sha256:50fae6db26de0fd26ef469231d6305d362bc99bb77452b4973295f337ec68730:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzhmZjIyOTIyZTg5YzFjNTM5MGY3MTYzMjIwZTUzNmI3MTMwNmUzYTc5NDY1NmE3MjUzYzk5OWMxMzQxMWNmOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg0NzQ0M2M0OGNlZDNmYzZkMDM1ZGQ5YWYwYjY2ODY2ODYwYTA4MmUwZmFlOTEzNjRjODA2MGIwY2VhZTYzNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWFiNzFjNWY2MDQwYTRlNDg5NTdiZjg2MmQ3ZjdlNzkzOTdkMGI2YjA4MDFjYTEzNjNhOWIwM2YyMTE5NGM3NCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmJiYWZhM2E5NzkzNGY3MDM0MWM5Yjg4ZjNiMDJhZTFhMmU1ZDljNzEwZmI1OTVkM2Q3MTBhNjFhZjlhZmEyMiJ9"
+          "resource": "repo://base_software/interface/CMGC.png",
+          "version": "repo-file-v1:sha256:4ad3284749d7c9d59ed0625bf43933e225f3e328b71432ac896b61513c6d20eb"
         },
         {
-          "resource": "repo://base_software/home_page.py#L59-L63",
-          "version": "repo-lines-v1:sha256:2b4cfc21e9c32a6d7c8a6b8f43b2b00d401c378c1c337b52d64c4887f96d1011:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODVmMjVjY2ZhNjMzMjVkMjhkOGYxM2YwZWRhN2YyNjQzZWU4NmYxYTExNzJjOWMwZTc2YWEwNTc3YjE3MzViYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmI4MWYxNDZjZjNiZDFhYjZmMWIwMGVhZTQwZWY0NmFjZWYwYmI1MGZkZGJjNmUwNTA5ZDNkNDc1OGIxMzYzNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTk0ZGFiNjBjYjIxZmNlMTU0OTkxYWI4OWI3YThmYTljNjRhYjFkNWYxYzc1OGVlZTIzOWVlZTIwM2QxMjVhMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmVhODRmZGJmODBmMTcwNjM0NTE1MTU1OTE1NjVlMTBkOGJhMDBiYzVkODZjMmI4OTdiOTk3MGJjNTc2MWUzMiJ9"
+          "resource": "repo://base_software/interface/TJBridge.png",
+          "version": "repo-file-v1:sha256:5858875e404600bba46b9556ce78f438a493e9aed0ff8673229784a7762cfff3"
         },
         {
-          "resource": "repo://base_software/path_utils.py#L15-L18",
-          "version": "repo-lines-v1:sha256:631f27fcba99565cf82e061aed80ff7eaaf177c81c62eabe6503ac2aa594fd47:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTRiY2U0NGY4YmJhMjQ5OTg3MDI3M2VkY2M0ODdlMzJkZmNlYzg1MzQyNzhhZTMzZTYzMThmMWM5NWRjMTg5NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTY0NjBhYjZiZTdkNmJhYTUzY2E4ODJjNzAxYzdhMjQ2ZjI3YTI5MjNmYWJlOTdmMGM3M2IxNDcyYzMyYTFiOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmY2MDIwYjczMjRmMTRkNjEyMzU3ODQ0YzUyYTdmMzYxMWIwMGQ0NTQ5YWFhZjUzZDMyNzViMmQ1MjBiOWZhZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiY2U5ZDE3NDkzNjg1N2ViZDEyY2E4NGE2ZmM1NDgyZmFlZWJiMjQ4ZWI2YmYxNDQzNWY2N2VlZGYxYzY0ZGJiYSJ9"
+          "resource": "repo://base_software/interface/logo.png",
+          "version": "repo-file-v1:sha256:94cee8d3d93b0e0d07d9cdf6351c16bb3078ee536044b3f69736738e48c2c91d"
         }
       ]
     },
     {
       "id": "claim_7aa416b24db24179a7d19fa29485bf74",
-      "statement": "requirements.txt 混合列出 Streamlit、Open3D、PyVista、stpyvista、scikit-learn、PyLaTeX、Kaleido、PyInstaller、TensorFlow、pywin32、Python 3.10.18 和环境组件等依赖。",
+      "statement": "base_software 的 pyproject.toml 明确列出 Streamlit、stpyvista、Open3D、PyVista、PyLaTeX、Kaleido、scikit-learn、SciPy、NumPy、pandas、pywin32（仅 Windows）等运行依赖，并把 PyInstaller 放入独立 build dependency group。",
       "evidence": [
         {
-          "resource": "repo://base_software/requirements.txt#L1-L8",
-          "version": "repo-lines-v1:sha256:837fe09d09c960c41e3e5f4309be85cd0f9c0b0dbe902b8b2a744d1abeebe58b:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDZmZWJmNmYxZDJjYjkxNzVlMjU3Yzg2YTdlNzhhYmY4ZWQ1YjJlZjhjZmU4Y2EzMDYwOWZiYzljMGQwYTIxYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOGE3ODVhMThkYmFkZDFlMGY5Y2QzOWVhYTE2OGE3NDAxNDE3YmIxNTdkMzE5ZGFmYjUyOWE0NDZmYTA5NmI3OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTk2YTNiOTI3OTVlNDU2MjZkMDAzN2I5ZTUxOWJmY2NjYzhkYTdmZjFkY2U3OWQ5ZTJiYWUxMWZlMjA0OTEwMiJ9"
-        },
-        {
-          "resource": "repo://base_software/requirements.txt#L102-L107",
-          "version": "repo-lines-v1:sha256:678b8652b31a016a2536d9596e0275f503c4a2c4f4cd900b043f5a4a7c49fe22:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMWU4ZDVkYzIxZGQ3YzJiNDJmMTdiM2I4MzM0NmJhMjBlOGUyMDYxMTcxNjk5NDA5MmZiYWFlNDkzMTBiNjI2OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTM4YWQ0OTUyOTkwNjkyYzY2ZWUwYjE2ODc1M2U0ZjU2YjdhZGViZWY4ZTY1MDI0Zjc1YmI0MDZjNDhkMzM4YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMTUxZWY5NzdjNGZhZDFkZGE5ZTdkYTllOTEwM2M4MmI2ODVkZWQ3MTFlNWFkN2RjYWQ3MjdhOTZjNTIzM2E3OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
-        },
-        {
-          "resource": "repo://base_software/requirements.txt#L49-L57",
-          "version": "repo-lines-v1:sha256:c82a2d6970d84d144c09175fc4a4110dc6933e8118a28a480752904edc241831:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzQyNzM1ODdmNGI3YmZkMmFhNzE1YThhZmY2Yzg3ZDNiNjdmMzgxMjVlMGE2NWJmODEwOTFhNjExMGU2M2ZmNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTAwYjI4NzgwZTQ5ZjU2NzMxNjRhZmE4OTA4ZmJmNjg1MDE3OGJiODFlYzg2NmMzZjgxZTQ3YjczNmM0ZDE4MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjU4YmMwYzU0MjU3MDcwODViODg4MTY4MGEwYTdlMzAwZDhiZTgwOWVmZjg2NDE2MWE4MGUwZWIwMzI4MjMwOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDIzNjE3YzAzMjUzOGIwYjllNWM3YWM0MmY4MGU5Nzk3ZWNkZmM1M2IyYzhlOGYzYWIzOTFkNDhmNmRlOGFjZiJ9"
-        },
-        {
-          "resource": "repo://base_software/requirements.txt#L72-L89",
-          "version": "repo-lines-v1:sha256:47832a7bccb7b6acd6d3d0a070bb2916481f6d5791cfd8b92a48a7405a5cca4b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiM2NlMzdhYmI5OWQ1YmJiMjljMDg3M2RlNDk2OTFjN2Q0MGNkYmNkM2ZjZTI0MWY3ZmU0Y2M5OGZmYTA0ZWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE5Zjc4ZjM3YTBhZGRkNmU0ZjhkYzc4OWM3MGQxYWIzMzJlYzk3ODZjMGZkYjRhMDA3MWMwZjA4ZWNmZTk4ZGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlkNzI3MjcyNzRlOTNjNDJhMTFmNTVjODM3ZjM5ZDNhNjQxNDdjOGQzNWZmNDMzYjdhOGM0NTFmZDEyNzI3YzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZiZTczNTQ1M2Q1ZDM2MWZmMDhmOTJhNjU5OTE2Y2M3N2U5ODlhZWQ5NDI0MzhkZTRlMTZkMTM0OGFlNTNlNDIifQ"
+          "resource": "repo://base_software/pyproject.toml#L1-L30",
+          "version": "repo-lines-v1:sha256:461745f70f5d6f0a6a96faa44ddac28d5b412d201ca138cf052335476afbe881:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwMmE4MWMzODM2ZWRlZjJkMGJhMTFkMjM1M2ZiNmRhYmM3NzcxNTBhN2NhODNlYTBkOWU5YTcwMzEzZmVhYmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExMjIwOWYwNTYyOGU1ODhjNjU0MWQzOWRjN2M1OGQyNTdiY2E0ZjE2N2E3MGM2NjViNzJjYjQyNjcwM2E2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZiNjA0MjJkZjY3NmRlOTJhNjQxN2U3NGJkN2Q1NjViYjQyYWM5MjFkMjI2ZmM2MTU0NzhkYWU4ZTYyMDY2ZGYifQ"
         }
       ]
     },
     {
       "id": "claim_2b1c59ede00c4b619292b40d6d4bcbe4",
-      "statement": "运行依赖清单指定 Python 3.10.18，而 prek 配置使用 Python 3.11，两个开发/运行环境版本声明不一致。",
+      "statement": "base_software 的 pyproject.toml 固定 Python >=3.10.18,<3.11，而根目录 prek 的检查环境使用 Python 3.11；两者是独立的运行/检查环境。",
       "evidence": [
         {
-          "resource": "repo://.pre-commit-config.yaml#L14-L15",
-          "version": "repo-lines-v1:sha256:3183130fb4fe57bb679fc3d5e7aab4a31522e59946ca9864a4a48781602ef27a:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQzOWIzNjRkMjgxNWI5ZTcxZmM3MWU2NjI3NDlmMTM0M2YzOTQ0NDZmNzdkOWFjYjVmYmM0ZDE3NjcxNDQxMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTZlYzlhZjcyOWViZDEzYWE2MmEyM2E0ODIzMjI5YWM5MGZiOWY4MjdjM2Y2NDdhNWQ0NmZjNzQyMzUxZDQxZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjE3NDMwM2JiNTk5ZmI4NWNjZTE2OTk5YzA4ODhiMjkzZTZlMjVmMDUwN2E2MmY5NDlkODQ3MjdhOWEwNDQ4NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmM1MWVlY2Y2YTkyZDg2OTJhMjBlNDMyYWYxZWY3ZmRkNjIyYjZjYzIwYzlkMTdjMDAyN2ZlODRiMWZkNDcyYSJ9"
+          "resource": "repo://.pre-commit-config.yaml#L14-L18",
+          "version": "repo-lines-v1:sha256:89de547917fddcac4677b4a86c00089d92bd7f93b9638e0748deee90911ec1b0:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQzOWIzNjRkMjgxNWI5ZTcxZmM3MWU2NjI3NDlmMTM0M2YzOTQ0NDZmNzdkOWFjYjVmYmM0ZDE3NjcxNDQxMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjdjYWRhMzE5N2VjYzRkOWJmMTE4MjQ3ZmE1YWYwMzgyNDc3YzlmNjk5ZTAzNWEwMjk5ODNkY2MyNDNmNTQ0NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYjE3NDMwM2JiNTk5ZmI4NWNjZTE2OTk5YzA4ODhiMjkzZTZlMjVmMDUwN2E2MmY5NDlkODQ3MjdhOWEwNDQ4NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTJjMGY1NDE2OTk5YzIxM2ZhNzg1NDNhZTgyMjdiZThiNDMzNWY4ZDcyMzZhZmVhN2I4OTgyMTU3ODZjZWYzZSJ9"
         },
         {
-          "resource": "repo://base_software/requirements.txt#L72-L73",
-          "version": "repo-lines-v1:sha256:be618bbb3ccb5a67799cab6317218aafd6d8605ff0bc70bf8ff64ff3b9dca2ae:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmIzY2UzN2FiYjk5ZDViYmIyOWMwODczZGU0OTY5MWM3ZDQwY2RiY2QzZmNlMjQxZjdmZTRjYzk4ZmZhMDRlZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWVjMWU0MmQyYWNjMGQ3NWNmMDMyNjFmOGE1MWM4MGQxMTE1OWI4ZmU1M2RkMGZhNTQ0OGZlYTcwZGI1NjA5NiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWQ3MjcyNzI3NGU5M2M0MmExMWY1NWM4MzdmMzlkM2E2NDE0N2M4ZDM1ZmY0MzNiN2E4YzQ1MWZkMTI3MjdjMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDg4NGVlNWY0ZjFkZDM1ZGZiYWNlNzAyN2NhY2FkNzRkNDRiOGZlOTA3ZThiY2IxMTY3NjQ4NzcwNzQ2MDI3OCJ9"
+          "resource": "repo://base_software/pyproject.toml#L1-L6",
+          "version": "repo-lines-v1:sha256:f53ed914af41508420e917650309e28c3ad4353dc2a2d94fd3f75ed704a46c08:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzAyYTgxYzM4MzZlZGVmMmQwYmExMWQyMzUzZmI2ZGFiYzc3NzE1MGE3Y2E4M2VhMGQ5ZTlhNzAzMTNmZWFiYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzA5ZDE4MGEyZTlmOTJlYWQ5MGY4NjM0ZmYxMzQyNGY5OGEwYTgzMWJjNWZlNzQ4YTk2MmVlMGI5ZDllYWQzYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjllZGE2MDViNTllZjI1Yzk1NjM3MDAyMjFiZjIyNDk4ZTQwMDExMWY5ZGUxZTZlZWIyZjBhMzYwMjQyOWI2NSJ9"
         }
       ]
     },
@@ -140,17 +128,69 @@
     },
     {
       "id": "claim_6fb75bd0bdd84417938ceb123b6c89f5",
-      "statement": "项目 README 记录了服务器部署、局域网访问时只能浏览部署机本地文件以及无法看到客户端文件目录等已知限制，同时记录了重新选型/开发的讨论。",
+      "statement": "base_software README 记录了服务器部署、局域网访问只能浏览部署机本地文件、无法看到客户端文件目录等已知问题，以及重新选型/开发的讨论。",
       "evidence": [
         {
-          "resource": "repo://base_software/README.md#L7-L14",
-          "version": "repo-lines-v1:sha256:393f28e86431d9deb89e30804dbe4d98d288e231c1d0947e341f6bf97f92573a:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzdiMGY3MDBhNjBiYTQ5MzUyOTI1N2E1ZDNkNTE5MjY4MzMxYWMzNDJmODljZTUxNWQ1OWZiZWY2NTU2OTUxZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmU1NjVmM2ZiODk3ODgzMjE5NjE3ZWU3MWEzZjllNzY3MzFlZTQyMmQyYjcxNDllN2JhZmI0MzZiOWRiYTMyNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2RhNDE2M2Q2ZTJkYzRmODQ1OTU3MjY1MDcxZTllNTc1N2E2YTM5MjBhYjQ0Y2IyYWFlNjk3ZTA0Y2M1YmQyYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+          "resource": "repo://base_software/README.md#L30-L42",
+          "version": "repo-lines-v1:sha256:9ab936502eaa0cd30baef0f7085e0a36ff35591997d907b83be0a81d5cd000ed:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhODZhYzI5YzRlMGY5MjNlZDlhNzgwNmIzNTY0ZDIyMzg5OWZjYmRiYzNmYTdiYTU0MjNhNzkyYjRmNDUzNjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2YjA0MTQ5N2NjZDdmZWYxNGJjYWViMTVmYWQyOTU4ZTE0YmI1ZTE1NzRiYjg3MDVmOWY0NDMwZWE0ZDcyNDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg3NDhiMDk5NDcxOWNhNTIwZDk4Nzg4YWFmZTBjMDUzNzY1MDcyZjk1YmZmMGY0N2UzZGMwYzU2NTViNDgyNzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_06953d2cb11f4faab4501082e9586410",
+      "statement": "start.sh 在启动前把用户级 ~/.local/bin 加入 PATH，必要时提示先构建 frontend/dist，执行 uv sync --frozen，并以 uv run uvicorn 绑定 0.0.0.0 启动服务。",
+      "evidence": [
+        {
+          "resource": "repo://backend/README.md#L16-L27",
+          "version": "repo-lines-v1:sha256:b7e14f524ab9eb4f04b963182c073f97c0834aabf9f728808c3c7cd42710027e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJjMjg2ZmJjMzdlYzg1YTkyYWEwNjJmNDUwNDI3YTU0YjBkNDc3ZWI4ZDUyM2IzNGRlODI1MDBiNzZmMmVjNGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdjNjZkYmM2NTlmOTg4NmZlOTcwYTMxZTk2NzQzOTFlNTIzZWM1ZmI5Y2RhNmJkYjk1MzE2YWJlZThmYzYxMWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIwODdlMDI3ZmE4M2JiMWFiZjk1OTI5OTVmMmJkOTcyNWFjMzZiNWRkMTZhZGJjMTllMmZjNGI5MDNhYjdlNGQifQ"
+        },
+        {
+          "resource": "repo://backend/scripts/start.sh#L1-L22",
+          "version": "repo-lines-v1:sha256:0cb31ec3eb7c3e1a66ee9a0cec26661bdd3183f810375f9fa84372871b4581fd:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFkOTVmYzA0YTgwYzk1MmY0OWNlNDE4ODYyN2M1M2IwZmJlOGM0NDA0MWI5NTJkNTkyYWNkMWRlOTk4NjE0NjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyMjMwYTg4ZDM0OGU3MzU1OTA2OTYxMTYzZGU3ZTFkODE1NmI4OWM1NmMyOTY2YzBmOTU0YmFkZmNlZDUzMzciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7263cb6ab4a546aa82c06500aad962c6",
+      "statement": "B/S 后端通过环境变量控制数据目录、会话有效期、计算池容量、预览上限、上传大小/分片/TTL 和服务端口，默认数据根为仓库 data/。",
+      "evidence": [
+        {
+          "resource": "repo://backend/README.md#L28-L40",
+          "version": "repo-lines-v1:sha256:06c5848f600233ff85ecbc2b707f1a4db4bcc0eb4a648cbe97551c51382d1155:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMDU2ZTgyMDlhZGFjYzk1MGM1ZDA1NzVhYmYyZjE5ZWI4NDg1MWI0YjdhOTRkOWNkZmIyZDQyYzg0ODhiNjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEzZDA1MDk5ZGFjNTc4ZjcyYTFiNjUwNzliMTllMzFhMDhhYzI1ZmRhOTU2YmQ1ZTgwZDNkMDM3OWFiMWE3NGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY4NzY2MzE1NGQ1NDI0ZGQxMDQ5OTY1YTkzZmQ0ODYxODU1ZGY1YmUwNjczMjJjYmI2YzdjODA5YjQ1YzkwMjEifQ"
+        },
+        {
+          "resource": "repo://backend/app/config.py#L1-L25",
+          "version": "repo-lines-v1:sha256:a40b2f05f16e6d593c6fb65c6010a618dbd9106c1b8f915afde96f4f5d37b3bb:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NDIxZjJmMzNlNTY4M2QyMjAxOTNmNWRiYjlkNTgxMTY4Zjg4YWNhNGM1ZDg3YzIzZmRiMjcwMTRiMjRlOWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjMjkyNmQ0MjFiZGI4MTYwMzI4MDQxNDFlYTllYjc3OTEwZGVmMDg4OTliY2RjNDVjZjJiYWVkOWM2MzQyZDgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_17ff30855e914bff83eac184d5e285f4",
+      "statement": "/api/health 逐项检查 latexmk/xelatex、Chrome/Chromium、PyVista 离屏截图和 ctex/Fandol 中文字体，缺失时返回 degraded 和具体原因。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/api/health.py#L10-L14",
+          "version": "repo-lines-v1:sha256:87a5deadfa0f9390e07e15788b6dad1e8a39d5de150b6766d71f63e825217b38:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2VkOTUxNWY0NmM1ZTM0MGJjZjQwN2IxNjYzNzdmNGMxZjE5YjY3OTk1NGM3OTEwMTBmMWFiYTViYzgyMmNmYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzgwZDcyZmI2NzliNGNiNThmN2M2NDdhYzc4MzIyYjhkNGRmNjkwZDNlNjIwYTM4MTFhNmQ0NTVjM2Y5YjRiOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDQ4ZjhlMGZmMTJhYTdlMDI2YjJhYmVmOWUzMmZmZTYyZmU1MTg5OGQwOWE2NGU4NmY3OTk0M2I5NmFjZDIyYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://backend/app/core/health.py#L9-L80",
+          "version": "repo-lines-v1:sha256:37e05181a533e190b3dda15c204bc45d5a8c4474457ed5c02e1b597a3e3ac52a:eyJzZWxlY3RlZExpbmVDb3VudCI6NzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIxMmFjN2YwMjc1ZTRjNGZjOTQ2ZDRjMzlkYTMzYjgxYmM3MDRhYmQ3MmZlMWVhYzBlMDIxMDYwMzVlYzI4NGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwZTRmYjRkNDIzZWMzZTYwYTFkMDNkYjA4OGU1N2U4YjM1MjIxZDkxMzg0OTM2YTg4ZmQ5Mzg5NzllZDlkOTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEyODkwMmUzMzQyMTUzNjk4MmI3M2FlMDM1ODU3MDE2ZDJiZTdkYTkxNmQ0NGQwYmU5MDcyYzNhMDc5OWViNDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c8b70578073649639097e68e29a39524",
+      "statement": "B/S backend 固定 open3d==0.16.0 与 numpy~=1.26.4，以避免 Open3D 0.16 与 NumPy 2.x 的 ABI 不兼容导致配准/ICP 在 Linux 上崩溃。",
+      "evidence": [
+        {
+          "resource": "repo://backend/pyproject.toml#L5-L23",
+          "version": "repo-lines-v1:sha256:ab43418d15e7a47f46ee590ec81716ca2685457cd69d354a0facd22eeba7d060:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwOWQxODBhMmU5ZjkyZWFkOTBmODYzNGZmMTM0MjRmOThhMGE4MzFiYzVmZTc0OGE5NjJlZTBiOWQ5ZWFkM2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjYjY2YzMwZjIyNzFjMzc5NzMzZWRiNTdlNDg0ZWM0ZGMyNjE1YzIzYWIzODhlZWNhMDVhOGY2ZDlhYTUwNTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMwYTE2YzhlZDBjZjUzOGJkZGZiNGUzM2MwMmE3ZGQzNjdhN2VmYWE0ZmQzYTM0MzBlMGUyZTI3ZTAwMGYyODAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ0ODA2M2Y5NTFlNTIwMzgwNzYyMDQxM2ZjYjAxZTU4YjY5YjBlM2M1N2RiMmJmYmViZTI2NTFmNjY5OTgzZGUifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.5.1",
-    "at": "2026-09-28T07:28:45.133Z"
+    "at": "2026-09-29T03:28:02.619Z"
   }
 }

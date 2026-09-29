@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:7ab1f5c50b9c3e2b53e8ee98f49aaebb9746009dd5850375474d6c476f0f8cc1",
+  "pageVersion": "sha256:dd177a8cb7589eddc0672ce6f4228fa041e0dc9e94be8fded6e8bc37ddb9e7ad",
   "claims": [
     {
       "id": "claim_076d4bf74e204c97aabdd9c3d3de57cf",
@@ -35,16 +35,6 @@
       ]
     },
     {
-      "id": "claim_1ff1a9022e2f4381b9e1c3035c6f2b82",
-      "statement": "网格离散在输入或输出路径缓存不存在时会显示错误并调用 st.stop，禁止本轮继续采样。",
-      "evidence": [
-        {
-          "resource": "repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py#L123-L135",
-          "version": "repo-lines-v1:sha256:dc62c7aeb1a7d99530677bb0e248e342019eb1b5918d30773af6e1876be80d41:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhNGY4NWVjZmYwNTEzYWZjNmJmYzFjZTQ5MDE0OWUyOWY3MjIzZDE4NzUzODRiNjhlNjg3MmM0ZmYxZDc0NGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiYWVhZjgyN2FjNGI2NzE0NmQwMjhhZWRkNzI1MGYyMWZhMzkyMDYwZDE0NTk5MTRhMjM2NGNkN2E3YzhlYzYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjExYTkxODEzZjY3NjFiN2RlMmNlNDY3MjI0NmQxMDY3MDU4YmI2YzE2MWI2Njk4Y2RkYTU3ZGQyNWI0Y2M5YTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4NDcyMzcyYzhmMWMyZDA4YWI5YzA3YWRlMDg5MjZmZWJhZGMzN2I2MDIwY2NiNTQ0ZDJhZjg4MTE0NWIyNmUifQ"
-        }
-      ]
-    },
-    {
       "id": "claim_462e4ab102304b4c9e9620a55056836f",
       "statement": "尺寸缩放按原单位系数除以目标单位系数得到缩放系数，并将点云保存为 <原文件主名>_<目标单位>.xyz。",
       "evidence": [
@@ -75,30 +65,6 @@
       ]
     },
     {
-      "id": "claim_cf90795112e14dac96e9ab58142720be",
-      "statement": "选择粗配准的固定点云和输出目录时会同时写入 FPFH 与 ICP 两组缓存路径。",
-      "evidence": [
-        {
-          "resource": "repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py#L469-L485",
-          "version": "repo-lines-v1:sha256:9a51f41efbc8842085dc91583c6a8c7e481770077f2800ec4b50cfd4dd425479:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyMzFiNTc2NjcxOThlZjdiYzRiZWE0NDI3NjNkNGQ3NDI4Mjk0MmUwMjUxNWEyZjcxMWM4OTVmOWI5MTBjYjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI5YzgzMWI3NWYyYzJlMDI3Y2E5ZTAwOWI0MWJjMDExOGNiN2U5NGU3YjFkMDlkOWIwYTNlNmMzNTkyMWY1NDIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI0OTZkZDMyZGRkMTIxMzJiZjBjODY3ZWQzZjY3OGIxNWUyMjE1ZGFmZjMzZjViZWY0NWIxZWRlOTYzMTg1M2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVmMmExNmQxNTcyYjVjZTdjZmQ4OGZkMjNmMTY0NjViNjlkYzZkOTU5N2Y4NDk1OTc0NWExM2RkMjViOTcxMWYifQ"
-        }
-      ]
-    },
-    {
-      "id": "claim_acc0385d84804ac29275a4834d3e7a70",
-      "statement": "FPFH 粗配准保存 <扫描点云主名>_FPFH.xyz，并把结果路径写入 Tool_Registration_ICP_SCENE.txt 供精配准默认读取。",
-      "evidence": [
-        {
-          "resource": "repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py#L511-L533",
-          "version": "repo-lines-v1:sha256:0c53d1b5e9f5ac5a9a418a2da89d1362c80ad1ef67f6f4bd3f4a4bf35c120e6f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjZmY3ZWQwNTdlOTExMThhZWRmMTQwODZhMzM0NTU4YmM2MTRkODQ4YzkyZjhmODI0ZmU3YmY0ZTA0YzM1OGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjNDU2MDg1MGQ0MTRlMzEzZWI3ZWMzMDQwMTgyYWYwNjlmOTQzZjRiMDVkOThhZDNlNGJkMTc4ZDBiYWEzYzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZhYTExYjQwYzliOGIxODA1ZGM3YWY2ZjhmZGE0ZjgyZWMyYzk0ZjNiZTAxYjVkNjJhNmRmODIxYmRiZmY3MjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMyYWEzZjM1N2JiYmQyNzY1Y2I1YjZiNjJiN2ZkZTk2ZWMyMzY2NTMyN2ZhZDVjYTY2MmJlMmFmMzg5Mzg5ZTIifQ"
-        },
-        {
-          "resource": "repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py#L606-L615",
-          "version": "repo-lines-v1:sha256:ac5c9f81a1775141590fcdc9facdf1d94c11646a95ac85f87f805a2ae0125b2a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdjMzRlNzNhYWY4NDA1YzBiMDhkYzAxYjRjYjQ5ODhiYzMwNDU4YjMwY2ExYmNhZWU3MGQ4Y2IyZDNhNDMxY2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgxMDNhZGJjYmYyMjI4ODliY2I0NWEzZjgzYzcwZGY2NjVhZTQ3MzM5NzkxMmI0OGNlNzhlZjIxMjM5NWRlYjUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc2YWJlZmU2MWI2ZjU2MmE1ZGQ3ZmVlMTVlNDYzMTg2MjYxODZmMmZiOTFkYmIzYjg3ZTQ5ZWU4MWFkM2Q0MzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUxNTJlMTBkN2M3NDY4OTAxNTZjMjk5NGNiYmE3MGRjMjk0MDA1YjQ3YjE1NTk3NTMxMDMxNTRmYTI4OWY5NWMifQ"
-        }
-      ]
-    },
-    {
       "id": "claim_7ba55684e1db4feca491cdad5dbacbca",
       "statement": "FPFH 完成后只展示叠加预览并要求用户人工检查效果，没有自动残差或质量判定。",
       "evidence": [
@@ -119,36 +85,90 @@
       ]
     },
     {
-      "id": "claim_d8680b961ec04817b0d787c66cb26ce7",
-      "statement": "网格离散、体素下采样和均匀下采样虽然尝试转换数值参数，但开始按钮未根据转换是否成功门控，非法值会继续进入算法调用。",
+      "id": "claim_2561a0d6cd8e4027b77be7db5806478b",
+      "statement": "B/S 预处理页面将网格离散、尺寸缩放、下采样和配准拆分为独立路由，并通过 ArtifactPicker 从当前会话选择输入或上传新文件。",
       "evidence": [
         {
-          "resource": "repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py#L115-L123",
-          "version": "repo-lines-v1:sha256:c2ddce8da2d57c3706e78c3ba5e91cd48fe612c7a9a23e756edb40642a3ba4fd:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmJlYjU4ZjYzOTA3MjIzZGI2MDI5ZjIyNTRhZjE3MmZkNmRiZGZiYmZjZWJhNTIwODU4ZDcyOGJkZjQ1YWMxMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWE0Zjg1ZWNmZjA1MTNhZmM2YmZjMWNlNDkwMTQ5ZTI5ZjcyMjNkMTg3NTM4NGI2OGU2ODcyYzRmZjFkNzQ0YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmI0MzU1MDMwYzM5NjY2Y2ExZGU2NjRlOTJkMDM4ZmNhNWM5NDY5ZjgzNGU1NDU1NTc2Yjg4MTFhMjA5M2RjMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjlmNTc5YjE1NGY0NjczYjlmZjI5ZjNjOWJkY2ZlODdjNDY2MDI1ZjA5MThkZWE5ZDMwNmE1MmVmOThkMmFhYiJ9"
+          "resource": "repo://frontend/src/components/ArtifactPicker.vue#L24-L66",
+          "version": "repo-lines-v1:sha256:84401568b4e2b1e3461ad98903186586b3c3816a68839dd06ac335a8657952f5:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUwNTYzMDRiMGVlYWJkODhhZDRjYmRkNjBiZGY0NjY1MWFkODU3YWQxZTAxMDRlNDJhYmZmNmIwNDNhZThlYTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMxYjMxMjBiY2FlYWZmYjBkM2U2MWVjNjRhYTFjY2E2NTc5NzVhZmEzNzI0YmFmMWFhZWM2NDYyODVmZjM1YjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxYjkzZWJkNGEyODg4ZWYyZjQwZDljNjMwNmRiYTk0MzM4ZjM4MmMzMDdjOTk5MjY0YjdhMjk3ODhjZTc1NGIifQ"
         },
         {
-          "resource": "repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py#L314-L322",
-          "version": "repo-lines-v1:sha256:af075ccee5469be950ec0a141f911ae2c9867aad4e1f11174585c0ffba21a7fa:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzUyMmUxMjMyZjI2MmZiYWQxNTJkYjU4NmYzOTJiNzhkMDZlOGU1ODc2MDU4YmJjNzRmMjgyNTc5ZTkzMzBjYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTgzYzZmN2FkZTI4MWQwMmQxOGNlODBhYTRhMzA2ZTNmNjkxNGQ1MzcxNzJjNzg2YjMzOGYyYjc4ODYxY2EwZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGRhMjA4Mzg3NTc3YzJiYTQ4ODZlMjljZjYwMTgzMzA5OWMxMzU1YmU3MDlkN2E3NjQ5NDc1NmYwNDA3Y2Q4YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYWNlMTMzZTcwOGFkZDMxNGRmNTViY2MzYjE5ZDM0OTgwOGU0Zjk1OTFjY2Q4MDM4NjU0NTAwZjJiNWIxZDk3YyJ9"
-        },
-        {
-          "resource": "repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py#L388-L396",
-          "version": "repo-lines-v1:sha256:65d85d5aedc89ed41cc5554e53cee7cb7b61c7872901415d7f1c4e9c19ee9fd7:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWM5YzJlMmY3ZDgxM2VmZmE1NTRkMWExOTZlNzAxY2Q1NjE5NTA0MDY5NWEwZmNiZDJiZGFiNmYxOTljNjUxNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTgzYzZmN2FkZTI4MWQwMmQxOGNlODBhYTRhMzA2ZTNmNjkxNGQ1MzcxNzJjNzg2YjMzOGYyYjc4ODYxY2EwZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODMzMmQ4ZGY5NzVlN2I4ZGE3YTVlYjM3ODU3MDg1MDEyYWEwNWI2ZjY4MmIzZjk4NTI0OWU0Yzc2MGJhNTIxNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDczMTRmOWY4NDIxZWM4NWYxN2IzYmI5N2RiMzY5MThhYTVjOGE3MTU0ZWM5OTg3ZmE2YjYxMzU5OGUyYzhiNyJ9"
+          "resource": "repo://frontend/src/router/index.ts#L15-L24",
+          "version": "repo-lines-v1:sha256:86ce50ccc3695d499cb21ff715aa7ce82393f175727dbac52f22a57ce2239892:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlYjNiYmEwZDBlYTI2NzY1YTBkNTY0OTI0MTQxZjdlMTU4MjJkOWM2NGI3MDM0YTRkMGExNjI2NjMzN2M1NjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjgyYzU1NWRjYWI5ZDQ1MWQ5Y2M5Yzg5MjU1M2VmZGI3YjY4ODA4YzFkODBlNGI1YTBlY2U4OTc5MzgyZjY4MmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE3MzU0MzIwNjZjY2Y5ZDIyODMwYzg2NmVmOWY0YmQ5NjhhMTc5YWY3M2JjN2RkOTdkMzk5NDMxOWUzYTM4ZGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQyMTk2YmNlODUwNGFkN2Q1Yzc3NzI4MTUyNDVkNGVmNzc4NGNiNzNlMmRhMjdkYzVjMzQ5M2JmZjgwYzcwZmUifQ"
         }
       ]
     },
     {
-      "id": "claim_6323325240b748ec9180d841bf8f90cb",
-      "statement": "精配准核心入口直接读取 Tool_Registration_ICP_SCENE/BIM/Output 缓存；缺少文件时会产生 FileNotFoundError。",
+      "id": "claim_18bcc09f1f914beab38a8b609cbee717",
+      "statement": "后端服务层将网格离散、缩放、体素/均匀下采样、FPFH 和 ICP 包装为工具任务，并分别输出 <主名>.xyz、_<单位>.xyz、_VD.xyz、_UD.xyz、_FPFH.xyz 和 _ICP.xyz。",
       "evidence": [
         {
-          "resource": "repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py#L606-L611",
-          "version": "repo-lines-v1:sha256:32477d0647db27cec9b23d327107c5297da8997f8e794ce6e506c9caab3f313c:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2MzNGU3M2FhZjg0MDVjMGIwOGRjMDFiNGNiNDk4OGJjMzA0NThiMzBjYTFiY2FlZTcwZDhjYjJkM2E0MzFjYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmJhZWFmODI3YWM0YjY3MTQ2ZDAyOGFlZGQ3MjUwZjIxZmEzOTIwNjBkMTQ1OTkxNGEyMzY0Y2Q3YTdjOGVjNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzZhYmVmZTYxYjZmNTYyYTVkZDdmZWUxNWU0NjMxODYyNjE4NmYyZmI5MWRiYjNiODdlNDllZTgxYWQzZDQzNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmVjMGRjMTZhNzVlY2I3N2NiMWUwNjQ5MjZlMzlhZWY1ZDFlZWU4YWUwN2U3N2Q2ZDQ3YWJjNWU5YzgzY2NjOCJ9"
+          "resource": "repo://backend/app/jobs/tools.py#L5-L13",
+          "version": "repo-lines-v1:sha256:13f1a3c045abfaadef426f51e9a23b846f8e9dd64307d57e86e4670e5ab1386f:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTU0NmE2MTRkNWQ5OGEwZjU5ZjkzZjFiZGQ1NmVhM2Y1NjMzY2FkMWJkOTNkYzg1MjRmYzBmYTMwY2Q4ZjNhNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjVjOTgxNGU5MTA1MGQyY2IwOWNkYjlmZjYyMzNmY2FmYmZiYjExYTAwMzQwZWM0ZWE1MmViOGUyYTczYWQ3ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjllNmE1YzQ5ZjY0YmIyMmE3YzhmMzRiZmUwMGJkYmZjNzVlZjllY2M3ZDNiZmMzMDEwODdlYjIxMWRhZDk3MSJ9"
+        },
+        {
+          "resource": "repo://backend/app/services/preprocessing.py#L24-L134",
+          "version": "repo-lines-v1:sha256:f88ec25b2406925885251fcd84485bd2c5f5935bb8e19616270e5320d6c33cf3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTExLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJkYWIzYTY5MzBmY2FkZDkyMjRlMWQzMWJjMzMzYzJlZWZkYTYxM2QyYjAxMWI3OWMxZjFmMTMwMDNiM2QwZjkxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIzMGMxZjE4OGYxNDJlZDdhODI0NjgwYjIwNzE3MmM1NTE5YmM2MTRhNDhmZGE3Y2YxNjdlZGI4ZGRmNzk5NTZjIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJhOThiMDYzZDliNDdlNjUzNzk2MjU1NzJjY2UxOTc2NjlkNTc2N2UxMmMxOGJlMDc1NjUyYjhjZDk4MWNlOGQ1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        },
+        {
+          "resource": "repo://backend/app/services/registration.py#L21-L83",
+          "version": "repo-lines-v1:sha256:c3dd4f006a7f0e658a607732bf60bc05b486120a1c0414c60a3619956d5f5e8d:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjYjcyNTQyMzA1ZmY2YjZmNjk3NjhkYzRlZTcyNzFjYTEyNzMyYThlYzdjYzhkMTE0MmQxYTg3YjZjY2ViY2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwYzFmMTg4ZjE0MmVkN2E4MjQ2ODBiMjA3MTcyYzU1MTliYzYxNGE0OGZkYTdjZjE2N2VkYjhkZGY3OTk1NmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkwNjc4ZmZmYWM0YjlkYjY1ZGIxZWZmMzQ2MDA1ZjA1NWM1N2RjYjU2ODdjMGQ5NGI5ZDNkZWYxMzE0ZTlhMmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ac7e4513a6834b1d8c7389929c827373",
+      "statement": "粗配准成功后前端把结果 artifact id 自动填入精配准待配准点云，并在未选择时沿用粗配准固定点云；用户仍可改选其他会话产物。",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/views/preprocess/RegistrationView.vue#L107-L145",
+          "version": "repo-lines-v1:sha256:69199c045b15e890b4f20d415877a4bf4cd2367b76d536dc92856a6339908cfd:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNiNzdlOWRjM2VkMzMyMDU5OTdkYjdjYTUyMzI1MzRiNjA3MGM3YTg2M2MxMDIwYjllNjQ0NzdiNzhiMmY4YWUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjYTBkNmJlYTQwMDZiZmU4MGE3NTdkNTA3MTk1MDEwODAwMDU0OWZlYTE3NjFhZTllNzlkNTVkMWJlNmJiOTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhMzlmZDViNjlhMjA2ZWQ3NDJhZGI0NzQzNWM4NjcxMjZmNDMxODQzYzUyYjUzY2VhNTM4ZjA4YjdiYTVhYzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU5MmQwNDJhMzUwZjM4MTE3ZmQyN2UxNzMyYjI4MjY0Zjg5ZGYyMDgwNWMxNjE4NDYxNDBlZmQyZjhlYzc2NDIifQ"
+        },
+        {
+          "resource": "repo://frontend/src/views/preprocess/RegistrationView.vue#L11-L65",
+          "version": "repo-lines-v1:sha256:fe36b974edb2983fa0f4aa631afe00beca3e174b6cd9a8dce8f78d6568d96c53:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJlMGFiN2M1ZWU0NzEwZmYzNDMzNmFkNzc0NTFiNGM2NTYyZTM4NmRiMzU2NWQ0N2E4ZGI5NzJmYjgzYjU0ZDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyODg3MTM2OWZiYTRlMWVkYmFhY2Q0OWU4N2EwOTZkNDc3NzE2YmQ2NGRlZGRlZGQ0Y2NmZmRkMzhmZjIxNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY0ZTdhNjZlNTRkNjUwYmQwNzJhOGFkNDk0YjgwNTVlNzIyYmMxMmRhYjJhYzRkMDJiZDE3OTBiYTM4YmU4NDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7963d3177c7f4ef7913ce1e5cbac5cb6",
+      "statement": "每个成功的预处理/配准任务都会把输出登记为 pointcloud artifact，页面提供 WYPV 预览和下载链接，后续步骤可复用该 artifact。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/jobs/runner.py#L89-L118",
+          "version": "repo-lines-v1:sha256:4e64ddfa8d20df7586eb4a2870f682697bf96d5dfcd185efc46dd70b0c630b7d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYwYzdhNTc5MGMzZmQ3Y2Q1MDUzN2JmN2M5NDQyMTc3YjM1OTYxMDRlN2FjNmMxNGJlZjUwMDcwODYwMzg2NzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVhNzkyMGUxYjY5ZjUwNGZlNDkzOTU3Mjg0NDIxZTAyZGYwZDc5ZjU0NjNlMDdjOTEzNmUyYzBjNWIwZGRmMWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxM2QwM2IxNTZkMzEwNDJhNjJjMWE1YjBjMzMyYmJhYjZhYmNmZjQwNzZkYWJiMTk5MjcxZjk0MTBjM2IxYWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxMGUyY2Q0ZmQxNWQ3YjczODBlNjUzYzljZjEyZmM3MTI1MTY0ODQ0NTNhNGExNjI0Y2U5OTk5NTVkMmEwNGIifQ"
+        },
+        {
+          "resource": "repo://frontend/src/views/preprocess/DiscretizeView.vue#L48-L54",
+          "version": "repo-lines-v1:sha256:a38fb484a1353148f49efb30d4e2ea6b66cbc786fe7fdabcf15d671de0cc6de3:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWNhMGQ2YmVhNDAwNmJmZTgwYTc1N2Q1MDcxOTUwMTA4MDAwNTQ5ZmVhMTc2MWFlOWU3OWQ1NWQxYmU2YmI5MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGYzYzhkZjc2NDk4NDQ0ZmQzMzc2ZDUzMjFkYzFhYzJiNDI3YTYzOWFmMmZmMmM1NGJlMzY4YjA5MDQ5ODczMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDNiNmFhMWU3MGU2NDIyMWFlNWRkZWQ2NzliYzdiYzViMzE1MGJlY2YzYzdjZWZlZTIxNDhmN2Q3MmI2MTI3NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTUxMzQzZGViNDFhYjhiZWNmZWQ0NzdjODk3YWJmNGE1Y2FlZjIxMjcyNTExZjk4ZDc2NTMxOTMwZTlmMDM4ZCJ9"
+        },
+        {
+          "resource": "repo://frontend/src/views/preprocess/DownsampleView.vue#L94-L101",
+          "version": "repo-lines-v1:sha256:a1b4445b043ef016649370c78a1e54b0ca0905008850bab364d50f3b2d8a57a4:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWNhMGQ2YmVhNDAwNmJmZTgwYTc1N2Q1MDcxOTUwMTA4MDAwNTQ5ZmVhMTc2MWFlOWU3OWQ1NWQxYmU2YmI5MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDNiMjY1NWFkMzU3NjM0ODkxNzY5ZThkNmY1OGE3ZWUxMjcyZDhiNDA3M2QyYWFlNmM3MjNmYjNmNzBlMGVkMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMThjNWE2ZTQzMGQ1YWFhOTkwZjJkZGZlYmQ2N2MzMTQwMmNmNzBhMmFhNTBiOTRiODA2NTVlNzczMzgzNGQ2NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYjc1ZDAzMjAzMThlNjQwNjMzNzkxMmRjMmNlYTUxZTk4ODc2M2UzYzY3ZmVkOTZlNDEyOTU0ODRmZDY0MmJiMSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9aa1288c63c64c81a2c0713de9dd7c48",
+      "statement": "B/S 版本通过会话 artifact 和任务工作目录替代 base_software 的 Tk 文件对话框、Tool_* 文本缓存、os.startfile 输出目录和页面路径交接。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/core/sessions.py#L49-L105",
+          "version": "repo-lines-v1:sha256:591746b916879fb2837791b0cca34498ae1edd99847d9f3227a8ec73f8c2cfc0:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZmNWE5NDY0NmE1ZGFlZTNkYmNjNDI2OWYyZjk5NDlhZTM1YzE0N2NlYWE2ODg5YmZiYmIzNWExZGFkMDMzNGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0YjkyYWQwNjU2OTBhMWQ1NGZjMDA0OWU1OGUzYWUzZjEzOTFmZWRkNzRiNTI5MjBlYzhlODY4NzZjYTg1NjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIzZGYyYWNmMDZlOGMzZjAzYzcxMzVjNmU4YWM1YTljYTU0MzJhYmUwNmE3NGFjYTBmZGQ5YTUzYTAwOGY5ODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkYTg5ZjU2MTFhMjczYjhjYmIxNmViMmI5OGQ3Nzk5NDkxOGE5ZjQ5NjU2MTE4ODk2N2EwY2UwM2YxNzM5MTYifQ"
+        },
+        {
+          "resource": "repo://backend/app/core/uploads.py#L13-L23",
+          "version": "repo-lines-v1:sha256:b2b1b0ed7ab969ce273408cd54230d0b7bb1ff8ba345fc0009aa8992356f74a0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4MTU5MTQwZGVhMjUxZGI1MmM3MDRlOTIwODJiOTEzMWY4NmJmYjExNTk0ODczZTBkYmFhOGEyMzE2YWNhMjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyZDE4MzQ2NmZkYTE0YzY0YzViMmFjZDlmN2Q0NTY4YjJkNWJhOTFhNGNjMjllMTcyNDFiM2Q2Mzg1ODJiYTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFkMzljNDIyYjA4YTcyMWM3NmE5ZmM3OWI4OTcxOTY0Y2YyNzM0NWM0MWUyYWJiNjc0MTg3NDMxM2YxNzk1NjIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNlZWMwMDQ3MDFhMmQ3NDliNDc0MWViNzczOGI1MDRmYzc1YWZjNjJkMzUyNTYyZTgyODJiYWY0ZTk4NWU2MmIifQ"
+        },
+        {
+          "resource": "repo://backend/app/jobs/runner.py#L53-L73",
+          "version": "repo-lines-v1:sha256:e4201e01e3b59191f3cd795c9fa365227d3fd0d18b55e983ce93088c8507175a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdjZDVjN2NiMTk2ZjU5OTVkZTg2ZTNiM2FkZmRkNWIxNGM4NzBmYzM4MzVhMDc3NmU4ZDFiZmUwZGMxMjAxODUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliZDk5YTM2NDJhZWJhMTU3ZmYxNDllMmEyYTRhOWRhMzEwOTQzMjA0MjU2ZjlhNjM5N2U4ZTE3Njk0NjcwYmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc2OWYwNmUxM2MxMTYyNDI2NDU5NTY1OGI0MmJkOTNiYzgyNGIzNDQ2NzUzMzg0MDJjNDc2MTBlNjFlM2MxODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxNmY4NDRmMmQwYzA1ODFlYjNiZGNiMjRiZDM4ZjA3MjkzZGI3ZDViNzNiYWY2OGJmMTUyZDNlYWU4Y2FjYTUifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.5.1",
-    "at": "2026-09-28T07:28:45.133Z"
+    "at": "2026-09-29T03:28:02.619Z"
   }
 }

@@ -1,83 +1,174 @@
 ---
 type: operations-guide
-title: 运行、依赖与部署
-description: 汇总 Streamlit 入口、Python 与系统依赖、本地桌面耦合、缓存写权限、中文 PDF 工具链和项目已知服务器部署限制。
-tags: [operations, deployment, dependencies, windows]
+title: B/S 运行、依赖与部署
+description: 说明 Linux 裸机上的 uv 后端、Node 前端构建、start.sh、环境变量、data 工作区、TeX/Chromium/离屏渲染/中文字体健康检查，以及 base_software 历史部署方式与边界。
+tags: [operations, deployment, dependencies, uv, linux, health]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-28T07:28:45.133Z
+    at: 2026-09-29T03:28:02.619Z
 sources:
   - id: openwiki-source-4d1645cb6317345817452838
     resource: repo://.pre-commit-config.yaml
+  - id: openwiki-source-1b77b8e08e1152639efd10bc
+    resource: repo://backend/app/api/health.py
+  - id: openwiki-source-4188bfee2e15d969d3152477
+    resource: repo://backend/app/config.py
+  - id: openwiki-source-1d55634d256e9e48fe3ca741
+    resource: repo://backend/app/core/health.py
+  - id: openwiki-source-070c6307b3860e1806baf566
+    resource: repo://backend/pyproject.toml
+  - id: openwiki-source-9025181f12900b1c2ae4adf5
+    resource: repo://backend/README.md
+  - id: openwiki-source-2b58fe0655afe47c26f657c0
+    resource: repo://backend/scripts/start.sh
   - id: openwiki-source-b735a19d109c0dd7887674e9
     resource: repo://base_software/functions/PDF.py
-  - id: openwiki-source-d69beca5a040440e55fef3c1
-    resource: repo://base_software/home_page.py
+  - id: openwiki-source-e8f328734d1e0b7c471f9f72
+    resource: repo://base_software/interface/CMGC.png
+  - id: openwiki-source-4780a86cf6be10984cc416ee
+    resource: repo://base_software/interface/logo.png
+  - id: openwiki-source-6df040d645dca68e3b392a74
+    resource: repo://base_software/interface/TJBridge.png
   - id: openwiki-source-db642bdc773df44d5cdde189
     resource: repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py
   - id: openwiki-source-4829642f91ca54c265d248ed
     resource: repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py
   - id: openwiki-source-f62fb78e9932aaca3ecc6806
     resource: repo://base_software/path_utils.py
+  - id: openwiki-source-55a8d8d548cd1d23cf569ea3
+    resource: repo://base_software/pyproject.toml
   - id: openwiki-source-5f29572408b9e8962311ba6a
     resource: repo://base_software/README.md
-  - id: openwiki-source-7f0ef148148cf22231d1845e
-    resource: repo://base_software/requirements.txt
-generated: { by: "codex", at: "2026-09-28T07:28:45.133Z" }
+generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
 ---
 
-# 运行、依赖与部署
+# B/S 运行、依赖与部署
 
-## 启动入口
+## 当前部署路径
 
-应用以 Streamlit 脚本形式运行，`base_software/home_page.py` 是首页入口，`base_software/pages/` 提供两个内置页面。仓库没有启动脚本、Dockerfile、服务定义、环境锁文件或独立 Python 包配置，运行者需要自行提供 Streamlit 启动命令和可导入 `base_software` 的工作目录。
+B/S 版本在 Linux 裸机上运行，不依赖 Docker。部署链路是：
 
-源码路径假设应用根目录同时包含 `pages`、`functions` 和 `interface`。当前版本库没有跟踪 `interface` 目录，但首页会读取其中的 `CMGC.png`、`logo.png` 与 `TJBridge.png`；缺少这些资源时首页不能完成渲染。
+```bash
+# 1) 构建前端
+cd frontend
+npm ci
+npm run build
 
-## Python 依赖
+# 2) 同步并启动后端
+cd ../backend
+uv sync --frozen
+PORT=8000 scripts/start.sh
+```
 
-`base_software/requirements.txt` 使用 `~=` 列出大量带近似版本的依赖，其中包括：
+`start.sh` 会：
 
-- Streamlit、Plotly、Kaleido 和 stpyvista。
-- Open3D、NumPy、SciPy、scikit-learn、scikit-image 和 pyransac3d。
-- PyVista、VTK、Matplotlib 和 pandas。
-- Pillow、Tk 相关运行环境以及 PyInstaller。
-- PyLaTeX 和 TensorFlow 等未在当前页面调用链中直接需要的包。
-- `pywin32`、Python 本身、zlib 和 openssl 等由环境或操作系统提供的条目。
+- 把 `~/.local/bin` 加入 PATH，以便找到用户级 TinyTeX；
+- 检查 `frontend/dist` 是否存在，缺失时给出警告；
+- 执行 `uv sync --frozen`；
+- 用 `uv run uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}` 启动服务。
 
-该文件更像完整环境导出而不是最小依赖清单，也没有针对不同操作系统的 marker。`requirements.txt` 指定 `python~=3.10.18`，而根目录 `prek` 配置使用 Python 3.11；这是当前运行环境和开发门禁之间的显式版本冲突，部署前需要由项目维护者确认应统一到哪个版本。
+后端启动后，浏览器访问 `http://<服务器IP>:8000/`，FastAPI 同源托管 `frontend/dist`；API 文档默认位于 `/docs`。如果前端未构建，API 仍可启动，但 SPA 无法使用。
 
-## 本地桌面与平台耦合
+## 运行时版本与依赖
 
-两个页面在模块初始化时创建隐藏的 Tk 根窗口，并通过 Tk 文件对话框选择输入文件或输出目录。文件浏览发生在运行 Streamlit 的计算机上，而不是访问浏览器的远程客户端上；因此把进程部署到服务器后，远程用户无法用该对话框浏览自己的本地文件。
+B/S 后端使用 Python 3.10.18，由 uv 按 `.python-version` 管理；`backend/pyproject.toml` 固定 `open3d==0.16.0` 和 `numpy~=1.26.4`。这里的 NumPy 降级是运行约束，不是算法改动：Open3D 0.16 与 NumPy 2.x ABI 不兼容，配准/ICP 路径在 Linux 上可能直接崩溃。
 
-打开输出目录的实现并不统一：
+前端构建使用仓库声明的 Node 引擎。构建产物不包含 Python 运行时，生产环境只需要 FastAPI 提供静态文件。
 
-- 网格离散页按 Windows、macOS、Linux 分别调用 `os.startfile`、`open` 或 `xdg-open`。
-- 尺寸缩放、下采样、配准和尺寸质量评估页面直接调用 `os.startfile`，实际运行依赖 Windows。
-- 精配准还存在缓存文件名前导斜杠导致的错误路径。
+## 环境变量
 
-## 文件与权限
+| 变量 | 默认 | 作用 |
+| --- | --- | --- |
+| `WUYE_DATA_DIR` | `<repo>/data` | 会话、上传、产物、预览和任务工作区根目录 |
+| `WUYE_SESSION_MAX_AGE_SECONDS` | 30 天 | 会话 cookie 有效期 |
+| `WUYE_JOB_POOL_SIZE` | 2 | 计算进程池容量 |
+| `WUYE_PREVIEW_MAX_POINTS` | 1,000,000 | 预览轻量化点数上限 |
+| `WUYE_MAX_UPLOAD_BYTES` | 5 GiB | 单文件上传大小上限 |
+| `WUYE_UPLOAD_CHUNK_SIZE` | 8 MiB | 默认分片大小 |
+| `WUYE_UPLOAD_TTL_SECONDS` | 24 小时 | 未完成上传保留时间 |
+| `PORT` | 8000 | 启动脚本监听端口 |
 
-应用需要读取输入点云，并在以下位置写文件：
+`data/` 必须对运行用户可写。服务重启会扫描会话清单，把遗留的 queued/running 任务标记为 interrupted；运行中任务的中间文件和工作目录不会自动恢复执行。
 
-- 用户选择的点云或报告输出目录。
-- 应用根目录下的 `cache/`。
-- PyLaTeX 生成 PDF 时产生的临时 `.tex`、日志和辅助文件。
+## 报告与浏览器依赖
 
-在普通源码环境中，缓存位于 `base_software/cache/`；在冻结环境中，路径从 `sys._MEIPASS` 派生。部署目录没有写权限时，路径保存、图片截图和报告生成都会失败。
+完整报告链路需要：
 
-## 报告工具链
+- TeX Live 或 TinyTeX，包含 `latexmk`、`xelatex`、`ctex` 和 Fandol 字体；
+- Chrome/Chromium，供 Kaleido 导出直方图图片；
+- PyVista 离屏截图环境（DISPLAY、EGL/OSMesa 或 xvfb）；
+- 中文字体与宏包，确保中文 PDF 可编译。
 
-报告模块使用 PyLaTeX，并加载 `ctex`、`indentfirst` 和 `float` 三个 LaTeX 包，最后调用 `generate_pdf`。因此除了 Python 依赖外，运行环境还需安装可生成中文 PDF 的 LaTeX 发行版。项目 README 另外声明完整运行需要 TeXstudio 和 Google Chrome；其中 Chrome/Kaleido 与 Plotly 图片导出的运行环境有关，LaTeX 编译器则直接由报告生成代码调用。
+`backend/docs/report-toolchain.md` 提供了用户级 TinyTeX 安装步骤。当前实现相对 base_software 的报告适配是：
 
-## 打包与服务器部署现状
+- 使用 `latexmk -xelatex`，不再让 PyLaTeX 默认调用 pdflatex；
+- 把基线中的非法单位 `360px` 显式写成 `360pt`；
+- 增加圈号字形到中文字体的映射。
 
-`base_software/README.md` 记录了 DeviScan3D 压缩包和外部网盘分发方式，也记录了项目已经意识到的部署问题：
+## 健康检查
 
-- 软件可能被解压到服务器上运行。
-- 局域网用户访问时，上传/选择功能仍指向部署机器本地文件。
-- 服务器端文件浏览框无法看到客户端文件目录。
-- 当前方案存在改用其他框架、重新开发的讨论，但仓库没有相应的迁移实现或部署配置。
+`GET /api/health` 会逐项运行：
 
-这些是产品与部署待决事项，不应被描述为已经由当前代码解决。当前代码可保证的仍是“在具备桌面文件对话框、依赖工具和写权限的本地 Windows 环境中运行单体 Streamlit 应用”。
+| 检查 | 成功条件 |
+| --- | --- |
+| `tex` | `latexmk` 与 `xelatex` 可在 PATH 找到 |
+| `chromium` | 找到 Chrome/Chromium 可执行文件 |
+| `offscreen_rendering` | PyVista 能生成非空离屏截图 |
+| `chinese_fonts` | `kpsewhich` 能定位 ctex/Fandol 字体文件 |
+
+只有全部通过时状态才是 `ok`；否则返回 `degraded` 和每项具体原因。部署后应先运行：
+
+```bash
+curl http://<host>:<port>/api/health
+```
+
+## 浏览器访问边界
+
+- Web 版本无登录和权限系统，按内网演示使用；会话隔离通过持久 cookie 实现。
+- 浏览器通过同源 `/api` 访问，不需要配置 CORS。
+- 上传在 HTTP 局域网环境下仍可用：前端 SHA-256 会优先使用 Web Crypto，`crypto.subtle` 不可用时回退到纯 JS 实现。
+- 三维点云预览要求浏览器具备 WebGL2。Chrome 因 GPU 黑名单或虚拟机渲染限制无法创建 WebGL2 时，页面显示明确错误；预览不可用不影响产物下载和后续计算。
+- Dockerfile、HTTPS/反向代理、身份认证和跨实例共享存储均未实现，不应把它们描述为当前部署能力。
+
+## 验证命令
+
+```bash
+# 后端全量测试（有 TeX 时包括真实 PDF）
+cd backend
+PATH="$HOME/.local/bin:$PATH" uv run pytest -q
+
+# 端到端演示清单
+PATH="$HOME/.local/bin:$PATH" uv run python tests/e2e_demo_checklist.py
+
+# 前端
+cd ../frontend
+npm run test:unit
+npm run lint
+npm run build
+```
+
+当前后端 pytest 为 121 passed，前端单测为 6 个文件、18 个用例；报告链路测试在缺少 TeX 时会跳过，不能把跳过当成通过。
+
+## 历史 base_software 部署
+
+`base_software/` 仍是一个单独运行的 Streamlit + uv 项目：
+
+```bash
+cd base_software
+uv sync --frozen
+uv run streamlit run home_page.py
+```
+
+它的 `pyproject.toml` 固定 Python 3.10.18，依赖中包括 Streamlit、stpyvista、Open3D、PyVista、PyLaTeX、Kaleido，以及 Windows 条件下的 pywin32；PyInstaller 位于独立的 build dependency group。注意它当前仍固定 `numpy~=2.2.6` 与 `open3d==0.16.0`，这是旧 demo 自身在 Linux 配准路径上的已知风险，B/S 后端已单独固定为 NumPy 1.26。
+
+`base_software/README.md` 记录界面通过 Streamlit 展示并从 `home_page.py` 启动，完整运行需要 TeXstudio 和 Google Chrome；它还记录了原始部署背景：软件可能被解压到服务器上运行，局域网用户的上传/文件选择只指向部署机本地文件，无法看到客户端目录，文档也记录了重新选型或重新开发的讨论。`base_software/interface/` 中的三张品牌图片现已由 git 跟踪，不再是“未跟踪资源”状态。
+
+历史基线的桌面耦合仍然存在：页面使用本机 Tk 文件对话框，多个工作流使用 `os.startfile` 打开输出目录，输入/输出路径保存在应用根目录 `cache/` 下的纯文本文件。因此它适合作为本地桌面/Windows 演示或算法基线，不应直接作为 B/S 部署形态。
+
+## 相关页面
+
+- [快速开始](../quickstart.md)
+- [浏览器—服务端架构](../architecture/browser-server-architecture.md)
+- [运行时状态、会话与路径](../architecture/runtime-state-and-paths.md)
+- [质量报告生成与工具链](../reporting/quality-report-generation.md)
+- [开发、提交与质量门禁](../development/quality-workflow.md)

@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:06f3053cf729e2dd015c2b947264674dc394cf46fec6b193857ec9b453716d63",
+  "claims": [
+    {
+      "id": "claim_f3291525b00a48ad916b064e341d9a06",
+      "statement": "任务状态集合为 queued、running、succeeded、failed、interrupted，任务记录包含工具、参数、错误、结果和内部交接字段，并保存于当前会话清单。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/jobs/models.py#L8-L42",
+          "version": "repo-lines-v1:sha256:f7df9d97a651355853c50851c9e43813c4b402e26875afb2c9a6fbe6b4094f26:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1YmQyOWEwNjcwMTJkMTdhY2RmM2JjYjhlN2ZiMzc2MGFlZDFjZDhlMzcxZjk4MGRhNjU5MWQxMTgyNWU0ZDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2ZGIxMmRkZDcyZTgxMzdjODViODA4YzQxMmFjZjU1MmNiM2Q5ZTY3OWJiZGI1OTVhMTQ3ZjlkMzJiYTk4NDUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkOGZmMmNhNDIxODgxODlmMDFlNTk3ZmRmYThjODVkZjJjM2RiODJlYjc4OTBkNjliMDc2OTEzZmJhYWJkMzAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://backend/app/jobs/store.py#L7-L32",
+          "version": "repo-lines-v1:sha256:5e2578650318ab243fe7a4aee66ea3b3edcdb58de6241a21e31db07440670e37:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlMjI1OWIxZWRhNWJmYTg0ODM5ZTFhMzg0NzJjY2ZhYTQyNGUwYThkNWYyY2Q3MTZmZmEwM2RjNjU0OTA1MWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkNjI5YjdkZjFjYjE3MTRiZjVjYzkxMmFmZGRkYTVlYjg4ZmE5YTJjN2Y1OGU2YTk1Zjg0OTk3NGJjZjBkODAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMyNjgyMDVmM2NiYTViY2QyM2FjMTc1YjU2MDMzNjI0MDYyMDIwMzY3Yjg0ZjU2MDExNGZmMTBiNjZjYjZhYzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUxNzYxMTI4MzYxNjM0NjA5YmQ0MDBlNTdmOGNjNzZlMzI2NTg5OTViYWY2NjUzZDA0ZDI0OWRkMzk5YjgzYzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_125358b38bec4af1bc32f35ada63af96",
+      "statement": "任务提交接口校验工具注册、必填输入和当前会话中的产物 ID，将输入解析为路径后再交给 JobRunner。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/api/jobs.py#L17-L42",
+          "version": "repo-lines-v1:sha256:4869ef466628369a8bfc231bd6a77843efd974ae1d47d1d10610563c07bdfea0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlOGE3MjkzMDhlMWVlMGNhZDc4ZWQ0ZGYyZTNmM2NlZGIxZjQwYmQ2ZDE4NDExOGRmODJjMmZlYzJhNmY4NzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZjYzhkNDQ0ZDg1YjQzYTAzODllMGE3YmEwYTQ0YTJhMWFjYTllYmNhNThjNjA1ZWRhZjExMTVkMWQzMGUwNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMzZmFmZWEwZTQyNTI0YmExYjc4NTdiMmRiYWE2MmY0OTFmMjNkNmJjYmVhYjAwNDBhNmE2MTNjYzA3ODQ0YmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNlMzk3MWY2NWE4NDhjNmIyZWQ0YmJiZGNkMDgxNTM5ODhmMzNiZWIwODJjMDRjOGVlOTZhYzQ1OTI0NWViMjEifQ"
+        },
+        {
+          "resource": "repo://backend/app/jobs/tools.py#L5-L13",
+          "version": "repo-lines-v1:sha256:13f1a3c045abfaadef426f51e9a23b846f8e9dd64307d57e86e4670e5ab1386f:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMTU0NmE2MTRkNWQ5OGEwZjU5ZjkzZjFiZGQ1NmVhM2Y1NjMzY2FkMWJkOTNkYzg1MjRmYzBmYTMwY2Q4ZjNhNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjVjOTgxNGU5MTA1MGQyY2IwOWNkYjlmZjYyMzNmY2FmYmZiYjExYTAwMzQwZWM0ZWE1MmViOGUyYTczYWQ3ZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjllNmE1YzQ5ZjY0YmIyMmE3YzhmMzRiZmUwMGJkYmZjNzVlZjllY2M3ZDNiZmMzMDEwODdlYjIxMWRhZDk3MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_38ed54385c8f463886a3c1f263e66c6f",
+      "statement": "JobRunner 使用 spawn ProcessPoolExecutor，容量默认 2；超出容量的任务保持 queued，Web 进程不直接执行算法。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/jobs/runner.py#L39-L73",
+          "version": "repo-lines-v1:sha256:1d7ccef2b12209b2b514a46b791fa84c8011a1d8521eb7609b587ccadf50a985:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExMzVjNzU2ZDQ2ZGVlMmIzZTM3ZTljMWJmODRhNjJlMmJlNzllODczNDE0Yzc4Y2Y3Njk0ZmVhNzljODg5MzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliZDk5YTM2NDJhZWJhMTU3ZmYxNDllMmEyYTRhOWRhMzEwOTQzMjA0MjU2ZjlhNjM5N2U4ZTE3Njk0NjcwYmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYxNTIwOTA3MDg3YmE1MzJlNDc4NWIwOTQ1OTNhMDVjNzdhOGMxYzMyZGRmODZlZThjZmYzNDFkZDUwODk5YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxNmY4NDRmMmQwYzA1ODFlYjNiZGNiMjRiZDM4ZjA3MjkzZGI3ZDViNzNiYWY2OGJmMTUyZDNlYWU4Y2FjYTUifQ"
+        },
+        {
+          "resource": "repo://backend/tests/test_jobs_runner.py#L39-L78",
+          "version": "repo-lines-v1:sha256:76f2a9d67c5aff64311cd579125ca17e51fdb872ac44ff82683db309a7a60b13:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY0N2U0MzM0ZTBlMTI0YzNiZThkOTQzMmI5MGZlZjZmMDA5MTM0OWNmZjJlNWJkZTJhMDkxZDI3ZWQ0MDg5NTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM1MWYxZjUyMzY5NTRiOGEyYjQ0NjY2NGFkZmU4YjEwNzg1YzBiYTdhZmVmYTg3MzZiN2I5NjZhNWI1MTI2MjAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5N2M3N2ZhMWI5MmMwMTI1MDYyZWI0ZTBjNzg5NmI0ODkyZjllOTA2YzEzYjg0MTA0ZWY0N2U4MGY5MjZmYmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI5MTQxMTRiOTVmMmMzNzZhYWY0NmE4NWQxNTU3YmEzOGI1YjA3MjliMWRkNzk0NTQ2M2M2OTM1MzQ3YjAzNjgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_70db36c60eec42bb8ea88562fb2b8087",
+      "statement": "worker 在工作目录写 state.json 和 progress.json；查询时 view_job 把会话记录与这两份文件合并，前端百分比属于阶段进度而非算法内部进度。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/jobs/runner.py#L120-L135",
+          "version": "repo-lines-v1:sha256:1d2f97aaeecf4ea9ed91d98de11c91e8076d42042d0e67a1f1e4188c5f33ed36:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4OTNhODgwZWFkOGRkMDk1Y2QyNTUwOTEyZjhiYjljMWY3NmYxNjU3YjExMGI1ZjIyZmIxODA0NjQxMjVhMDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4OGQwYzY5YjRmOTQyYzYyY2ExZjZiMmNlNWNjNmFmYjYxZTlkMTZkYWQ0YmRhOWY4ODZiNzBiZGFiMDVhMDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNGU4MjExODVhZjkxYTUxNGIyZjU1NzA1NWQ4MjZlMTAzZjIxNTY5OGUxYjk1YTMyMDUxMTcxZTUyOTdiNDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRkZmY3ZGM3NjkxZTQxZDdkYmY4ZTM4MWY0NTdiZDM0YjYwMWNlZjM2Y2NiNGZkY2NmYWE2YjlhZTkwY2Q1ODAifQ"
+        },
+        {
+          "resource": "repo://backend/app/jobs/runner.py#L24-L36",
+          "version": "repo-lines-v1:sha256:43db68f8842c041dda48ab7c355ca5b084cf611bb3c4557d06883fa2ca599317:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkMzVlZWIyNDg3ZDE4ZmM3YmE5MzIwZmIyZDdmOWNhNGZlMzZlZTJmMDRkNjdlZGM1NTYxMTVlMDZmYzkzM2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMxNjUxODkwOWY3N2NmMTJkODIwYjVmOGRkYmVmZDg1NTM3YmIxZTM1OThkNGYyZTViNmY4OTgxYWIzZDRkMzgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJiYjNjMzQ3MjEzYzE0ODJhYmJjNmEzNjdiYmJlMmVkYjcyYWY4MWIwNmU3YzZiMGY0NWFhZTIwMjUzOTJlNzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI4NDA4ZDRjNGE4MDI5MjVlZDQwNzhkMjM1MmEwOGY3NzUzYWVjNGEwOTE0YmZkZWUyNGE2YjA2ZTI2MjhkYmEifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/JobProgress.vue#L51-L55",
+          "version": "repo-lines-v1:sha256:8760e9fa09bfbbeb89f166ab4dc81ae139c7adbdcf33e4247664181bababe3ea:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGFhMjRmYWNhYjVmMmYxMThiYjk0YzZmOGY5YTUwZjMwZDFjYmE5ODJhMDIwODZhNGQ5ZTQzMjNjNWFjZjdmMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODU4MGI3NjUxOGRhZTk3OWZhZWJkMDIzNjdhMjkyOTJhNTBkOTc2MDkyMjUxYTM4YTZjZTMwODgwYmE0MjgyNSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjE4MjA0MDhhNzA3ZDg0NWRjY2M3YzAxZWQxZjVjYmY1MzNhYTY3MDc1YmQzN2I5NmI1Y2M4ODZkOGQ5NzdkNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmFkOTYzNzRkOGM2NTZkMzMzNDBiM2QxNTViODMyNTViNmZjYzNiZTViZmZkMGU2NTQxY2Q1ODMyYzEzNTI5NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_3fbc4cff30c7413f9cf6854e8bfa60d4",
+      "statement": "前端任务组件在 jobId 变化时中止旧轮询，并默认每秒请求任务状态直到 succeeded、failed 或 interrupted 终态。",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/api/jobs.ts#L28-L38",
+          "version": "repo-lines-v1:sha256:1b858ababb519a69dd7fe457cd50026b438816e2a30fa9d028daa93add1efb46:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhYTg0YmY3M2RiMWE3YTVlNTBmNjc1NDZiMWVhNWQyZDRiNzRkZjZhNDI0MjI0ZGY4MWNjODljNzZmZjk1N2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjZjk1ZjJhMmZmNDU0NDJlMTM1ZDA0ZjY2ZmIyNTRiYTcwMTBlZTMyYmU4YjNhY2EwMDI3M2UxNzdkMDlmMjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://frontend/src/components/JobProgress.vue#L21-L49",
+          "version": "repo-lines-v1:sha256:4f748d706dc5b0d1dda899ac564a8a95dd92ad1a7c86193309348fcb10f2818b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1Y2YzZTMxNjU4OGZkNWU3MTA5NzFjYWE5ZjMxNzQxNDQyZTlkNjc4OWEzMTcyZjQ5ZmZhZjYxZWE2MzViM2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI3MDAyNmYzZmY5YjEyMzRhNGY1NmY5ODg2MzBhNzkwM2E5ZTA4ZDJiMTU3MmY3YjdhMjk0NjQ2YjZkNmZmMDkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU5NGZmNDJlMzQ0NTAxMGY5YzZkMGE3ZGZmNDZjY2RlNGM0YTgyYjRmYzI4NDA3ZWU4NzI2MDNhYjIwYmFiNzYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhNTRmMzFiY2U3YTE0ZWRmODdiMWMxYTdjZTBlM2NkNmFkYjI0YTU5ZTQ3ZDg5MTRhYjk0NmZmOGIxZGFlNDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ecf8f784c8fd48c59fdac9d32a84b5ff",
+      "statement": "任务成功后 runner 把 outputs 中的文件登记为 artifact，并写入 succeeded 状态、结果摘要和内部交接字段；失败或产物登记失败不会留下可用的成功产物。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/jobs/runner.py#L75-L118",
+          "version": "repo-lines-v1:sha256:eb51f04d4b8743ba4a2bff8a5dd1350e31c1b211627be411cd380ad8a911a5fe:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzMWRmYWE4Y2Y1NjkzNTEyMDlmODlmYjExMDk0Y2I0OWE3MTI1ODY3MjgyZDcyZTYzNzlmZGIxMmViOTQ1OWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVhNzkyMGUxYjY5ZjUwNGZlNDkzOTU3Mjg0NDIxZTAyZGYwZDc5ZjU0NjNlMDdjOTEzNmUyYzBjNWIwZGRmMWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhMGY2YTVkYTUwZDg2MTBmYzAyNWUzNzg1OWJjMDExODMxYmUyODFhYjRmZTU4YTFlZjVjYjExMGRhZGU2MzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxMGUyY2Q0ZmQxNWQ3YjczODBlNjUzYzljZjEyZmM3MTI1MTY0ODQ0NTNhNGExNjI0Y2U5OTk5NTVkMmEwNGIifQ"
+        },
+        {
+          "resource": "repo://backend/tests/test_jobs_api.py#L36-L83",
+          "version": "repo-lines-v1:sha256:6641d30d4b4b80e74329502dafe4263588b17ab87a3ec2abc59af9d77a13e27d:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4MzJhMTA5Y2I0Mzc0OTgxZmQ2MTFkNGJhN2QxNjA1NDhjYmNkYzU0MGZmNTAyMWFjNzhmM2U4ZDAyYzYwMzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEzOGU1OGViMmEyZjlhYWNiOWZhMzk2NjE3MzA4YWYwYzBkN2Y3YWRhMTEyNWZlM2Y1NTc4Mjg4MzMxZDY4YzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM0MjMyZGUyMjc5ZGExMmY3OTZhZjNiNWJiZGU2OWUxMGUzYTI0MTc3MWZiZDA4ODE4YzRiNzVkMmE2NjYxNWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4dd88d314e1c479eb54cbef5f4eb1584",
+      "statement": "服务启动时 interrupt_leftover_jobs 会把所有遗留 queued/running 任务标记为 interrupted 并写入“服务重启导致任务中断”，不会自动恢复执行。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/jobs/store.py#L35-L60",
+          "version": "repo-lines-v1:sha256:03b12ea8881bac9855769f69926360d9d73018e1dee9cb2a9bd223d4ccf0f49f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFkYTc1MGRkYTkzZTNkYjFjZWY5ZDA2MTAxMGRiNjYyMzVmOWU1ZTQ5Y2FkMzc4YmExMGEwOTA0YTQ4NWJkYjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2OWI5MDYxMzBmZmU1MDcxN2Y5YTQwMzAzYzkzMDgxNzFlY2YyZGQxOTFlYTU1ZTM1NWQ0OTc4MWNkZTQ3NDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0MTI3MjA5YTI5YzAxYjFiYWZlMzM5NzVlYzQwOTc1ZWQ3MTIzNjBmNDAwYmEwY2FmZjZmYjExNTc1Yjk5NzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://backend/tests/test_jobs_failure_interrupt.py#L45-L77",
+          "version": "repo-lines-v1:sha256:f61ee5fa806fc004b58c00ca1ec6a1b7bf3a524cdcc8dc1b1d661d4a84f25a64:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMyMDZlYmMyMWEwOWY3MzJmMGU4NTFiZmM1ZmU3NTc0YmJkNmExZTY1NDYzMWM2OTc5YWNjYjFjZTQ1YzZjZGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyMjMyZTlmNjUzOGJkZTFlMDRlMjdiM2I3NjYyNjEyNDE1MzE1Y2I5YWRlMjQwZjIxOGQ1MWM1YmIzNzViMTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM0MjUwMmRiZmNiZGZkNzFjZTk2NWIxODJmYTQyNjQxYjJkYmM4MWMzMjAyNTNiZWZmNTBhOWIyYTA2YzlmZWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-29T03:28:02.619Z"
+  }
+}

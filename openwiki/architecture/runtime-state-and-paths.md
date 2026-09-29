@@ -1,12 +1,28 @@
 ---
 type: runtime-architecture
-title: 运行时状态与路径
-description: 说明应用根目录和缓存目录的解析方式、文本缓存文件构成的跨页面状态协议，以及重跑、缺失文件、取消选择和平台差异带来的行为。
-tags: [architecture, state, filesystem, packaging]
+title: 运行时状态、会话与路径
+description: 说明 data/sessions 工作区、session.json、artifacts/uploads/previews/work 子目录、锁与原子写，以及 base_software cache 文本状态协议的历史差异。
+tags: [architecture, state, persistence, sessions, filesystem]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-28T07:28:45.133Z
+    at: 2026-09-29T03:28:02.619Z
 sources:
+  - id: openwiki-source-d3cb6830ecaa081440b96d80
+    resource: repo://backend/app/api/session.py
+  - id: openwiki-source-4188bfee2e15d969d3152477
+    resource: repo://backend/app/config.py
+  - id: openwiki-source-8803caea915c45463e82f840
+    resource: repo://backend/app/core/artifacts.py
+  - id: openwiki-source-7c751c107cacf372c92785f6
+    resource: repo://backend/app/core/preview.py
+  - id: openwiki-source-641ae98462ef0e5867e3c63c
+    resource: repo://backend/app/core/sessions.py
+  - id: openwiki-source-af8bc07dd356b94582111a05
+    resource: repo://backend/app/core/uploads.py
+  - id: openwiki-source-5cd8a5b32eb393895819dfdc
+    resource: repo://backend/app/jobs/runner.py
+  - id: openwiki-source-24a943f3d4ce3be6822a4891
+    resource: repo://backend/app/jobs/store.py
   - id: openwiki-source-b735a19d109c0dd7887674e9
     resource: repo://base_software/functions/PDF.py
   - id: openwiki-source-d69beca5a040440e55fef3c1
@@ -17,54 +33,112 @@ sources:
     resource: repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py
   - id: openwiki-source-f62fb78e9932aaca3ecc6806
     resource: repo://base_software/path_utils.py
-generated: { by: "codex", at: "2026-09-28T07:28:45.133Z" }
+generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
 ---
 
-# 运行时状态与路径
+# 运行时状态、会话与路径
 
-## 应用根目录
+## 数据根目录
 
-`path_utils.get_app_base_path()` 提供两种环境下的统一根目录：
+B/S 版本的根目录由 `WUYE_DATA_DIR` 决定，默认是仓库根目录下的 `data/`；会话根目录为 `DATA_DIR / 'sessions'`。每个浏览器会话访问自己的 `data/sessions/<uuid>/`，不同会话的产物和任务默认互不可见。
 
-- PyInstaller 等冻结环境返回 `sys._MEIPASS`。
-- 源码环境先检查当前文件目录是否同时存在 `pages`、`functions`、`interface`，不存在时向父目录逐层查找；仍未命中时返回 `path_utils.py` 所在目录。
+`session.json` 是当前会话的唯一真源，记录：
 
-缓存、界面资源、函数和页面路径都从这个根目录派生。当前仓库没有跟踪 `interface` 目录，因此源码运行虽然可以得到 `base_software` 根路径，但只有补齐 `interface/CMGC.png`、`logo.png` 和 `TJBridge.png` 后首页才能完整渲染。
+- `session_id` 和创建时间；
+- `artifacts`：已登记的输入和输出产物；
+- `uploads`：上传记录、已接收分片和分片哈希；
+- `jobs`：任务状态、参数、结果和内部交接信息。
 
-## 缓存目录
+`SessionStore` 为每个 session id 维护进程内锁，并在锁内执行读-改-写；写文件时先写 `session.json.tmp`，再用 `os.replace()` 原子替换。这个设计面向单 Web 实例，不提供跨实例分布式锁。
 
-`get_cache_path()` 会在根目录下按需创建 `cache/`；首页启动时也会主动执行同样的初始化。缓存目录同时承担三种职责：
+## 会话目录布局
 
-1. 保存用户通过 Tk 对话框选择的输入、输出路径。
-2. 在预处理工具之间交接生成文件路径。
-3. 保存质量评估用于生成报告和界面预览的固定名称图片。
+`SessionStore` 的目录约定如下：
 
-## 文本状态文件
+```text
+data/sessions/<session_id>/
+  session.json
+  artifacts/
+    <artifact_id><suffix>
+  uploads/
+    <upload_id>/
+      chunks/<index>.part
+  previews/
+    artifact-<artifact_id>.bin
+    job-<job_id>.bin
+  work/
+    <job_id>/
+      state.json
+      progress.json
+      cache/...
+```
 
-应用没有使用数据库、`st.session_state`、pickle 或结构化配置。页面把纯文本路径直接写入文件，下一次 Streamlit 重跑或另一个工具再读取。主要文件如下：
+各子目录的生命周期不同：
 
-| 范围 | 文件 | 内容 |
-| --- | --- | --- |
-| 网格离散 | `Tool_BIM2PCD_Input.txt` / `Tool_BIM2PCD_Output.txt` | 网格文件和输出目录 |
-| 尺寸缩放 | `Tool_Scale_Input.txt` / `Tool_Scale_Output.txt` | 输入文件和输出目录 |
-| 体素下采样 | `Tool_Sampling_Voxel_Input.txt` / `Tool_Sampling_Voxel_Output.txt` | 输入文件和输出目录 |
-| 均匀下采样 | `Tool_Sampling_Uniform_Input.txt` / `Tool_Sampling_Uniform_Output.txt` | 输入文件和输出目录 |
-| FPFH 粗配准 | `Tool_Registration_FPFH_SCENE.txt`、`_BIM.txt`、`_Output.txt` | 移动点云、固定点云、输出目录 |
-| 精配准 | `Tool_Registration_ICP_SCENE.txt`、`_BIM.txt`、`_Output.txt` | 移动点云、固定点云、输出目录 |
-| 质量评估 | `QA_pcd.txt`、`QA_BIM.txt`、`QA_Report.txt` | 扫描点云、BIM 点云、报告目录 |
+- `artifacts/`：成功产物的内部存储，文件名使用 artifact id，下载时恢复会话清单中的显示名称。
+- `uploads/`：未完成上传的临时目录；完成后合并并登记产物，然后删除该上传目录。
+- `previews/`：按 artifact 或 job id 缓存的 WYPV 预览；缓存命中时不再读取全量点云。
+- `work/`：单个任务的工作目录，保存运行状态、阶段进度和算法中间文件。
 
-每次重新选择都会覆盖对应文件；文件内容没有版本号、JSON 结构或并发锁。多个浏览器会话共享同一个文件系统缓存，因此后一个会话的选择可以覆盖前一个会话尚未执行完的路径。
+## 产物与路径安全
 
-## 跨页面交接
+`register_artifact()` 对显示名称做路径净化，只保留最后一个路径组件，拒绝空名和 `.`/`..`。内部存储路径采用 `artifacts/<uuid><suffix>`，因此同名输入不会互相覆盖。
 
-FPFH 粗配准成功后把结果保存为 `<扫描点云名>_FPFH.xyz`，并立即把该结果路径写进 `Tool_Registration_ICP_SCENE.txt`。进入精配准页面后，如果用户不重新选择移动点云，按钮逻辑会读取这个缓存路径作为默认输入。这个交接仍以磁盘路径为唯一媒介，并没有把点云对象或变换矩阵保留在内存中。
+`artifact_path()` 在返回文件路径前把候选路径解析为绝对路径，并验证它仍位于当前会话目录内；路径穿越或伪造存储路径会被拒绝。API 层只返回产物 id、显示名称、类型、大小和时间，不暴露内部 `path` 字段。
 
-质量评估页不会自动读取预处理的 FPFH 或 ICP 输出；它只读取用户通过 `QA_pcd.txt` 保存的扫描点云路径。
+## 上传状态
 
-## 可观察的失败与边界
+上传记录保存在 `session.json` 的 `uploads` 数组中。分片接收时：
 
-- 点云计算按钮通常会直接读取前置缓存文件。如果用户尚未选择路径，代码会抛出 `FileNotFoundError`；这些核心计算入口大多没有把缺失文件转换成友好提示。
-- Tk 文件对话框取消时通常返回空字符串，但页面仍会把空字符串写入缓存。后续读取不会把空路径识别为“取消”，而是在点云读取或保存阶段失败。
-- 固定图片名会在每次质量评估时覆盖，包括 `fig1a.jpg`、`fig1b.jpg`、`fig2.jpg`、`fig3.jpg`、`fig4.jpg`、`fig5.jpg` 和 `Error_Analysis.jpg`。报告模块随后从同一缓存目录读取这些文件。
-- 网格离散的“打开输出文件夹”按 Windows、macOS、Linux 分支处理；精配准和质量评估的同类按钮直接调用 `os.startfile`，平台兼容性不一致。
-- 精配准的“打开输出文件夹”把 `cache_path` 与字符串 `/Tool_Registration_FPFH_Output.txt` 拼接。前导斜杠会使该字符串成为绝对路径，因而优先读取文件系统根目录而不是缓存目录中的文件。
+1. 按分片索引判断是否已经接收；重复提交直接返回当前进度。
+2. 检查分片长度和 `X-Chunk-SHA256`。
+3. 先把分片写入 `.part.tmp`，再原子替换为 `<index>.part`。
+4. 在会话锁内记录已接收索引和分片哈希。
+
+完成上传时，`_assemble()` 按索引顺序读取所有分片，逐一重新校验长度和哈希，再计算整体 SHA-256；通过后由 `register_artifact()` 登记产物，并删除上传临时目录。若校验失败且错误包含具体分片索引，会删除该分片并从 `received` 中移除，允许后续重传；其他失败会在 `completing` 状态下恢复为 `uploading` 或显式抛出。
+
+未完成上传可以由用户取消，超过 `WUYE_UPLOAD_TTL_SECONDS` 的记录会在后续初始化上传时惰性清理。TTL 清理不会回收已经完成的产物。
+
+## 任务状态与工作目录
+
+任务记录写入 `session.json` 的 `jobs` 数组，但运行中的阶段进度不直接由 worker 写回该文件。`JobRunner` 在工作目录中维护：
+
+- `state.json`：worker 启动时写入 `running` 和进程号。
+- `progress.json`：worker 调用 `progress(stage, done, total)` 时原子写入阶段、完成数和总数。
+
+查询任务时，`view_job()` 把会话记录、`state.json` 和 `progress.json` 合并成 API 视图。服务启动时 `interrupt_leftover_jobs()` 扫描所有会话，把遗留的 `queued`/`running` 任务显式标记为 `interrupted`，而不是继续等待不存在的进程。
+
+任务成功后，完成回调会把输出路径登记为 artifact，并把结果摘要和内部输出写回任务记录；任务失败则保留简洁错误文本，不把半成品登记为成功产物。
+
+## 会话 API 的去敏边界
+
+`GET /api/session` 返回会话快照时会移除：
+
+- artifact 的内部 `path`；
+- upload 的 `chunk_sha256` 映射；
+- job 的 `internal` 字段。
+
+这样浏览器获得的是可用于选择和展示的元数据，而不是服务器文件路径或内部错误云位置。会话 cookie 只负责标识工作区，不提供用户身份认证。
+
+## 历史基线的状态协议
+
+`base_software/` 使用完全不同的状态模型：
+
+- `path_utils.get_app_base_path()` 在冻结环境返回 `sys._MEIPASS`，在源码环境根据 `pages`、`functions`、`interface` 目录查找应用根；未命中时返回模块所在目录。
+- `get_cache_path()` 在应用根下创建 `cache/`，首页初始化也会创建同一目录。
+- 页面用纯文本文件保存输入、输出和交接路径，例如 `Tool_*_Input.txt`、`Tool_*_Output.txt`、`Tool_Registration_ICP_SCENE.txt`、`QA_pcd.txt` 等；没有数据库、`session_state`、pickle 或结构化配置。
+- 每次重新选择都会直接覆盖对应文本文件，文件没有版本号、结构校验或并发锁。
+- FPFH 粗配准成功后把 `_FPFH.xyz` 路径写入 `Tool_Registration_ICP_SCENE.txt`，作为精配准的建议输入；质量评估只读取用户通过 `QA_pcd.txt` 选择的扫描点云，不会自动读取该预处理输出。
+- 多数计算入口直接打开前置缓存文件；文件不存在时会产生 `FileNotFoundError`，而不是统一领域错误。
+- Tk 文件对话框取消时返回的空字符串仍可能写进缓存，后续流程不会把空路径识别为“取消”。
+- 质量评估会在同一缓存目录中以固定文件名覆盖 `fig1a.jpg`、`fig1b.jpg`、`fig2.jpg`、`fig3.jpg`、`fig4.jpg`、`fig5.jpg` 和 `Error_Analysis.jpg`。
+- 精配准的“打开输出文件夹”曾用前导斜杠文件名与 `cache_path` 拼接，导致它被解析为文件系统根路径下的文件；这是历史实现的已知路径边界，不是 B/S 版本的行为。
+
+当前 B/S 版本保留算法与报告语义，但不再复用这套跨页面文本缓存协议。
+
+## 相关页面
+
+- [浏览器—服务端架构](browser-server-architecture.md)
+- [会话、上传与产物工作流](../workflows/session-upload-and-artifacts.md)
+- [异步任务执行与进度](../workflows/async-job-execution.md)
+- [点云预览管线](point-cloud-preview-pipeline.md)

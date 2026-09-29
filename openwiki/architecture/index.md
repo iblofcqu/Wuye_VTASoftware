@@ -1,4 +1,6 @@
 # 文件
 
-- [应用架构总览](application-overview.md) - 说明 DeviScan-3D 的 Streamlit 入口、内置 pages 导航、两条业务页面链路、共享算法与报告模块之间的职责边界。
-- [运行时状态与路径](runtime-state-and-paths.md) - 说明应用根目录和缓存目录的解析方式、文本缓存文件构成的跨页面状态协议，以及重跑、缺失文件、取消选择和平台差异带来的行为。
+- [仓库与应用架构总览](application-overview.md) - 说明 monorepo 中 frontend、backend、base_software、docs、openspec 与 openwiki 的职责边界，以及 B/S 实现作为当前主路径、Streamlit 实现作为行为基线的定位。
+- [浏览器—服务端架构](browser-server-architecture.md) - 说明 Vue 前端、FastAPI 同源服务、会话中间件、业务 API 与独立计算进程池之间的运行时关系，以及浏览器请求如何穿过上传、任务、预览和下载边界。
+- [点云预览管线](point-cloud-preview-pipeline.md) - 说明服务端点云轻量化与 WYPV 二进制编码、会话内缓存和预览 API，以及前端解析、vtk.js 渲染、配色和 WebGL2 不可用时的失败边界。
+- [运行时状态、会话与路径](runtime-state-and-paths.md) - 说明 data/sessions 工作区、session.json、artifacts/uploads/previews/work 子目录、锁与原子写，以及 base_software cache 文本状态协议的历史差异。

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:9e1679432502b6e05e0b2502c4a986f06cb0601e7c068d22f821ad9789923b51",
+  "pageVersion": "sha256:14b13fa42bfece7515f44f89d9032205cf36c5972a287a4e6743fe311ba6ff32",
   "claims": [
     {
       "id": "claim_f6808c86d2e043a8bab2d692ffb78ebb",
@@ -111,10 +111,68 @@
           "version": "repo-lines-v1:sha256:1b359424ef1cf2f9cc8197fc419a161599c22d6cbfa744d36e574bd202447e45:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2N2Y5Yjk4ZWQwMjc5YWUzOTQzOWMxMzYyMzA4ZGVkNjU1ZjlhNWJkNzQ4NGI4MzA3OGVjNDY5MzM0ZDIyM2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkOGViODBhNTQ1YmE1ZjE1YmM4NzdiOTJiMGE0MzMyYTdjMjNiMzk3MDFhNWQwZjYwMzljYWM3ZmZiMWVkOGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUyMDI3ZGJiYzU0NGJhNmZlZGMwMmE5ZDRjZmUzM2RmMTQ5NDUyZWVmM2M2MTI5YWFhZDlmYzVkNjE4OWRlNWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZiYjEzZGM2MDEyYmMxMWU1MTcyZGE2MjljOWU5Y2ZiY2UxNzk3Y2FjNjcyZWZmYTRmMTQzMjYwOTg4OTMwNmEifQ"
         }
       ]
+    },
+    {
+      "id": "claim_f48bf37c7e5342b39a54e9f02d3f5224",
+      "statement": "B/S 服务层在调用 backend/app/algos 算法前做点和单位参数校验，并按固定后缀命名工作目录中的输出文件，同时通过 progress 回调报告阶段进度。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/services/preprocessing.py#L24-L134",
+          "version": "repo-lines-v1:sha256:f88ec25b2406925885251fcd84485bd2c5f5935bb8e19616270e5320d6c33cf3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTExLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJkYWIzYTY5MzBmY2FkZDkyMjRlMWQzMWJjMzMzYzJlZWZkYTYxM2QyYjAxMWI3OWMxZjFmMTMwMDNiM2QwZjkxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIzMGMxZjE4OGYxNDJlZDdhODI0NjgwYjIwNzE3MmM1NTE5YmM2MTRhNDhmZGE3Y2YxNjdlZGI4ZGRmNzk5NTZjIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJhOThiMDYzZDliNDdlNjUzNzk2MjU1NzJjY2UxOTc2NjlkNTc2N2UxMmMxOGJlMDc1NjUyYjhjZDk4MWNlOGQ1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        },
+        {
+          "resource": "repo://backend/app/services/registration.py#L21-L83",
+          "version": "repo-lines-v1:sha256:c3dd4f006a7f0e658a607732bf60bc05b486120a1c0414c60a3619956d5f5e8d:eyJzZWxlY3RlZExpbmVDb3VudCI6NjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJjYjcyNTQyMzA1ZmY2YjZmNjk3NjhkYzRlZTcyNzFjYTEyNzMyYThlYzdjYzhkMTE0MmQxYTg3YjZjY2ViY2UiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwYzFmMTg4ZjE0MmVkN2E4MjQ2ODBiMjA3MTcyYzU1MTliYzYxNGE0OGZkYTdjZjE2N2VkYjhkZGY3OTk1NmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkwNjc4ZmZmYWM0YjlkYjY1ZGIxZWZmMzQ2MDA1ZjA1NWM1N2RjYjU2ODdjMGQ5NGI5ZDNkZWYxMzE0ZTlhMmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_d7359c4ca8764970870a6f72057970cf",
+      "statement": "当前服务通过 data_load 使用 Open3D 的 format='xyz' 读取点云；模块同时保留 data_read 对 xls/xyz/asc/txt 的扩展名分支。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/algos/load_data.py#L8-L35",
+          "version": "repo-lines-v1:sha256:9646e365129f8efd7e08dfa0eae98558fb7944dc29ed20510e45db8dfdd55eac:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIxZWQwN2M0ZjcyNDQ1MDBiMWMxMDhiN2QyNmU4NDIxMmVjZDE4ZmZlOTRjNjI1ZmY0NGFmMTU4YzFiMTcwODkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVmMzM0MjQzZmIwMGZkYzU1MDkyYzJiZjY3Y2IxMTU4NDUyM2I4NDI1ZDNkMjM3MDhlZjIzODUzNjAxZTcwYjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVlNjM3OTU5ODBlODg5YjBjODkyMWQ2ZjY0ZTBiZWU4Zjg0ZThkYThjZWZiZDQ1NTM0NWQ0ZTU2NjljZWM2OGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY4NTg0Yjc2MGI2Nzg5NGY4N2Y3MTBiNzIwOWM0ZmIwNjQxZDgwMTViYTljZWEyZGQ0Nzk2NGFmZDc0MTg1MjYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_eb8270119b8641c4ba7fe371b7b45d36",
+      "statement": "Golden parity 测试对读取、单位缩放、体素和均匀下采样要求逐点一致，对 Poisson-disk 采样使用点数与统计容差，对 FPFH 使用源码一致性和质量阈值契约。",
+      "evidence": [
+        {
+          "resource": "repo://backend/tests/test_golden_parity.py#L45-L124",
+          "version": "repo-lines-v1:sha256:10552f57e92a0a410de9b751b1378fe3f4ea65e3a1d12378d0534a944ca0862f:eyJzZWxlY3RlZExpbmVDb3VudCI6ODAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQzNWY5ODM1YTg1MmUyOGQ0M2JiYTlkNzExMGZiMTU3YjMyMmMyNjVhZmNjMDZmNzNiNWM4NjZhY2Y0OGQzMWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNjNTlkYzY4MmMwNTY5MTJiNWNmMTgzYjJjNTdjMWMwMTMzMDVmYmQ2ZTAzZTA2NDBiNWM1M2E3ODJhYTg3ZTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU3MmI2ZTNjMjVlN2EwYWExOTE3YzA4ZTA1NTk2OWM1ZGJhZjI2ZDlhMDM0ZDRiM2IyMTRlYzQ2ZThmYmI2MDYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVkYzkyOWRjMWViZmViMDlkOGU2Njg1MTg2NjMyNTc2ZjYwOTJlMTlkOTBhNmRmNWQyNjI4NjM3NzIyNmE5NGEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a63422ec59f64f32b7e578b128709cd0",
+      "statement": "Point2Plane 用 plane_model[3]/plane_model[2] 构造平面上点；当局部平面法向量的 z 分量为零时会产生非有限值或 NaN，并可能使后续偏差统计失败。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/algos/knn.py#L124-L143",
+          "version": "repo-lines-v1:sha256:b891be37c06966a6ce68951841557f05b71c30eb4d9d915ee7d442459ed4f570:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkOWZhYTk2ZDU2N2Q5YjliOTIyNGUyOTJhODFiYzNjZDkwMmM1MWM5YTdhNGE2NjRhNDQ5Y2Y4ZTVkYWRjMTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkMjEwZjlhYmFhZDEyZDczZjE0YTZmZGE3MDUyNjIxN2Q3MTMxMDc3YTgzNjUyNDM0Y2MwZmYyMTMwNmYxMGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA3N2E3Zjk5YzM3ZjQ0ZDRiN2IwODIwODJjMTQ1N2Q3Y2U3ZDcwYjU3NWUxNmI0MDQ0NTQ0MDk0ODY0OGMzNGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9646dda29e0c440ba2f7500817c8a6e0",
+      "statement": "find_r 只保留半径邻点数大于 10 的查询点，找不到满足条件的邻域时会在 np.hstack 处因空结果抛错；该行为由 golden 边界测试显式保留。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/algos/knn.py#L69-L79",
+          "version": "repo-lines-v1:sha256:50149d8d71931cd28cccead20a5fbd47e4845fd89ed277f7d1fde5b7be93928f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjViZjBkNDhhZDExZjIwZDRlZmQwNDA1YWQyMWJlNDE0ZDcxYjExZGEwYmExMjJkYmJkMzIwZjIyYmU5MmUxNTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhmMDA3YTVkMzA0ZGI0OTE3OWI4OTA1ZDc4YjIzNWI4MmM2NTM3YWVkMWNkN2YwNjhlZWI4MzA4N2ZhYmM1Y2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijc5NWMwODFkNzMyYTAxNTE4YmU1NDNlZmFlNGI3MTRlN2FlOGFhZGUwMmYxYTA3OWJiYTBmZjZjNWIwNjkxNDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkYTZlNjk2OWVhMjA3YmU0ZWVjZmM0NGE0YjllZDZiZDYyYmU4ZTU1YWQ1MDRhN2NmNTMxNzQzZjRlMmNhYzgifQ"
+        },
+        {
+          "resource": "repo://backend/tests/test_golden_parity.py#L161-L167",
+          "version": "repo-lines-v1:sha256:19cc1a28880c33bf1e38e963c31eaec54383286503e1349e4a34f4bb50831ef3:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTdjYjU2OGZmZDRhMGZhNzQxNWQ4NmNiNGQ3M2FkYjlhNDg0M2JkNzFkOTJhN2ZjODY1YjEwNzk0OTFiN2MwOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDNlYmVhOGM0ODg5ODc4NTU4NDFiMmM4YmE1YmZjYTIxMWNmMTRmZGE0MGQ4YzAwMmJlN2U5NjVjMjM4Y2Q1MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzZmYjYwM2Q4M2NlYTcyNTUzODUzYTljMWIzODQyNWQ1ZTk3NmRkNTg2NDg1N2QxYTYzZmNlM2MxODllYjhmOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.5.1",
-    "at": "2026-09-28T07:28:45.133Z"
+    "at": "2026-09-29T03:28:02.619Z"
   }
 }

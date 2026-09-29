@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:bdb4967d38b20857fac90b45a2014fb8747fa704c20cc3d6524da9ddffb12062",
+  "claims": [
+    {
+      "id": "claim_b2bc38bd0c5c4314b2a96d19800a5dce",
+      "statement": "服务端 WYPV 预览格式为 MAGIC+版本+头部长度+JSON 头+Float32 坐标和可选 Float32 标量，预览轻量化只影响展示数据，不改变全量产物或计算。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/core/preview.py#L21-L107",
+          "version": "repo-lines-v1:sha256:13f549507767b9fdaa6790a1555d20ac80f2f7b6db3976c1d9752b25e4052f6b:eyJzZWxlY3RlZExpbmVDb3VudCI6ODcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyOTgxYmI2M2IzNmExNmJhYjE2ZDk1NTczZWQ3NDQ2NDBiMTFmYTY2ZTU1MTU5MzEyMmQ3NWRmNjYzZTZhYjIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjZmZmZDlhNDE5NTNiMWVjYjNlMDc0M2MyOTAyYjQ0YWMyMzBiMTIwZGQ4YmNiNDE4OTM1NTZiOWY3NzBlNzkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzNmM5MWY1NTg2ZWJlMmU5NjA0ZDMwNDYxYzUxMzgyMDJiZjZkOWRiYTdmMzQ3MDI1NjAxMzc5YmU3NzcxMjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZkODRiNWZlYjBmYmExMThlZDk4ZTlmZGQ3NjZhZmQ4MDFjOTA1ODZhM2ZiYzg2NDFmODM5OWQ1NzcwODQwMWYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7febcdfa570d4cae9992d98f9228412d",
+      "statement": "预览点数超过默认上限时用固定种子进行确定性抽样，并将同一组索引应用于可选标量，以保持坐标与标量对齐。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/core/preview.py#L45-L83",
+          "version": "repo-lines-v1:sha256:35241533bbcd91fe2af176fb9b6df4294f0c8c28f47acd8a06c802c3517e8346:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1YmY1Y2ZhOTQ2ZjZmNDFjODg4NjIyMTgyYTJjZTM5MGQwOGIzYmZlMGEyMmU2OTgwM2ExMmRlZTc5OTYxOTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4OGM3Yzk0OTEwZmQ2MTFiMzA3YTkxOTEzMGU5Mjk5NDdkNjVjZDgwOGJkYzczNjg1ODNmNWZhMGM0ZGYwMTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRhMGNlYjA3ZDIxYTMxY2Y0N2FmOTRlNzFkOWI2ZjY1ZjQ4MmEzNDY5NGI1NTk3Nzg1YjZlMzRjY2JkNTkxZmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI2Y2VhY2UyMzhkMWE5YmM2NzhjMGY1YTVlNDBiZGVhNjJhMDI1N2ExNmQ0NjE0YWVmYTllMmYyODNlMTFlYmQifQ"
+        },
+        {
+          "resource": "repo://backend/tests/test_preview_core.py#L45-L74",
+          "version": "repo-lines-v1:sha256:db86e97b9532f4eb9cdbb53aaf852a41ac69fa3b0a800757ec774296fd908106:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiYmYwMzBiYzM0NDZiMGIwZjAyZWVlMDExZDQ3MjE3NjM1Y2E1YzczMzM0NWQ4YjExNDJlMjJiZGMxNzQ2M2QiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVmNGI2YjhmYTE5NWRmODFiYzJlMjllNTk4MGQ5NGE3MTZlZTZjYjNiNzg4ZGY4NmM5ZmY2NGUzNmYyNzg1OTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM0YWVhMzQ4ZjUxNDY3ZWI3OGVjZjVlOTAyNzYzMTRlNzZlZDdjNDI2NzUzNzgwMzg1ZWQ4NTliZjc1YmMzZjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJkZDIwYjA2ODA0OWE3YzMzNTEyYzJhNWU5ZTkxYmU5ZjkyYjg3MGQ4NmE4NDk4ZTU4ZmQ4ZmE2MTVhM2I0ZGMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_974a155157334a438706001d860b6b5e",
+      "statement": "产物预览按 artifact id 缓存在会话 previews 目录，命中缓存时直接返回；未命中时读取点云并原子写入缓存。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/core/preview.py#L121-L145",
+          "version": "repo-lines-v1:sha256:809e6f26c738078329f622188aff7d8b4dabd4b95d64e49e77ba6f87a0ed815f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2MmZhNTc1MDY0MWJiNjlmZWYzMGNiZjZiZDIwYTg2ZmUwNjk0ZmU4YzNjMmJkODAxNWU0ZTRmOTBkNTAxYzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNjZjYxNjViYjAzM2JlNTRhMjE1OGY4YjBlNTcyZDg2ZjJjNTU5ODQzNTRkYjI3NDNmZWNhOWNhMjIzYjVkMGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE0ZDY4NDczNGVjNThhZjQwODg4Mzk3NWJlMDFjZTJlMmI1YTc3OTUwOTgxYjhhNDkyNTU3Yjc5MjJmMjQyMmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFlMzc1YjNkZmQwNDU2YTZiNzE5NDIzMmFkYjExYmFhOTA1NzU0ZjgzYTdlYWJmN2E4MzVkYjhhZTAyYTMzNTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_15b6350655284a2b82075460fecdd774",
+      "statement": "质量评估偏差云预览从内部 error_cloud 读取坐标和误差，把 mm 标量中最大 ratio 比例置零，并以 seismic/mm/zeroed_ratio 元数据编码。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/core/preview.py#L148-L184",
+          "version": "repo-lines-v1:sha256:2f4d013081baaf0dbc63b470859935a15f2e4f0c69065d2f02fe6e2ebeae9216:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ5YjdmODU2NTc0YWEyNzg0NGY3MGM0NmQxNDE4NGRhZGZiZmMwMzg2Zjc1NTBhZGY5ZjE3ZTAwMzNkODhlZGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhMDg1MWFjNWEwNGQ5MDdlNjRjOTA4ZTUyMDQxMDI4YmI4M2ZkMGZlYWE3Y2ZlNTdjYjBjZmM4NjQxNDA2NTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ3NTE1NzZhMjc3NDdlYWMxZWZlYWU4MzNmMTA5YzE4Y2M3NjRjYjNhNDZiMzc3NDE2OTAyNmQ3NjE1YmJiMTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2fa0f9548d104555bd7a55f31b33aa36",
+      "statement": "预览接口仅允许当前会话读取点云产物或已成功的质量评估任务，非法格式/缺失文件/无偏差云分别返回显式 4xx 错误。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/api/preview.py#L13-L48",
+          "version": "repo-lines-v1:sha256:e7b104f05e6d073f00e098f88326dff67cd4d4d9b83729c83b0471a84972b97e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAyODNhOTdmYjlmMDQ4MGMxYTBhZTFmZTUwNTNjOWMxMTFhMGE2MjUyNjAzMzA2ZjcwMjc3MjA2ZDQ0MmNkNjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0NDYyNTI5YTc5YjUzZThiMjdlMGQ0Mjc4NWY5ZmU3YzVjMTc5NGRjNGJkYmE2ODNhNWMyMmMyOWQ5OTI0MTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0OGY4ZTBmZjEyYWE3ZTAyNmIyYWJlZjllMzJmZmU2MmZlNTE4OThkMDlhNjRlODZmNzk5NDNiOTZhY2QyMmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://backend/tests/test_preview_api.py#L28-L112",
+          "version": "repo-lines-v1:sha256:350f5d8b969e375c86d27f4ad6e17b88aa2f77cd6dccf927e5c6041afbb9ec4e:eyJzZWxlY3RlZExpbmVDb3VudCI6ODUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2YjViZTVlMDM3ZTljZGE3Njg4NzQzNDU1ZmI4MDA3OTY3MTAzZGI4ZTQ5ZmIzNGQzYWM0MDdmZmMyN2NkMTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNiNTg5NTBkMzc4YjQzM2ZhM2VmMmI0OTNmYTg5MDliZWQ2ZWYxNDgwNzZhYTdiYmIzNDY4ODlmODIxOTI2MWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZjM2Q0OWJmOTZjY2QyZTQ3YjNiYTk3N2U5YjMxYTk1MmJkZDJiNDdiYTZiMGYzZmExOGYzM2ZhYjI0NzVmYjYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0d4c597a0bba4eeea5b65c4ffdb48593",
+      "statement": "前端 vtk.js 查看器在加载预览前检查 WebGL2；上下文不可用或 renderer 初始化异常时显示可见错误，不会继续发起预览数据请求。",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/components/PointCloudViewer.vue#L88-L143",
+          "version": "repo-lines-v1:sha256:e80886b23f211189fd0be03902a122ffc3b3b5b5aee8cf2578f354fea28cf115:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4ZWIzZTExMmIxYmI5ZTRmNTNlYjAyY2QxYjgwOGExYWIzYmVlZjhkN2RjYTQzMGUwNTE2OWUzMzI5N2JlM2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUwMzNlZGQxNGYwYjE1MDFhNzkyOWQzZDA4OWYyMTQ5NTJkNjNmMGY0NDRkNmY4NGQ1YzViYzg0NGQxZDA1ZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMxZTkzNGJjMTQxZDVmMjAxZmQxMDQyMzA0ZDJmOTU5Y2JjMGQ1YWMxMThiODhiYzRjMDQxMDc0Nzg0NjU5MWYifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-29T03:28:02.619Z"
+  }
+}

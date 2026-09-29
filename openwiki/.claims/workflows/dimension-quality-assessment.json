@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:bb502a4947049d49e561dd30bb11e30e4a3f1de4879568a4aaaf41beab045de6",
+  "pageVersion": "sha256:2688a167b2ecbc96d4a2bdc572fdd48d04c46bcbc209fc01a0c475e4f68b528c",
   "claims": [
     {
       "id": "claim_0b368db7bc57409ab23e55961ebf7172",
@@ -13,16 +13,6 @@
         {
           "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L67-L71",
           "version": "repo-lines-v1:sha256:538add9f6eecfe14cf1663ce586bf5f337e61113819ed51025da87612053fc1e:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzE1ZDA4MGRlYTAzYjQ3MGQyNzIzYzU2N2I4ZTdiMzllZmM1OTY2ZWJhNGRkNzdhNGE5MjMxYjNhNjFkMDM1NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U2MzBlMzk2YTljODhiOTliZGQzODI3MzliNDNjODBmNDcyYWU5OGI5NGI2ZjM4ODYxNjA0MTJmYjQ0ZDRhZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNTI3OTI4NjI1ZGQyNDY3NjI4OTViM2IzMmQzYjRhNWFmZTEyZmZmNDlhNDE1OGQ3Mjc5OTdhNTM1YTY5ZDk0NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjg1YzI5NTMzMDM4NGZhMTRhMmJhMTk4Y2RiZGQyMzhlODNhZmUzZDUyMWQyMTA4N2UwNWI5N2Q2ZDU0NGZiNCJ9"
-        }
-      ]
-    },
-    {
-      "id": "claim_068272562ee546fb9af9924c89c99dd9",
-      "statement": "评估页将扫描点云、BIM 点云和报告目录分别保存为 QA_pcd.txt、QA_BIM.txt、QA_Report.txt，并接受单位、偏差方法、distance 和 ratio 参数。",
-      "evidence": [
-        {
-          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L81-L116",
-          "version": "repo-lines-v1:sha256:f54205a53ae1b0da4e366eac6c437f380a241cbb92d47e42884ccb254f15229e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Y2E2MDJkODFhOWNmMDMzZTc3Nzk2YjE1NDBjNGRiZGQ0MDMzOTk2NDVmYzU4MTVhMjQ3NzFmZDIzY2U1ZTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwNmEzZmQ5MjliNTAwMmI1NGI1NzEzNTkwZDcxODdhZTA2Mjc5ZDNiMDk3NWM0Njc3MzlkNjNmNWYyNDg0ZTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRlMWI5N2Q3Yjk5NmExYWMwMGIzYzNjM2NjN2ZjODdhYWVmODRiMzE5YzBmOWFmNjg3NjdjNDkyM2M0NjU5ZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMyYWEzZjM1N2JiYmQyNzY1Y2I1YjZiNjJiN2ZkZTk2ZWMyMzY2NTMyN2ZhZDVjYTY2MmJlMmFmMzg5Mzg5ZTIifQ"
         }
       ]
     },
@@ -99,22 +89,92 @@
       ]
     },
     {
-      "id": "claim_d2342f1d16a94cf583d5a490e5489a7a",
-      "statement": "distance 和 ratio 只执行 float 转换，没有范围校验；ratio=1 会导致剔除线索引越界，且空中间集合没有统一错误处理。",
+      "id": "claim_a82621f1a9ee465db213e8eaaa0fb4fe",
+      "statement": "质量评估页面在四个前置确认全部勾选后才显示扫描点云、BIM 点云、单位、方法、distance 和 ratio 输入，并以 artifact id 提交 quality-assess 任务。",
       "evidence": [
         {
-          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L114-L115",
-          "version": "repo-lines-v1:sha256:0b81dae328f64bdfc1859adac9fe39e067ef69e46893c7f6ad5eab8f49ebca6b:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWE5MGI3ZDM0MGVkYThmYzM3YjhhNTc4NWY2NjkwNzhmMTI2ZWI3MTY3NThlZjAzNTFiNzYzODE5N2I5NDRiMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODc1MmRhNDQwMDA3ODQ0OTNhZWY3ZDAzYmIxMmZkNmQxMzhiZGM1MjgzMDg0ZWJlZjVmYmVlMWM0Mjg5NjAxZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGIwMTUzNDY1YmQxNDQyZmFkNzA5NWMzOTRkYWFiYjMwODQ1NjAwODQzNzZmOTQ4MWExMjQxYTUwNTA3MTM3OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzcxNzFjODU1MDY3MWFjYjc4NmNiMjY4NzM2YTQxMzhjNGEzMjFmNDUwZTZjODczYjJlZmU3NjNlMjI2ZjhlZCJ9"
+          "resource": "repo://frontend/src/views/quality/QualityAssessView.vue#L15-L50",
+          "version": "repo-lines-v1:sha256:1259b24ffa1b6438932b7f9b073d5bb05033f377a7876f6b1b78ea634da9b3f2:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYwNzFjOTY3ZWE0ZDRlNDM0ZmFjZmVjYTVkMzM3YmE1NDc1MzhkZjFmMDk4MzEzMGMzZDZjNWY4NzgxOTU1MzciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRmYzc0YTc4NWI5YjhjYjI5MGM4MDY1ZTg3ZGNlMzBmODFiZDQzM2JhZjlkNmJhMzA5YjM3YzEzMTJkMWMzMTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY0ZTdhNjZlNTRkNjUwYmQwNzJhOGFkNDk0YjgwNTVlNzIyYmMxMmRhYjJhYzRkMDJiZDE3OTBiYTM4YmU4NDQifQ"
         },
         {
-          "resource": "repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py#L171-L174",
-          "version": "repo-lines-v1:sha256:4c1f36cf053128cecfbae7d13d73b3e0de1f902f87b49c6e1d60e00a94471ce0:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTNkM2MwY2E2ZDVjYTMxYjU5YTZkM2IzNjMxNTdhMjk3MzU2MDkyMGYyYzI1MWIzNjUxN2Y3NmVjODI4MzFlZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjEzZTVlMDEyYTI0MDkzYjkzMGU5YTJkOGQzNDc3MDM3YmY2NGVjNjEzZGU3NGFkODY2MzZkODljYzVhNjM4NyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzQ2NTVkN2JiZDIyYmU0NzNmYWRlNmMxNmQzOWE2OWVlZDgwZmIxY2I5NmM5YWNhMTc4MDA0MzYyZTg0OWFjNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjIxOTA5ZTg5NzcxN2Y2YzMxZTllZjBhYWY3NmMzMjIwZmU1YzUyODI4MjQ2NjMwMjc4YmEyZmNiY2ZjMTljYSJ9"
+          "resource": "repo://frontend/src/views/quality/QualityAssessView.vue#L57-L96",
+          "version": "repo-lines-v1:sha256:31f03278a8330f2d9f65daf8b4c668b548db9ccd35068e91ce1b94d3f224e727:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwYmYyYTlmYjc3MDQ1NzU2ZWU1ZjRjMTYzODYwMTRiMzNmMzcxYjBhM2RlNDM5YzlkOWExOWQzMTA2MWRhYzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2MzQ5MzQxZDVmZDUyMWM2M2UwNjA5YmY5OWJlZDk5NjRmNzg2N2I4YzllMzg2ODEzYWNmNzQzNjBlNTFiODQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVhMzJjMDA2ODg4NzhkNWJmMTIwZjA2ZTY4OTIxYjczNmZiOTZjZjNkNmFmYjAzMTkyNjllNzk5M2QxYTQyNzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc5ZDE0ODQxODI5ZmIxY2QxNjM3MGNmMDFkN2ViYmJhZWExZjBlZWQ5NjQ3NGQ2NWI0ODI5ODM5NDY1NzJjOTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_67866756fa6541c5ac7bf9cb5e941aec",
+      "statement": "后端 quality.assess 先校验单位、方法、正 distance 和 [0,1) ratio，再按读取、环境/缺失点剔除、偏差计算、统计与报告四阶段执行。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/services/quality.py#L36-L88",
+          "version": "repo-lines-v1:sha256:1dc09ed988b8192eb5c3239b817b24b3c858bd40eb08a1e88e2c81a950d496ce:eyJzZWxlY3RlZExpbmVDb3VudCI6NTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjljNTA0ZjY5MjliNDMwZTI3NzQzZmJhOTNhYjk5NjIxN2Q3YjgwY2JhNzg4YWNkNmRjNDA1ZDQxOWZlMjA5NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM3YzQwMjkyZTcxYjUwMjRjYzU3MmQyNWQyMDkwNDk1NDcxYTNiMjdkMjg4ZTE0YTYxOWJlZjE2OTZhYzExYzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI5ZWUxOTMyODRlODJmYjc2YWY0ZjRmNTgzZTQzZjA1MDdiNWYxMzJiMTY0ZTZkMzUyM2JhZmI5NGMwYzdiMWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxYzI4MjIxNzY2ZWI1MGIxYThiNjAzMTQzNjk4NjI0YzBmZmNjYmM2MTk3ZDhhYjcwNTA5ZTlhODlmMjhhZDIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bd496e92eb9442a09af6f29361c3f19a",
+      "statement": "环境点云剔除固定先对 BIM 按 0.1 体素下采样，再以 distance×10 筛选扫描点并生成检测点，因此 Point2Point 模式下修改 distance 也会改变检测点集合。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/services/quality.py#L69-L74",
+          "version": "repo-lines-v1:sha256:09e2f54934e4a779014810957f9de0845876bae4322cb83c8fd690fc7656de2f:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDI2OTQ5ZWJjZTFkODViMmVhOTYxMWRiODk4ZDNiZGNmZWIxMGIyNDkzZDU4ZjI2ZjAzYTM0MTZlZmVkOGMxNyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNzlkZjBjMTI5N2NiODZjYjg1MGZkY2NkNGNkZjY1ZThjNTBiMDE2Zjk0MmY0ODM1MjZmZTljNjY4NTRlNjY2MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2IxNTI2ZTdiNjFhMTY2ZWRlZGU5MWEzMTE0NDJiZDNkYTJmMDIxY2MxZmZhNTliNmYyMDlkYTA5NmYyMjhkYSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDA4Mjg1N2U1ZDM4MjhhNWYyMzg5MTViN2IyOWEwZDViOTExNjgxY2Q3ZGNlNWFlNGMzNzRjZjA3N2FhOTBlOSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a098341e9f044f4f8d44263f7d20fade",
+      "statement": "页面统计指标、直方图、偏差云预览和 PDF 报告都从同一次成功任务的 summary/图片结果派生，失败任务不登记 report 产物。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/jobs/runner.py#L89-L118",
+          "version": "repo-lines-v1:sha256:4e64ddfa8d20df7586eb4a2870f682697bf96d5dfcd185efc46dd70b0c630b7d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYwYzdhNTc5MGMzZmQ3Y2Q1MDUzN2JmN2M5NDQyMTc3YjM1OTYxMDRlN2FjNmMxNGJlZjUwMDcwODYwMzg2NzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVhNzkyMGUxYjY5ZjUwNGZlNDkzOTU3Mjg0NDIxZTAyZGYwZDc5ZjU0NjNlMDdjOTEzNmUyYzBjNWIwZGRmMWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxM2QwM2IxNTZkMzEwNDJhNjJjMWE1YjBjMzMyYmJhYjZhYmNmZjQwNzZkYWJiMTk5MjcxZjk0MTBjM2IxYWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxMGUyY2Q0ZmQxNWQ3YjczODBlNjUzYzljZjEyZmM3MTI1MTY0ODQ0NTNhNGExNjI0Y2U5OTk5NTVkMmEwNGIifQ"
+        },
+        {
+          "resource": "repo://backend/app/services/quality.py#L76-L129",
+          "version": "repo-lines-v1:sha256:fbecb7441fe7b30415a2f943d75751eb93e1a92c2cff621fd82bb35b71f7bc3e:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImViZjM5MjlkMjY1NGZlNjYwY2UyMTRhODI4MzQ1NWYxNTIwNWFjOTdkZGUwNTVmNDM2NWY2NzY1OTVmYWUwZmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhZTY3MTFhNGY4NjU0MTc2MDRkMzdmM2YyNDM5YjIyM2Y3ZWIyMDM4NTVmZDhjZmJjZTUzMWJlMzJmOGRiYzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlmZGI5M2JhYWYzZGVmYzVhMDRiYjZmYjk1ODI1N2Q5MTZmMGU0NmU2NjJmMWQxNmQxMzNlMDBkOTc1NTc2Y2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMwYzFmMTg4ZjE0MmVkN2E4MjQ2ODBiMjA3MTcyYzU1MTliYzYxNGE0OGZkYTdjZjE2N2VkYjhkZGY3OTk1NmMifQ"
+        },
+        {
+          "resource": "repo://frontend/src/views/quality/QualityAssessView.vue#L101-L106",
+          "version": "repo-lines-v1:sha256:a0d294d5a916c1bbc881bdf422d1e4bf2d89564d8855d04c996959f03c2aeac3:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZjEyMjQxZGI1NDgwMjIxYjQzNTA2MDViOWZhMTUwMTMwOWIxNmMyODEzYWE1M2M0N2FlMzhiNTU0MWEyNjRjMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjRhMzAwMWEyODRjMzkyNmQ2NWE4YWJlYjEyOGQxZGRkN2EyNmEyMjM1OWI2NjU5NTQ1MTQ2ODY0YzY4ZGIyZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTVlMjI3NjcxYTFmMWFhZjM5ZmZjNWZkZGY5MjgwMjY5MjVlZjgxODM0NWRlYjYyYjc5Y2U3Njk2M2ExNmZiYiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTBlYjIzM2UyNjA5YzJlNzc2N2Y2NzgyNDY5MDU3NDcxNDMxMGJhYmMzOWYyYjkxZjk0YTdlZmFhOGUxM2Y3MyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_cc5faab5bb4b496dab09bf8c6d74c29b",
+      "statement": "Point2Plane 用 plane_model[3]/plane_model[2] 构造平面上点；法向量 z 分量为 0 时会产生非有限值/NaN，并可能在直方图 np.arange 处触发 arange cannot compute length。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/algos/knn.py#L124-L143",
+          "version": "repo-lines-v1:sha256:b891be37c06966a6ce68951841557f05b71c30eb4d9d915ee7d442459ed4f570:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkOWZhYTk2ZDU2N2Q5YjliOTIyNGUyOTJhODFiYzNjZDkwMmM1MWM5YTdhNGE2NjRhNDQ5Y2Y4ZTVkYWRjMTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkMjEwZjlhYmFhZDEyZDczZjE0YTZmZGE3MDUyNjIxN2Q3MTMxMDc3YTgzNjUyNDM0Y2MwZmYyMTMwNmYxMGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA3N2E3Zjk5YzM3ZjQ0ZDRiN2IwODIwODJjMTQ1N2Q3Y2U3ZDcwYjU3NWUxNmI0MDQ0NTQ0MDk0ODY0OGMzNGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://backend/app/report/figures.py#L50-L57",
+          "version": "repo-lines-v1:sha256:ff37044aa9b6c834b700bbe65d6816e994ae6267305cab568b997aa2b8aecf1d:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTdjZTg2ZjM5MDBkMjAzM2Y5MmRlZmNjZTg5ODgxODQwMTkyNWMxYjE5Y2VhZTQyMDg2MDFjZDY5YzlkM2RhYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjQ1MzI5OGM2MDhmM2I2M2IxMGQ0NTMzYTk3MzI4ODE0ZTEwMzMzZjEyMzU5M2JjZDM1OGVkMDRkYTNmMjY3ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTdmOWFiZDRjYjY2ODhhOTlmOGNiZDllYjVkMDllODNhMDc5NmY2MTZlNTZlZjE1MzExOThhMDYyZWQxMDYwOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWIzMjYxYjJiNmJkODdkOWY1ZTU4OGJmZTQ5ZWM3NDQzYzg3NTc2ZDZhMjQ1Y2QzYThkYTRiYzY0ZTVmYTQ4MyJ9"
+        },
+        {
+          "resource": "repo://backend/app/services/quality.py#L83-L88",
+          "version": "repo-lines-v1:sha256:7a48ed569d3c8595c4c5cf8cd46f3ce1a6cd47c9d98d3413d1526c219afb73b4:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjE4YmUyNDJiZDM5NWUzZGUyNjYzNWIzZDNiYzhhMTk0YjkyZDYzYTY5OTViODM5NDU2MGE3NmUzMzZjYTYzZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYzdjNDAyOTJlNzFiNTAyNGNjNTcyZDI1ZDIwOTA0OTU0NzFhM2IyN2QyODhlMTRhNjE5YmVmMTY5NmFjMTFjMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNmU1YWZlMTQ2YTkxZTQzOGU2NWFiNjczZjgzMzBlYTU0MmViYzU3MGVjNTU0MTJjODVjOGU4Y2U3MzNlNDY0OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMDFjMjgyMjE3NjZlYjUwYjFhOGI2MDMxNDM2OTg2MjRjMGZmY2NiYzYxOTdkOGFiNzA1MDllOWE4OWYyOGFkMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_2c60e46618054564a9e022c026656f33",
+      "statement": "偏差云预览接口只允许成功任务，运行中任务返回 409，缺少偏差云返回 422；任务失败不会提供成功报告产物。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/api/preview.py#L35-L48",
+          "version": "repo-lines-v1:sha256:e1311b3afef116a4d0819c060bfdc4890876cc6e260b4fa6a61382aa2f2d9591:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRkMmRmMTQ1ZTY5ZDM2NGM5ODc2NGQ4ZTVmYTUwODJmNGQ2ZDA0ZGNmNmIzZTk0ZGYwODU3MDY0NjAyZTRiN2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU0NDYyNTI5YTc5YjUzZThiMjdlMGQ0Mjc4NWY5ZmU3YzVjMTc5NGRjNGJkYmE2ODNhNWMyMmMyOWQ5OTI0MTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU3MDRlYzExOGZiMDk4NjExODM5YTMzN2UzNWE4M2EyYmE1YjM5ZDRmNjA3Yjg4NzQ2OTEyNTIxZTg2MjVkY2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://backend/app/jobs/runner.py#L75-L118",
+          "version": "repo-lines-v1:sha256:eb51f04d4b8743ba4a2bff8a5dd1350e31c1b211627be411cd380ad8a911a5fe:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzMWRmYWE4Y2Y1NjkzNTEyMDlmODlmYjExMDk0Y2I0OWE3MTI1ODY3MjgyZDcyZTYzNzlmZGIxMmViOTQ1OWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVhNzkyMGUxYjY5ZjUwNGZlNDkzOTU3Mjg0NDIxZTAyZGYwZDc5ZjU0NjNlMDdjOTEzNmUyYzBjNWIwZGRmMWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhMGY2YTVkYTUwZDg2MTBmYzAyNWUzNzg1OWJjMDExODMxYmUyODFhYjRmZTU4YTFlZjVjYjExMGRhZGU2MzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxMGUyY2Q0ZmQxNWQ3YjczODBlNjUzYzljZjEyZmM3MTI1MTY0ODQ0NTNhNGExNjI0Y2U5OTk5NTVkMmEwNGIifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.5.1",
-    "at": "2026-09-28T07:28:45.133Z"
+    "at": "2026-09-29T03:28:02.619Z"
   }
 }

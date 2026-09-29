@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:2fde64ee8063d563030e726be0f5a91f5828f559bd0ff98e6af5315dc7884732",
+  "claims": [
+    {
+      "id": "claim_038023860bb447af969fabc7c4a4a0e9",
+      "statement": "会话中间件在 cookie 缺失或非法时创建会话，并在新会话 ID 下发 HttpOnly、SameSite=Lax 的持久 cookie；会话记录持久保存 artifacts、jobs 和 uploads。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/api/session.py#L9-L46",
+          "version": "repo-lines-v1:sha256:067a60de4bc43abcbccef3d45a8d5d011f43a9d727bfe39a3b94ed2419fac40a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4ODhjYTA5ZDA1YTRlY2M1OGY1NjZmZDExYTg3MzY4ZGRiNTM4OWNkZDhlODc1MjdhMDQ1M2IwZTZkMzVlYjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjMjVlM2FlYzFiMTNmOTBhMzhjYjJjY2NiZjlkZjgzYmM1ZmU2NjAyODE3OTJlYzczMDc0MjcwMjMwYzcyYjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUxOTBmODQ5MTFlZjI2Y2IxYWU5OTIyYWUwOWQ0MjQ0ZTE0MjA3MjY4MWRiZDlhZTcwZjBkZDVhYzc3MTQyZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1MDU3MWViODk2NzBjOGY5MjJkYzY4ZDlhOTAxNjliYjZlM2I0YmJlZjJmMmRiYTBmMjEyYmVmZjhlZGNmZGYifQ"
+        },
+        {
+          "resource": "repo://backend/app/core/sessions.py#L27-L105",
+          "version": "repo-lines-v1:sha256:4f706735cadf7e156ca7542882d5d9d2107634b9500ecf05b92d4759075603db:eyJzZWxlY3RlZExpbmVDb3VudCI6NzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2ZmJhZTBiOTFkNDRmYzBkNDlmNWRlNjkxZGE2ZmM0MzFmMjYwMTM0YmY3MzFlMGUyMWY3NjQ4MDk0MzM0Y2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0YjkyYWQwNjU2OTBhMWQ1NGZjMDA0OWU1OGUzYWUzZjEzOTFmZWRkNzRiNTI5MjBlYzhlODY4NzZjYTg1NjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRlNzU3NWMzYjc3NzZjZjJmOWMyYmZiY2E0NGYyMTQ4MTNhNzgyN2VhYTljMzg0NTRjNzAzYjY4OWE3NDQzODYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkYTg5ZjU2MTFhMjczYjhjYmIxNmViMmI5OGQ3Nzk5NDkxOGE5ZjQ5NjU2MTE4ODk2N2EwY2UwM2YxNzM5MTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5cb640c987cc4d2684765a32bd7f895e",
+      "statement": "上传初始化按扩展名推断 mesh/pointcloud 类型，校验文件名、正数大小和分片范围，默认 8 MiB 分片、5 GiB 上限，并将记录写入当前会话。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/config.py#L13-L18",
+          "version": "repo-lines-v1:sha256:aa3f6b3e97b8fa4de6c80b820479ed216bd9cc56209d325f14bc2ca0bfe2a67f:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDUzODgzZTE0MDBiMjVkNDViYTUxZDIwZTNjOGE5MjRkN2FjMjgzMGQ2NTkyNjFiYzZkMzc2ZTZiYmE2NzgxNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjc1YzFmN2VjNzI4NGFjMDFmZWMwOWZlZTAxNTkzMjA1OWZhNGZmYzE1Y2Y0YmM1MDIyNDRiYmJhOTUyNTU3OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTJlNTMxNzM4NDFkYjA0YTJkOThkZTY2ZWFlZjJiYzQ1Y2E5YzNiMDhlYjAxODQ3YzAxNDVhZGFiNTFkZjQ4NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDQwNzhiZmJmZDllNjQxODRmNGUwMTViMDUxNTkxZDcxNjFlNzljYTI5YzIwN2MxNTNkZTYzNDgwZjIyNDRhZSJ9"
+        },
+        {
+          "resource": "repo://backend/app/core/uploads.py#L35-L110",
+          "version": "repo-lines-v1:sha256:8c59c782ff6cae25cd52c299030af07051a0665bc9f4f0f142333861286043c3:eyJzZWxlY3RlZExpbmVDb3VudCI6NzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFmYTcxMzU2MGEyNGUxNjIzN2FlMTllZTE2YzlkMTBmZmU3Nzg3MzU5MTdmNGJlZmJkYmQyNDcwOTJjZjI1MTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ4ZWNlNTQ2NGYxZDc3ZjJkYzFiNGYxNDQ1NDY0YmE2OTIxOGQwNjkyZjU0ZjY5ZjA4ZWQ1MTU1NTQ4ZDI3ZjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ5OGIyOGRmNzRkNTAyMzBlNjQ4MjA0NWQwOTdiMGZkZTgzNmY2MWI0Y2EwYjVjNzFmMGYxNGVhODZjZmFhMTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAyNmUyZGJhNjJmMTRmZTU1NjJkN2U0YjU1YjYyMjU0YjIxYTMzNzk5NzY4MTM5YTBkZmE5MDZhMTBmMDJlOGQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c32e4a8d24734768a72c90acfe681430",
+      "statement": "分片 PUT 必须携带 64 位 SHA-256；后端校验长度和哈希，已接收索引幂等返回，成功后原子写入分片文件并更新 received/chunk_sha256。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/api/uploads.py#L61-L99",
+          "version": "repo-lines-v1:sha256:f5124b959c13de1082cd2666611668a3a14156a6dd9db5ccc3b7380f9fc266ee:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg5ZmE3NzBiNzE2YmEwMjZjZjYzMTc5Y2IxOWU1MmQwMmRlYTBhZTk5YTE2MTU2M2ZkZWEzMWQ2NDYxZmU4MmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiZjRmNTQzNjg3MGM2NGQxOTY4ZThhMDkzMDczMzNhOWNjNWQyNWZmMzViZjMwNjlkNTAzYTlhNGYzZjdmN2MiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIyZDk3ZGEyMjRhYjliNjk3NmIyZmMyNzA4MzJiZTUxMjUxNGViOGY1MjU5MWNjYWM3MGU1YTRkNzU4ODEzMmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFhZWI5MTZiMjdmZmE5ZjBkYzI3MTk3ZmQzNGRmNDI2NTA4YWI2MGI5YmQxZDVjMzNjMjUwM2NjN2VmYzc3NmEifQ"
+        },
+        {
+          "resource": "repo://backend/app/core/uploads.py#L139-L179",
+          "version": "repo-lines-v1:sha256:fb2918781cb956f0bfb2480091b81919f5527643eeab3f85c4f38c5b594de2f9:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE0MTA3YWY4ZmE1NjIwZDY3MzRkODRmZTBjZmM1NmE2MDZmMmYxMjdmNmU0NTljZTM1NTAxYjM1YmM0Mjc0ZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiMWUyZGIyNmQwMGIzM2RhMDkxN2EzZTYyYTJjMzA0MTY4MzFkNzNmMzA0NGQxYWI0NDI0ZmNiNGI1MDMwZjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjJkMWNkZWYwMjEyNDc2MjgxOWI5NGU2ZmM1NTRhMzdkNzhiYjkxNTE2MGJlYWI2NWQyMTViMTBjMmUyMjhmYzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImU2ZjlmOTk0YTQ0YmQ3YTIyYmY4YzQwMTM5YTg5NzViMzVlOTQwM2I3M2ZiZmM2OWY1MjM4YzUxMmJjNzQyZmYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_6d77abc2d597464b9f7c7bc5a5bd558f",
+      "statement": "完成上传时按索引重新组装、逐片校验哈希和长度、校验整体大小，通过后才登记 artifact 并删除临时上传目录；completed 状态幂等返回既有 artifact。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/core/uploads.py#L193-L267",
+          "version": "repo-lines-v1:sha256:dc74aab47344f8c2c98fa757f913781f6ab66c3e2616c1c172898e9735830ca0:eyJzZWxlY3RlZExpbmVDb3VudCI6NzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZkZjkxZjYwZTJkMzcxZDU4MjE3MmMwNzNhNTgxNzA0OTY3ZWZlMWFjNDZmZWIyYTBmNTkzNTkxMDYwZDRiODYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI2NGQzNTkyZDA1ODA0ZGIyY2U4MDkxYzc1N2Q5Y2E0NjE3N2I0NDhlZDg5MzczNzI3MjgxYTNiOTQxZDhlYjgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ4M2UwYjE0MDk5OWZkOWY3NGQ0ZTFiY2FmMmRlZTE4ZWU4Njk1OTA2ODQ4NTkzNTNmMTA3ZDA2NTQ1OGU2NzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY2ODY2MjNmMjkwOTA0MDNkYjhmZDFmNzZiNGI0NWY0YzdhMThmY2IwNjQ1ZWNjMjExOGNlMWJhMmI1MDlmNDAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_310156ee77b84550918b8dc8b0efa4ad",
+      "statement": "前端用名称+大小+lastModified 指纹保存 pending upload，刷新后同一文件只补 missing_indices；分片默认并发 2、重试 3 次，并支持 Web Crypto 不可用时的纯 JS SHA-256。",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/api/uploader.ts#L105-L205",
+          "version": "repo-lines-v1:sha256:9b7cfdc83027aeb6f08c33b1fd05418ecfc1d260482313799897f6dfb64f064f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI3NzNiYmIzZTllOTI1YTM3ZWU2NGFjM2E5YWQ5NTkwMzUxY2RmMjQ5Zjc5YjJhYTRkYTgwMGE0MTZjZDEwZjc5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIyN2U1Nzg4ZDVkOWQ3M2QyNGE4MWRiYzBhNWE3NGJmYTgyYzljM2IzYWY5OWU1MmFmNzk2ZTkwYjQ2OGE4YTNkIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI4YzIyMDg4N2Q4ZjMzMmNiYzY4NDcxYzlhZDIyOWYzNjg3YWY5NmU4MDUxNzRkMTViOTEzYTczYzUzMDVlMTc2IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiZjNhNGRlZDk4MjBmNTkwMjA3MmEzMDhmZjhiNTRhYjkzZmNiZTIzMzI0ODMxZTY0MmMwODE2MGU1YjQ3MWM3In0"
+        },
+        {
+          "resource": "repo://frontend/src/api/uploader.ts#L43-L85",
+          "version": "repo-lines-v1:sha256:b0f221aeda9e8a3e5b4da23d0dab66629b43a0206a8e63acc0424d848d3b563b:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhmNDMyMzNjNThlYjU0MGQ1ZmM0OTg1M2IzY2E3MmU5YWUwNTU5NDk4YWJjMDc1OGNlZDhlNTVhMjlhYmUyYmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBiZjUxNTNjODQxOTk1Mzc1MWY2NzEwYWZiZWI0MzYyZjEzYWM1Yzk4ZDYwZGY2YjE1YzZlMWYyOTAzYjEyYTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI1N2UxM2MyMjQ2N2MyZjVlMjMzNDE3NDE1ZGRlMzk5OWZiOTFlZTMxZmUzNzE0ODFiODg4NjYwZGY5YzcxZTcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1f2f87617cb242c5b5ac2c8de478a746",
+      "statement": "上传可取消，超过 TTL 的未完成记录在后续初始化时惰性清理；已完成的 artifact 按内部 id 存储，下载时恢复显示名称并校验会话路径。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/api/artifacts.py#L11-L27",
+          "version": "repo-lines-v1:sha256:1c9c26f70b4da0009421b6b2240919a26578b1765d8966386c725d85545b3785:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjY2Y2NTY4ZmExY2Q4ZWU2Nzk0MWI1YTlhYmViMjUyMTVmNmExODZmM2YxNGQ2ODY1OGRmMzE4Zjc0YzllOTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU5ZGJjMDk4NTc0YTQ4NTQwMjRmMjRhZjllMmQ2Y2M5NjY1MjY5YjliOWE2MGVjMmE1OGM5YzFmMTFkZDZiMTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0OGY4ZTBmZjEyYWE3ZTAyNmIyYWJlZjllMzJmZmU2MmZlNTE4OThkMDlhNjRlODZmNzk5NDNiOTZhY2QyMmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVhYzU5MTQ2MDE1ZjVmOWE2ODdkMjE1ZTg0MWQyNmViMjMzNDU3OWU5YjMxMWE5ZGRlOGFkM2Q5OThhYzQ5MmQifQ"
+        },
+        {
+          "resource": "repo://backend/app/core/artifacts.py#L41-L121",
+          "version": "repo-lines-v1:sha256:83586a62d4551ca33bbbe949323aa318c1c2df124b0435d6cd454d06ad552bee:eyJzZWxlY3RlZExpbmVDb3VudCI6ODEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3MTQ0ODdhNjJiNGJjMzM0MDdkNWQ2NTY1NmNlNDQwY2JiMjc4NDQ1MGUyNGM2YTA2MWQ5YjI5OTU2ODg3ZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ5N2UxOTk2MDRjYWIyZTNhYjk2YTczNTA5YzcyNjMzNTE3MmI5MDliYjQ1MWUzMDdjMTBmNWVhMTllNDg3NDQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIzZGYyYWNmMDZlOGMzZjAzYzcxMzVjNmU4YWM1YTljYTU0MzJhYmUwNmE3NGFjYTBmZGQ5YTUzYTAwOGY5ODciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://backend/app/core/uploads.py#L270-L319",
+          "version": "repo-lines-v1:sha256:76573e0bd995c0c8a6593bf9389d6dcc188fcb594ea6f2924f78dfd0705bea06:eyJzZWxlY3RlZExpbmVDb3VudCI6NTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFlNmU1MjQzOWYyYzFkMWQ4MzYzY2Y0ZDEzOTBkMGM2N2U0YzM3Mzc2ZjhhNWI3MmM0NGY0YjEwYmRhOTQwYjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkZWYyZjVlN2EzMjBkYTc3MDEwYmE2NWQzNzdhYTVlYWVkZTY1MDBiNDlkMmI2YTk4ZWYxYjI3MjViMWVjMmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA3NWUwMjVhNDBkNmJjY2M3YTlmN2VmNDI3ZjdjNzY5MWUxYmI1OWI0Y2M5MTE2YTJjN2EyOTEwNGRlMzQ5ZGUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-29T03:28:02.619Z"
+  }
+}

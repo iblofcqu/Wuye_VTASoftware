@@ -1,12 +1,22 @@
 ---
 type: algorithm-reference
-title: 点云处理算法
-description: 说明项目内采样、网格离散、FPFH/RANSAC、ICP、KDTree 偏差度量与平面拟合算法的输入输出、参数语义和当前实现限制。
-tags: [point-cloud, algorithms, registration, sampling]
+title: 点云处理算法与基线约束
+description: 说明 backend/app/algos 中网格离散、下采样、FPFH/ICP 配准、KDTree 偏差度量和平面拟合的输入输出、参数语义、与 base_software 的迁移一致性及已知数值边界。
+tags: [point-cloud, algorithms, registration, sampling, parity]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-28T07:28:45.133Z
+    at: 2026-09-29T03:28:02.619Z
 sources:
+  - id: openwiki-source-c578b2dc2526160d08abde24
+    resource: repo://backend/app/algos/knn.py
+  - id: openwiki-source-3c9f6dc73f712ad038ac5255
+    resource: repo://backend/app/algos/load_data.py
+  - id: openwiki-source-b2155c0405a34f9e4fd6857d
+    resource: repo://backend/app/services/preprocessing.py
+  - id: openwiki-source-fdf91f260fb2d57c38f672b5
+    resource: repo://backend/app/services/registration.py
+  - id: openwiki-source-a4609782da505aa28ee1da22
+    resource: repo://backend/tests/test_golden_parity.py
   - id: openwiki-source-be678524275ac5170073c381
     resource: repo://base_software/functions/down_samples.py
   - id: openwiki-source-c430c92bafb6ac714f9dd000
@@ -19,54 +29,90 @@ sources:
     resource: repo://base_software/functions/Registration.py
   - id: openwiki-source-db642bdc773df44d5cdde189
     resource: repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py
-generated: { by: "codex", at: "2026-09-28T07:28:45.133Z" }
+generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
 ---
 
-# 点云处理算法
+# 点云处理算法与基线约束
 
-## 统一输入输出约定
+## 实现位置与迁移边界
 
-大多数算法模块接收 NumPy 点数组并以 NumPy 数组返回结果，坐标统一使用前三列 `xyz`。下采样、FPFH、ICP 和 KDTree 相关函数都遵循这一约定，因此页面层可以直接串联不同函数，而不需要额外转换对象。
+`base_software/functions/` 是原始 Streamlit 实现，也是行为基线；`backend/app/algos/` 保存迁移后的算法模块。当前 B/S 服务层从后者导入算法，但迁移约束是：同一输入下应尽量保持原实现的数值结果、输出命名和已知缺陷，不在架构迁移中顺手修复算法。
+
+`backend/app/services/` 在算法外包了一层参数校验、输出命名和进度回调。服务层对网格离散、缩放、下采样、粗配准和精配准的输入参数做显式检查，算法模块本身大多仍假设调用者提供正确形状的 NumPy 点数组。
+
+## 共同输入输出约定
+
+- 点云在算法之间以 NumPy 数组传递，通常使用前三列 `x`、`y`、`z`。
+- 当前服务通过 `data_load()` 读取点云；该函数使用 Open3D 的 `format='xyz'` 进入内存。模块中还保留 `data_read()` 的扩展名分支，用于历史代码中 `.xls`、`.xyz`、`.asc`、`.txt` 的 pandas 读取路径。
+- 单位缩放使用 `{m: 1, dm: 0.1, cm: 0.01, mm: 0.001}`，计算“原单位系数 / 目标单位系数”后乘坐标，不改变坐标轴或做非线性变换。
+- 输出文件统一由服务层写入工作目录；文件命名规则属于工作流契约，而不是算法返回值的一部分。
 
 ## 网格离散与下采样
 
-- 网格离散先读取三角网格、计算表面积，再按 `点数 = 表面积 / 点间距²` 估算采样数量，最后调用 Open3D 的 Poisson-disk 采样。
-- 体素下采样用体素内点集的重心代表该体素；均匀下采样每隔 `every_k_points` 取一个点；最远点采样直接指定最终点数；随机下采样按比例保留点。
-- 这些函数都不修改传入数组，而是返回新的 NumPy 数组。页面中的尺寸缩放则使用 `{m: 1, dm: 0.1, cm: 0.01, mm: 0.001}`，以“原单位系数 / 目标单位系数”乘坐标，完成线性单位换算。
+`Mesh_to_PCD()` 先读取三角网格、计算顶点法向量和表面面积，再按 `点数 = 表面积 / 点间距²` 估算 `sample_points_poisson_disk()` 的目标点数，最后返回采样点的 NumPy 坐标。
+
+Poisson-disk 采样本身带有随机性。迁移回归不要求逐点一致，而是核对点数、质心、包围盒和平均最近邻间距；点数由面积和间距决定，必须与基线一致。
+
+下采样模块提供：
+
+- `voxel_downsample()`：调用 Open3D 体素下采样。
+- `uniform_downsample()`：按 `every_k_points` 间隔均匀取样。
+- `farthest_point_down_sample()`：按目标点数执行最远点采样。
+- `random_down_sample()`：按比例随机保留点。
+
+当前 B/S 工具主要使用体素和均匀两种；随机下采样没有显式随机种子，不能把重复运行的输出视为确定的。
 
 ## FPFH 粗配准
 
-`FPFH_Registration` 先按固定矩阵交换坐标轴，然后对源点云和目标点云执行同一套 FPFH 预处理：
+`FPFH_Registration()` 先按固定矩阵交换源点云的坐标轴，再对源、目标点云分别执行同一套预处理：
 
-- 体素下采样尺寸由调用者提供。
+- 体素下采样尺寸由调用者传入。
 - 法向量搜索半径为 `2 × voxel_size`，最多使用 30 个邻点。
 - FPFH 特征搜索半径为 `5 × voxel_size`，最多使用 100 个邻点。
-- RANSAC 内点距离阈值为 `1.5 × voxel_size`，置信度与迭代参数分别为 `100000` 和 `1`，并使用边长与距离检查器筛选对应关系。
-- 最终把 RANSAC 得到的变换应用到源点云，返回变换后的坐标。
+- RANSAC 距离阈值为 `1.5 × voxel_size`，使用 3 个采样点、边长与距离检查器，以及迭代/置信度参数 `(100000, 1)`。
+- 最终把 RANSAC 得到的变换应用到源点云并返回变换后的坐标。
 
-源码中的参数比例内嵌在函数里，只把 `voxel_size` 暴露给调用方；界面也不会验证该值是否为正数。
+由于 RANSAC 和特征匹配包含随机性，重复运行可能落到不同局部最优。回归测试首先验证三个 FPFH 相关函数与基线源码逐字一致，再用“配准后到固定点云的平均最近邻距离”作为质量契约，不把随机波动伪装成逐次确定结果。
 
 ## ICP 精配准
 
-项目提供两条 ICP 路径：
+`Open3d_ICP()` 使用单位矩阵作为初始变换，先估计源、目标法向量，再调用点到平面 ICP。需要注意：
 
-1. `Open3d_ICP` 使用点到平面误差、单位矩阵作为初始变换，并在计算前为源、目标估计法向量。其目标点云实际从 `target_data[2:]` 开始，也就是会跳过目标点云的前两个点；这是当前实现的可见行为。
-2. `ICP2` 允许用一个抽样点云求变换，再把同一变换同时应用到抽样点和完整源点云，适合避免用全量点云反复计算 ICP。
+- 目标点云由 `target_data[2:]` 构造，因此目标前两个点不会参与本次精配准。
+- 法向量估计使用半径 `2`、最多 `8` 个邻点。
+- B/S 精配准服务按 `0.05`、`0.03`、`0.005` 三个默认阈值依次调用三次 `Open3d_ICP()`，每一次都把上一次结果作为下一次源点云。
+- `Registration_rough_ICP()` 还提供“球心配准 + 三次 ICP + 坐标去重”的组合路径，但当前 B/S 精配准服务没有调用它。
 
-页面上的“精配准”连续调用三次 `Open3d_ICP`，默认阈值依次为 `0.05`、`0.03`、`0.005` 米。`Registration_rough_ICP` 还组合了球心粗配准与三次 ICP，并会对合并结果按坐标去重，但该组合函数没有出现在当前两个 Streamlit 页面的调用链中。
+算法完成不代表配准必然正确。当前实现的输出没有自动质量断言；页面侧仍要求使用者查看预览并决定是否重跑或更换输入。
 
-## 邻域检索与偏差度量
+## KDTree 偏差与平面拟合
 
-- `find_r` 以目标点云建立 KDTree，仅保留半径内邻点数大于 10 的查询点，再对所有邻点索引取并集。
-- `find_k` 对每个查询点取 `k` 个最近邻并合并唯一索引。
-- `Error_caculate_Point2Point` 返回每个检测点到扫描点云的最近距离。
-- `Error_caculate_Point2Plane` 先找最近点，再在该点半径邻域内拟合平面，最后返回检测点到拟合平面的法向距离。
+质量评估的 KDTree 链路如下：
 
-`fit_plane` 用 SVD 的最小奇异值对应向量作为平面法向量。Point2Plane 在半径内少于 3 个点时会直接写入偏差 `0`，而不是跳过、报错或记录无法计算；这会把“邻域不足”与“零偏差”混在同一结果中，是本模块需要重点关注的实现限制。
+1. `find_r(data, original, r)` 对目标点云建立 KDTree，只保留半径邻点数大于 10 的查询点，再对所有命中邻点索引取并集。
+2. `find_k(data, original, k)` 对每个查询点取 `k` 个最近邻索引，去重后返回对应原始点。
+3. `Error_caculate_Point2Point()` 返回检测点到参考点云的最近点距离。
+4. `Error_caculate_Point2Plane()` 先找最近点，再在半径 `r` 的邻域内用 SVD 拟合平面，最后计算检测点到拟合平面的法向距离。
 
-## 失效边界
+平面拟合 `fit_plane()` 对去中心化点云做 SVD，取最小奇异值对应的右奇异向量作为法向量，返回 `[A, B, C, D]`。这里有两个已知边界行为：
 
-- 空查询集合、找不到满足 `find_r` 条件的邻域，以及参数类型或范围不合法时，部分函数会在 `np.hstack`、类型转换或 Open3D 调用处直接抛错。
-- 随机下采样没有显式随机种子，相同输入不保证得到相同输出。
-- Point2Plane 用 `plane_model[3] / plane_model[2]` 构造平面点；当拟合平面的法向量 z 分量为零时存在除零风险。
-- FPFH、RANSAC 和 ICP 的收敛及结果质量没有被现有代码校验；执行完成不等于配准正确，仍需人工查看页面预览并决定是否重跑。
+- 邻域少于 3 个点时，`Error_caculate_Point2Plane()` 直接把该点偏差记为 `0`，而不是标记为不可计算。
+- 构造平面上点时使用 `-(plane_model[3] / plane_model[2])`。当局部拟合平面的法向量 `z` 分量为 `0` 时，除法会产生 `inf`/`NaN`，随后可能导致偏差统计在 `np.arange` 处失败。该行为属于基线实现的一部分，当前迁移没有自动修复。
+
+## 基线验证提供了什么
+
+`test_golden_parity.py` 覆盖了几类不同的验证强度：
+
+- 点云读取、单位缩放和体素/均匀下采样：与基线逐点完全一致。
+- Poisson-disk 网格离散：点数必须一致，位置允许与采样间距相关的显式容差。
+- FPFH：先验证源码逐字一致，再验证单次运行质量显著优于未配准基线。
+- 已知边界：Point2Plane 邻域不足记 0、`find_r` 空结果抛错等行为按原样保留并断言。
+
+因此，算法页上的“与原实现一致”主要表示行为契约和验证容差，而不是声称所有随机算法在每次运行中产生相同坐标。
+
+## 相关页面
+
+- [点云预处理 B/S 工作流](../workflows/point-cloud-preprocessing.md)
+- [尺寸质量评估 B/S 工作流](../workflows/dimension-quality-assessment.md)
+- [测试、Golden 基线与端到端验收](../development/testing-and-golden-parity.md)
+- [点云预览管线](../architecture/point-cloud-preview-pipeline.md)

@@ -2,67 +2,102 @@
   "schemaVersion": 1,
   "pages": {
     "/openwiki/algorithms/point-cloud-processing.md": {
-      "pageVersion": "sha256:9e1679432502b6e05e0b2502c4a986f06cb0601e7c068d22f821ad9789923b51",
+      "pageVersion": "sha256:14b13fa42bfece7515f44f89d9032205cf36c5972a287a4e6743fe311ba6ff32",
       "completedBy": "codex",
-      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
-      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
-      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
     },
     "/openwiki/architecture/application-overview.md": {
-      "pageVersion": "sha256:b86a98634d4754143f35e8998f36d944a8931426979d1c7e9188d4c044e5c962",
+      "pageVersion": "sha256:4a76d4bb72a94c3dfd6a811d637d693a35e366506da088a5909eedd09f823eeb",
       "completedBy": "codex",
-      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
-      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
-      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
+    },
+    "/openwiki/architecture/browser-server-architecture.md": {
+      "pageVersion": "sha256:02255a84c7add82be0edb07c70b6dfd76475c36b4240d043b4b6b78ff05e1a85",
+      "completedBy": "codex",
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
+    },
+    "/openwiki/architecture/point-cloud-preview-pipeline.md": {
+      "pageVersion": "sha256:bdb4967d38b20857fac90b45a2014fb8747fa704c20cc3d6524da9ddffb12062",
+      "completedBy": "codex",
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
     },
     "/openwiki/architecture/runtime-state-and-paths.md": {
-      "pageVersion": "sha256:0a6330e1fa3cc991e1b9ccf0f055eb6bb5c830d90520a7cd1b15eec51bd1350e",
+      "pageVersion": "sha256:e4c53cfb9d03d946c74d7301fa233a355170f6a8ed92001365d9448f793028eb",
       "completedBy": "codex",
-      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
-      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
-      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
     },
     "/openwiki/development/quality-workflow.md": {
-      "pageVersion": "sha256:be7ccdb8fa20b2b3e3fb5f479cc193caa9b375961420191c9cc37bcb5d22b9c2",
+      "pageVersion": "sha256:5e0395dbcd1f191eeeec5b1ebbc3d03257495a8e394f3d33e2dbfb8ca7aeb96a",
       "completedBy": "codex",
-      "completedRunId": "8d116df7-8c45-4707-9729-15ad9bb9981b",
-      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
-      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
+    },
+    "/openwiki/development/testing-and-golden-parity.md": {
+      "pageVersion": "sha256:b7d1d6b834e83b9cb5861c788d3dd1780a19d58e2befd0e221aff6002fac1dca",
+      "completedBy": "codex",
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
     },
     "/openwiki/operations/runtime-and-deployment.md": {
-      "pageVersion": "sha256:1a038d3e7baa764403b2bbf0638c06d58582483f2e333363302389a3f75f7a78",
+      "pageVersion": "sha256:0e9cfa894af4c9751f9f2108ad301603116150081602b6c45b47f1578b685a71",
       "completedBy": "codex",
-      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
-      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
-      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
     },
     "/openwiki/quickstart.md": {
-      "pageVersion": "sha256:bae1e62c4af19295b2cad70f955b0eb4f9a1caa3ca5888baadfb706849c60d7d",
+      "pageVersion": "sha256:56bba1ded0cf135005c16eb03401ed21418fc8c8ff6ddedeb6f3146909b70e65",
       "completedBy": "codex",
-      "completedRunId": "8d116df7-8c45-4707-9729-15ad9bb9981b",
-      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
-      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
     },
     "/openwiki/reporting/quality-report-generation.md": {
-      "pageVersion": "sha256:60b9fc362266c652c8e2bea4a1a8bc4332ede06fe3e62268d43980d72fab0e7a",
+      "pageVersion": "sha256:0b6a2d13caa8154238c91db5d991e2fda57c1623c4fc3fa3ed6a79f26833307e",
       "completedBy": "codex",
-      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
-      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
-      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
+    },
+    "/openwiki/workflows/async-job-execution.md": {
+      "pageVersion": "sha256:06f3053cf729e2dd015c2b947264674dc394cf46fec6b193857ec9b453716d63",
+      "completedBy": "codex",
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
     },
     "/openwiki/workflows/dimension-quality-assessment.md": {
-      "pageVersion": "sha256:bb502a4947049d49e561dd30bb11e30e4a3f1de4879568a4aaaf41beab045de6",
+      "pageVersion": "sha256:2688a167b2ecbc96d4a2bdc572fdd48d04c46bcbc209fc01a0c475e4f68b528c",
       "completedBy": "codex",
-      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
-      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
-      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
     },
     "/openwiki/workflows/point-cloud-preprocessing.md": {
-      "pageVersion": "sha256:7ab1f5c50b9c3e2b53e8ee98f49aaebb9746009dd5850375474d6c476f0f8cc1",
+      "pageVersion": "sha256:dd177a8cb7589eddc0672ce6f4228fa041e0dc9e94be8fded6e8bc37ddb9e7ad",
       "completedBy": "codex",
-      "completedRunId": "0aa17477-7641-4cfa-bf2a-08a7949c755e",
-      "gitHead": "f5df436cba43a646d6e567805eba2c7b9314a601",
-      "sourceFingerprint": "sha256:f570d6a716e1db47fbcbd53937b994fba97ade0052695046bba07416319c6b9f"
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
+    },
+    "/openwiki/workflows/session-upload-and-artifacts.md": {
+      "pageVersion": "sha256:2fde64ee8063d563030e726be0f5a91f5828f559bd0ff98e6af5315dc7884732",
+      "completedBy": "codex",
+      "completedRunId": "cd244b90-7e37-4673-9211-6d477993fe46",
+      "gitHead": "4c696013bba6e9eedb1b5f8bb759e9c8db2a9623",
+      "sourceFingerprint": "sha256:b0b0c2c0a5613aaba460ebf3cdffc504ae97ccb19620c6d072d743309a5b173e"
     }
   }
 }

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:02255a84c7add82be0edb07c70b6dfd76475c36b4240d043b4b6b78ff05e1a85",
+  "claims": [
+    {
+      "id": "claim_94f60cb34e064616a903c42fa294c972",
+      "statement": "B/S 版本采用同源部署：Vue 构建产物由 FastAPI 托管，浏览器通过同源 /api 请求完成会话、上传、任务、产物和预览交互。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/main.py#L36-L61",
+          "version": "repo-lines-v1:sha256:74aa348a9d71c4ecf80b2c19770a36607e883acbe589893b776802c4c6658a06:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3N2U3MzU1MjFiMTU2Njk5M2RhY2M0NTdmZGYxNzE1Mjg0OTNiNWM2YTIwMWY5MTUzZWM3ZGZlYzMyMDRkNTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkNjdiNDY2Mzc4NzVjM2JiN2Y5MDNiMWRiODczNGI0YTI5NjY4NWRmNGRiZTY2YTRmNmNlZjdmZGM0MTE2M2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY1YTQxNzQyMGIyZGFmMWZjMjI0ODNkNmE2ZmE3NjNkMjVhYzU5OWZlOTIyMWQxODFmMzFkOGQ4ZjE5MTRhNDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3ZjdlNzJkYTFjMTA1MmNjMDBhY2U2MDBjMGNlZjljODAzZGViYWM5NmFlN2ZjYmY5MGViMTlmZjlmMTNhMTQifQ"
+        },
+        {
+          "resource": "repo://frontend/src/api/index.ts#L4-L43",
+          "version": "repo-lines-v1:sha256:b35bf8c5daf245e19943630a573d5ca18af70b5e0ccaa9cf19e5c7c492af8ff4:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1ZWQ4MzYxMmUwMGY4MTQwZWY1ODQzNGE5ZmRhNDlkOWUxZjAyMjhiNDE3MDIzY2FiYjZlNmRjNGFiNzBhMTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYxZTliZGY1YjJkZmYzMzU0MjY4ZTE2Y2I1ZDg5M2ViNGYzYzg3ZTg5YmVlMzAyOWZlOWI2ZDZkZDEyZjRhYzciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2YzAwMjQxMDY1NWY5N2UyNjc4ZTA2ZGIyN2MwZDdhN2QxYzRhNTc1NTdkOWM2NDU4Mzk5YWQyMjRmNTc4NjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f84f3f2172454089b4f94a343c72f741",
+      "statement": "FastAPI create_app 创建 SessionStore 与 JobRunner，安装会话中间件，挂载 artifacts/uploads/jobs/preview/health 路由，并在 lifespan 启动/关闭阶段处理遗留任务和停止 runner。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/main.py#L22-L61",
+          "version": "repo-lines-v1:sha256:2ce8c64d6784e8b89aeba56959828121037654af420883f0595a116f16699470:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyYzRjZmIyZTdjZjM3NTI4MjFiN2MzMWJkNDI2N2ViYTQ2ODZhMzMyZTMyZWQ0ZWY2NzE0MmMwODkwMDhiNDUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJkNjdiNDY2Mzc4NzVjM2JiN2Y5MDNiMWRiODczNGI0YTI5NjY4NWRmNGRiZTY2YTRmNmNlZjdmZGM0MTE2M2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkN2E0NWUxNjNhM2I4ZjFkOTE5NmZmYTQ1NDZlNTU5Y2VmYTYyYjJmNjgxY2NlYmM2NWIxNzEwOTUzOTk5NGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc3ZjdlNzJkYTFjMTA1MmNjMDBhY2U2MDBjMGNlZjljODAzZGViYWM5NmFlN2ZjYmY5MGViMTlmZjlmMTNhMTQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a9e47eeb8ae34c15b40f4d8b7abb1fa9",
+      "statement": "会话中间件在 cookie 缺失或无效时创建新会话，把 session_id 写入 request.state，并以 HttpOnly、SameSite=Lax 的持久 cookie 下发；会话快照不暴露产物内部路径和分片哈希表。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/api/session.py#L9-L46",
+          "version": "repo-lines-v1:sha256:067a60de4bc43abcbccef3d45a8d5d011f43a9d727bfe39a3b94ed2419fac40a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4ODhjYTA5ZDA1YTRlY2M1OGY1NjZmZDExYTg3MzY4ZGRiNTM4OWNkZDhlODc1MjdhMDQ1M2IwZTZkMzVlYjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjMjVlM2FlYzFiMTNmOTBhMzhjYjJjY2NiZjlkZjgzYmM1ZmU2NjAyODE3OTJlYzczMDc0MjcwMjMwYzcyYjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUxOTBmODQ5MTFlZjI2Y2IxYWU5OTIyYWUwOWQ0MjQ0ZTE0MjA3MjY4MWRiZDlhZTcwZjBkZDVhYzc3MTQyZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1MDU3MWViODk2NzBjOGY5MjJkYzY4ZDlhOTAxNjliYjZlM2I0YmJlZjJmMmRiYTBmMjEyYmVmZjhlZGNmZGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_52d61507710b4a73a8475225a9a517db",
+      "statement": "前端 API 客户端统一使用 credentials: 'same-origin' 并把非 2xx 响应转换为带 HTTP 状态码的 ApiError。",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/api/http.ts#L11-L35",
+          "version": "repo-lines-v1:sha256:cf0c5d42b19b71611cf4fc1b4964a6840030d8e5b1d4e923652dfb801b49107a:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlYzdmODE1MWMzNTc0ZDhjOGI4NGVlYmZiMGFjNWNhMjJkM2E2ZGU2ZGEzYmVjYjAxY2NmYzA0YTc0NzlhMmEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIyMzUyNTg5YzM0ZDNjNjA2ODU5MzFiNmVjYzRkNTA5OTFhN2M1NmM4ZmJhMjg5NDExNDY1NzY5MDI3MmNhYzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiNTgwZTk2NGY4M2E0NzNmNDNkNDQzODQ2Mjk0OWQ2OGI1NjAwZmRhNzg3ZjE2Mzc0NWQwMGRlODljYmYzNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9adc52229cd344e0b004bdb46431fbff",
+      "statement": "前端任务轮询默认每秒调用 GET /api/jobs/{job_id}，直到任务进入 succeeded、failed 或 interrupted 终态。",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/api/jobs.ts#L28-L38",
+          "version": "repo-lines-v1:sha256:1b858ababb519a69dd7fe457cd50026b438816e2a30fa9d028daa93add1efb46:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFhYTg0YmY3M2RiMWE3YTVlNTBmNjc1NDZiMWVhNWQyZDRiNzRkZjZhNDI0MjI0ZGY4MWNjODljNzZmZjk1N2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRjZjk1ZjJhMmZmNDU0NDJlMTM1ZDA0ZjY2ZmIyNTRiYTcwMTBlZTMyYmU4YjNhY2EwMDI3M2UxNzdkMDlmMjMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_23f11c56eeda4aefa3f7929dbde432f5",
+      "statement": "提交任务时后端从当前会话解析输入产物 ID 为文件路径，再把工具、参数、输入路径和工作目录提交给独立 JobRunner；Web 路由不直接执行点云算法。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/api/jobs.py#L17-L42",
+          "version": "repo-lines-v1:sha256:4869ef466628369a8bfc231bd6a77843efd974ae1d47d1d10610563c07bdfea0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlOGE3MjkzMDhlMWVlMGNhZDc4ZWQ0ZGYyZTNmM2NlZGIxZjQwYmQ2ZDE4NDExOGRmODJjMmZlYzJhNmY4NzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZjYzhkNDQ0ZDg1YjQzYTAzODllMGE3YmEwYTQ0YTJhMWFjYTllYmNhNThjNjA1ZWRhZjExMTVkMWQzMGUwNGEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjMzZmFmZWEwZTQyNTI0YmExYjc4NTdiMmRiYWE2MmY0OTFmMjNkNmJjYmVhYjAwNDBhNmE2MTNjYzA3ODQ0YmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNlMzk3MWY2NWE4NDhjNmIyZWQ0YmJiZGNkMDgxNTM5ODhmMzNiZWIwODJjMDRjOGVlOTZhYzQ1OTI0NWViMjEifQ"
+        },
+        {
+          "resource": "repo://backend/app/jobs/runner.py#L56-L73",
+          "version": "repo-lines-v1:sha256:3b643d7f4d6041728138689d325ed3e68f5efbb70d07f9c3a93ee2beab99d6fb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxMmM0Yjg0NmMxZTJmMjA2MjVlYTI1OWI5MTdkYzljMmUzMDJmY2ZkMWNmYmM2YTZlODNkMjNiZWMxOWU0OGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliZDk5YTM2NDJhZWJhMTU3ZmYxNDllMmEyYTRhOWRhMzEwOTQzMjA0MjU2ZjlhNjM5N2U4ZTE3Njk0NjcwYmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkY2U0YTMzMDVlZjdhOTBmYTU0MmY2NjJlM2Q4N2I0MmQ0YmNmYTNhYWRlMTFiMzZlZDNkNmE0ZTdhMWZmZDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxNmY4NDRmMmQwYzA1ODFlYjNiZGNiMjRiZDM4ZjA3MjkzZGI3ZDViNzNiYWY2OGJmMTUyZDNlYWU4Y2FjYTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4ebbd90802084b46b90d04a69e6ac712",
+      "statement": "JobRunner 使用 spawn ProcessPoolExecutor，worker 在任务工作目录写 state.json 与 progress.json，完成回调统一登记输出产物。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/jobs/runner.py#L39-L73",
+          "version": "repo-lines-v1:sha256:1d7ccef2b12209b2b514a46b791fa84c8011a1d8521eb7609b587ccadf50a985:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImExMzVjNzU2ZDQ2ZGVlMmIzZTM3ZTljMWJmODRhNjJlMmJlNzllODczNDE0Yzc4Y2Y3Njk0ZmVhNzljODg5MzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliZDk5YTM2NDJhZWJhMTU3ZmYxNDllMmEyYTRhOWRhMzEwOTQzMjA0MjU2ZjlhNjM5N2U4ZTE3Njk0NjcwYmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYxNTIwOTA3MDg3YmE1MzJlNDc4NWIwOTQ1OTNhMDVjNzdhOGMxYzMyZGRmODZlZThjZmYzNDFkZDUwODk5YzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxNmY4NDRmMmQwYzA1ODFlYjNiZGNiMjRiZDM4ZjA3MjkzZGI3ZDViNzNiYWY2OGJmMTUyZDNlYWU4Y2FjYTUifQ"
+        },
+        {
+          "resource": "repo://backend/app/jobs/runner.py#L75-L118",
+          "version": "repo-lines-v1:sha256:eb51f04d4b8743ba4a2bff8a5dd1350e31c1b211627be411cd380ad8a911a5fe:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzMWRmYWE4Y2Y1NjkzNTEyMDlmODlmYjExMDk0Y2I0OWE3MTI1ODY3MjgyZDcyZTYzNzlmZGIxMmViOTQ1OWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVhNzkyMGUxYjY5ZjUwNGZlNDkzOTU3Mjg0NDIxZTAyZGYwZDc5ZjU0NjNlMDdjOTEzNmUyYzBjNWIwZGRmMWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhMGY2YTVkYTUwZDg2MTBmYzAyNWUzNzg1OWJjMDExODMxYmUyODFhYjRmZTU4YTFlZjVjYjExMGRhZGU2MzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxMGUyY2Q0ZmQxNWQ3YjczODBlNjUzYzljZjEyZmM3MTI1MTY0ODQ0NTNhNGExNjI0Y2U5OTk5NTVkMmEwNGIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-29T03:28:02.619Z"
+  }
+}

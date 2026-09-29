@@ -1,16 +1,36 @@
 ---
 type: quickstart
 title: 快速开始
-description: 面向首次运行者，概括 DeviScan-3D 的能力、启动前提、两条业务工作流、主要本地文件限制和 OpenWiki 手动维护方式。
-tags: [quickstart, streamlit, point-cloud, quality-assessment]
+description: 面向首次接触仓库的读者，说明当前 B/S 版本、启动路径、预处理与质量评估流程、部署依赖、关键限制，以及 base_software 历史基线的定位。
+tags: [quickstart, browser-server, point-cloud, quality-assessment, deployment]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-28T07:42:19.658Z
+    at: 2026-09-29T03:28:02.619Z
 sources:
   - id: openwiki-source-4d1645cb6317345817452838
     resource: repo://.pre-commit-config.yaml
-  - id: openwiki-source-b735a19d109c0dd7887674e9
-    resource: repo://base_software/functions/PDF.py
+  - id: openwiki-source-8fe7ebf00619b8e43f932fa4
+    resource: repo://backend/.python-version
+  - id: openwiki-source-c578b2dc2526160d08abde24
+    resource: repo://backend/app/algos/knn.py
+  - id: openwiki-source-4188bfee2e15d969d3152477
+    resource: repo://backend/app/config.py
+  - id: openwiki-source-af8bc07dd356b94582111a05
+    resource: repo://backend/app/core/uploads.py
+  - id: openwiki-source-fecf2f8a5b5c8cf503ca5e77
+    resource: repo://backend/app/jobs/tools.py
+  - id: openwiki-source-115bc96dd839c419e53a5004
+    resource: repo://backend/app/report/figures.py
+  - id: openwiki-source-6b45f4b822f7d3826e57be75
+    resource: repo://backend/docs/e2e-checklist.md
+  - id: openwiki-source-1771024592351e13dbb973b9
+    resource: repo://backend/docs/report-toolchain.md
+  - id: openwiki-source-070c6307b3860e1806baf566
+    resource: repo://backend/pyproject.toml
+  - id: openwiki-source-9025181f12900b1c2ae4adf5
+    resource: repo://backend/README.md
+  - id: openwiki-source-38cd390b83010a890170c4ab
+    resource: repo://base_software/.python-version
   - id: openwiki-source-d69beca5a040440e55fef3c1
     resource: repo://base_software/home_page.py
   - id: openwiki-source-db642bdc773df44d5cdde189
@@ -19,107 +39,134 @@ sources:
     resource: repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py
   - id: openwiki-source-5f29572408b9e8962311ba6a
     resource: repo://base_software/README.md
-  - id: openwiki-source-7f0ef148148cf22231d1845e
-    resource: repo://base_software/requirements.txt
   - id: openwiki-source-f317ee207e1653d2033c81a4
     resource: repo://CONTRIBUTING.md
-generated: { by: "codex", at: "2026-09-28T07:42:19.658Z" }
+  - id: openwiki-source-1047363cf615000e4c9bb694
+    resource: repo://frontend/package.json
+  - id: openwiki-source-56949fc5b7c8934cd12beebd
+    resource: repo://frontend/src/api/uploader.ts
+  - id: openwiki-source-62c1462ca643d265eb668123
+    resource: repo://frontend/src/components/PointCloudViewer.vue
+  - id: openwiki-source-77c413f182fc2eead5535edb
+    resource: repo://frontend/src/router/index.ts
+generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
 ---
 
 # 快速开始
 
 ## 这是什么
 
-`base_software` 是一个基于 Streamlit 的三维扫描分析演示应用，主要处理两类任务：
+仓库当前以 B/S 版本为主实现：
 
-1. 把 BIM 网格转换为点云，并按需进行单位缩放、下采样、FPFH 粗配准和 ICP 精配准。
-2. 比较扫描点云与 BIM 离散点云，计算几何偏差、生成偏差云图和统计指标，再输出中文 PDF 报告。
+- `frontend/`：Vue 3 单页应用；
+- `backend/`：FastAPI、同源静态托管、会话/上传/任务/预览/报告 API 与计算进程池；
+- `base_software/`：原始 Streamlit 演示和算法行为基线。
 
-首页入口是 `home_page.py`。Streamlit 自动识别 `pages/` 下的两个功能页，因此启动入口后应能在侧边导航中进入“点云预处理”和“尺寸质量评估”。
+浏览器用户通过一个地址访问页面，上传本机文件，提交点云任务，查看进度和预览，并下载结果或 PDF 报告。服务器文件路径不暴露给浏览器。
 
-## 运行前检查
-
-从仓库根目录启动时，常规入口命令是：
+## 启动 B/S 版本
 
 ```bash
-streamlit run base_software/home_page.py
+# 1) 构建前端
+cd frontend
+npm ci
+npm run build
+
+# 2) 启动后端（同源托管 frontend/dist）
+cd ../backend
+uv sync --frozen
+PORT=8000 scripts/start.sh
 ```
 
-仓库没有提交启动脚本、Docker 配置、环境锁或服务定义，因此这条命令仍需在目标环境验证。运行前至少需要：
+浏览器访问：
 
-- 安装 `base_software/requirements.txt` 中的 Python 依赖。
-- 提供 `base_software/interface/CMGC.png`、`logo.png`、`TJBridge.png`。当前版本库未跟踪 `interface` 目录，缺少这些文件时首页不能完整渲染。
-- 准备可写目录。应用会在 `base_software/cache/` 保存路径、图片和中间状态。
-- 使用本地桌面会话，因为文件选择依赖 Tk 对话框。
-- 安装支持中文 `ctex` 包的 LaTeX 工具链；项目 README 还声明完整运行需要 TeXstudio 和 Google Chrome。
-- 注意运行清单指定 Python 3.10.18，而 `prek` 使用 Python 3.11；部署前应由维护者确认统一版本。
+```text
+http://<服务器IP>:8000/
+```
 
-应用不使用浏览器上传控件选择核心输入。文件对话框打开在运行 Streamlit 的电脑上，远程用户无法借此浏览自己的本地文件。
+API 文档位于 `/docs`，部署依赖自检为：
+
+```bash
+curl http://<服务器IP>:8000/api/health
+```
+
+`start.sh` 会把 `~/.local/bin` 加入 PATH，检查前端 dist，执行 `uv sync --frozen`，然后用 uvicorn 启动服务。Dockerfile 尚未实现，当前路径是 Linux 裸机 + uv。
+
+## 运行前依赖
+
+B/S 运行需要：
+
+- Python 3.10.18（由 uv 按 `.python-version` 管理）。
+- Node.js 与 npm（构建前端）。
+- TeX Live/TinyTeX（`latexmk`、`xelatex`、ctex、Fandol），用于 PDF 报告。
+- Chrome/Chromium，用于 Kaleido 导出报告图片。
+- PyVista 离屏渲染环境（DISPLAY、EGL/OSMesa 或 xvfb）。
+- 中文字体与 TeX 宏包。
+
+报告链路和 TinyTeX 安装步骤见 [质量报告生成与工具链](reporting/quality-report-generation.md) 和 `backend/docs/report-toolchain.md`。
 
 ## 推荐业务路径
 
-### 1. 准备 BIM 点云
+### 1. 先准备 BIM/离散点云
 
-进入“点云预处理 -> 网格离散”，选择 STL、PLY、OBJ、OFF、GLTF 或 GLB 网格，设置点间距并输出 `.xyz`。若扫描数据和 BIM 单位不一致，随后使用“尺寸缩放”转换到同一单位。
+打开 `/preprocess/discretize`，选择或上传网格文件，设置点云间距，提交“网格离散”。结果是当前会话中的 pointcloud artifact，可以直接预览、下载，或作为后续步骤输入。
 
-### 2. 按需轻量化
+如果单位不一致，进入 `/preprocess/scale` 做 m/dm/cm/mm 线性换算；需要轻量化时进入 `/preprocess/downsample` 做体素或均匀下采样。
 
-需要降低点数时使用体素下采样或均匀下采样。三维质量评估内部仍会以固定 `0.1` 体素再次处理 BIM 点云，因此预处理下采样不是质量评估的硬前置条件。
+### 2. 对齐扫描点云和 BIM 点云
 
-### 3. 对齐两类点云
+进入 `/preprocess/registration`：
 
-先在“配准 -> 粗配准”中使用 FPFH 配准移动点云和固定点云。程序会保存 `_FPFH.xyz`，并把路径写入精配准的默认移动点云缓存。检查预览后，再进入“配准 -> 精配准”完成三次 ICP，输出 `_ICP.xyz`。
+- “粗配准”调用 FPFH/RANSAC，输出 `_FPFH.xyz`；
+- 成功后前端会把粗配准结果自动选入精配准；
+- “精配准”依次执行三次 ICP，默认阈值为 `0.05`、`0.03`、`0.005`，输出 `_ICP.xyz`。
 
-这仍是一套人工工作流：粗配准是否可接受需要用户检查，质量评估也不会自动读取预处理生成的 `_FPFH.xyz` 或 `_ICP.xyz`。
+配准是否可接受仍需人工检查叠加预览。算法不会自动判断收敛质量。
 
-### 4. 计算尺寸质量
+### 3. 计算尺寸质量
 
-进入“尺寸质量评估”，依次确认离散点云、单位一致性和匹配状态，然后选择：
+进入 `/quality/assess`：
 
-- 已配准的扫描点云。
-- BIM/离散点云。
-- 报告保存目录。
-- 点云单位。
-- `Point2Point` 或 `Point2Plane`。
-- 平面邻域大小和最大偏差剔除比例。
+1. 勾选四个前置确认：已有离散点云、已下采样或忽略、单位一致、已完成匹配。
+2. 选择扫描点云和 BIM 点云。
+3. 设置单位、偏差方法（Point2Point/Point2Plane）、平面邻域大小和剔除比例。
+4. 提交任务，查看阶段进度、四项统计指标、偏差直方图、偏差云预览和 PDF 报告。
 
-页面会执行环境点云剔除、缺失区筛选、偏差计算、直方图统计和 PDF 输出。偏差在显示和统计前由输入单位乘以 1000 转为 mm。
+`distance` 虽然主要服务 Point2Plane 邻域，但也会以 `distance × 10` 参与环境点筛选，因此切换到 Point2Point 后仍会改变检测点集合。
 
-## 选择偏差方法
+## 文件与产物
 
-- `Point2Point`：计算检测点到扫描点云的最近点距离，结果受扫描点间距影响。
-- `Point2Plane`：在最近扫描点邻域内拟合局部平面，再计算点到平面的距离。邻域不足 3 个点时当前实现把偏差记为 0。
+B/S 版本没有浏览器可见的服务器文件对话框：
 
-`distance` 标签说明主要服务 Point2Plane，但它也会通过 `distance × 10` 影响环境点剔除，所以切换为 Point2Point 后仍不应忽略该参数。
+- 上传通过浏览器文件控件完成，支持 8 MiB 默认分片、SHA-256 校验、断点续传和 24 小时未完成上传保留。
+- 每个浏览器会话拥有 `data/sessions/<uuid>/` 工作区，上传、任务和产物按会话隔离。
+- 输入与输出通过 artifact id 在页面间复用；下载时恢复原显示文件名。
+- 报告 PDF 在任务成功时登记为 report artifact。
 
-## 结果文件
-
-- 预处理点云：用户所选目录下的 `_FPFH.xyz`、`_ICP.xyz`、`_VD.xyz`、`_UD.xyz` 或单位后缀文件。
-- 评估中间图：`cache/fig1a.jpg`、`fig1b.jpg`、`fig2.jpg`、`fig3.jpg`、`fig4.jpg`、`fig5.jpg` 和 `Error_Analysis.jpg`。
-- 报告：报告目录下以扫描点云主名和“几何质量评估报告年月日”命名的 PDF。
-
-固定图片名和只精确到日期的报告名都可能覆盖较早结果。
+如果 HTTP 局域网浏览器没有 Web Crypto，前端会为分片校验回退到纯 JS SHA-256。部分虚拟机或 GPU 黑名单环境无法创建 WebGL2 时，三维预览会显示明确错误，但下载和后续计算仍可使用。
 
 ## 已知限制
 
-- 当前源码没有自动化业务测试；`prek` 只覆盖格式、文档、代码拼写、密钥和提交信息。
-- 服务器部署后，Tk 文件对话框和 Windows 专用的 `os.startfile` 与浏览器客户端模型不匹配。
-- 参数范围、空点云和缺失缓存文件缺少统一校验，失败会表现为底层库异常。
-- 当前仓库已有 25 页 Word 使用说明书和外部 DeviScan3D 压缩包链接，但源码仍是 Streamlit 单体应用，没有完成 README 中讨论的重新选型或服务器化改造。
+- 无登录、无权限系统，按内网演示使用。
+- 点云预览依赖浏览器 WebGL2；无 WebGL2 时不能显示三维效果。
+- Point2Plane 在局部平面法向量 z 分量为 0 等退化情况下可能产生 NaN，最终在直方图 `np.arange` 处失败；这是原始算法边界，当前迁移没有自动修复。
+- 服务重启不会恢复运行中任务，遗留任务会标记为 interrupted。
+- 只支持单 Web 实例的进程内会话锁；没有 Redis/SQLite/分布式锁。
+- Docker、HTTPS、反向代理和外部认证未实现。
 
-## 仓库文档维护
+## 历史 base_software
 
-本仓库是私有仓库，没有配置 GitHub Actions，也不需要定时工作流来维护 OpenWiki。不要创建或恢复 `.github/workflows/openwiki-update.yml`，也不要为该流程配置 Actions secrets。OpenWiki 初始化或更新由维护者在本地显式执行，生成结果按普通文档改动审查和提交。
-
-更多维护约束见[开发与质量流程](development/quality-workflow.md)。
+`base_software/` 仍是 Streamlit 单体演示，入口为 `home_page.py`，`pages/` 提供点云预处理和尺寸质量评估页面。它使用本机 Tk 文件对话框、应用根目录下的 `cache/` 文本路径和 `os.startfile` 输出目录操作，适合作为本地桌面演示或数值基线，不是当前 B/S 部署方式。原始 README 还记录了局域网只能访问部署机本地文件等历史问题。
 
 ## 继续阅读
 
-- [应用架构总览](architecture/application-overview.md)
-- [运行时状态与路径](architecture/runtime-state-and-paths.md)
-- [点云预处理工作流](workflows/point-cloud-preprocessing.md)
-- [尺寸质量评估工作流](workflows/dimension-quality-assessment.md)
-- [点云处理算法](algorithms/point-cloud-processing.md)
-- [可视化与质量报告生成](reporting/quality-report-generation.md)
-- [运行、依赖与部署](operations/runtime-and-deployment.md)
-- [开发与质量流程](development/quality-workflow.md)
+- [仓库与应用架构总览](architecture/application-overview.md)
+- [浏览器—服务端架构](architecture/browser-server-architecture.md)
+- [点云预处理 B/S 工作流](workflows/point-cloud-preprocessing.md)
+- [尺寸质量评估 B/S 工作流](workflows/dimension-quality-assessment.md)
+- [B/S 运行、依赖与部署](operations/runtime-and-deployment.md)
+- [测试、Golden 基线与端到端验收](development/testing-and-golden-parity.md)
+
+## OpenWiki 维护
+
+本仓库是私有仓库，没有配置 GitHub Actions，也不依赖定时工作流维护 OpenWiki。初始化或更新只由维护者在本地显式执行；不要创建或恢复 `openwiki-update.yml`，也不要为该流程配置 Actions secrets。

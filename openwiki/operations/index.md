@@ -1,3 +1,3 @@
 # 文件
 
-- [运行、依赖与部署](runtime-and-deployment.md) - 汇总 Streamlit 入口、Python 与系统依赖、本地桌面耦合、缓存写权限、中文 PDF 工具链和项目已知服务器部署限制。
+- [B/S 运行、依赖与部署](runtime-and-deployment.md) - 说明 Linux 裸机上的 uv 后端、Node 前端构建、start.sh、环境变量、data 工作区、TeX/Chromium/离屏渲染/中文字体健康检查，以及 base_software 历史部署方式与边界。
