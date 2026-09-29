@@ -132,6 +132,9 @@ def test_ui_histogram_bounds_large_range_and_preserves_statistics() -> None:
     bars, ticks = _figure_counts(payload)
     assert bars <= figures.UI_HISTOGRAM_MAX_BARS
     assert ticks <= figures.UI_HISTOGRAM_MAX_TICKS
+    trace = payload["data"][0]
+    assert "区间:" in trace["hovertemplate"]
+    assert trace["customdata"]
     assert payload["layout"]["shapes"][0]["x0"] == pytest.approx(line)
     annotation = payload["layout"]["annotations"][-1]["text"]
     assert f"最大值: {max(error_sorted):.2f}" in annotation
