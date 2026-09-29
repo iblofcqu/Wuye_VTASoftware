@@ -4,3 +4,10 @@ __pycache__
 .codegraph
 .vscode
 .venv/
+
+# B/S 运行时数据（会话工作区）
+data/
+
+# 前端依赖与构建产物
+frontend/node_modules/
+frontend/dist/
