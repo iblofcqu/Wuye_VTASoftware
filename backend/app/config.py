@@ -16,3 +16,7 @@ UPLOAD_CHUNK_SIZE = int(os.environ.get("WUYE_UPLOAD_CHUNK_SIZE", str(8 * 1024 * 
 UPLOAD_MIN_CHUNK_SIZE = int(os.environ.get("WUYE_UPLOAD_MIN_CHUNK_SIZE", str(1024)))
 UPLOAD_MAX_CHUNK_SIZE = int(os.environ.get("WUYE_UPLOAD_MAX_CHUNK_SIZE", str(64 * 1024 * 1024)))
 UPLOAD_TTL_SECONDS = int(os.environ.get("WUYE_UPLOAD_TTL_SECONDS", str(24 * 3600)))
+
+# 任务执行
+JOB_POOL_SIZE = int(os.environ.get("WUYE_JOB_POOL_SIZE", "2"))
+JOB_WORK_DIR = "work"

@@ -40,6 +40,9 @@ def install_session_support(app: FastAPI, store: SessionStore) -> None:
             {key: value for key, value in entry.items() if key != "chunk_sha256"}
             for entry in data["uploads"]
         ]
+        data["jobs"] = [
+            {key: value for key, value in entry.items() if key != "internal"} for entry in data["jobs"]
+        ]
         return data
 
     app.include_router(router)
