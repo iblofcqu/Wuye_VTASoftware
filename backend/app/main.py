@@ -4,6 +4,7 @@ from pathlib import Path
 
 from fastapi import FastAPI
 
+from app.api.artifacts import router as artifacts_router
 from app.api.session import install_session_support
 from app.config import SESSION_ROOT
 from app.core.sessions import SessionStore
@@ -12,7 +13,9 @@ from app.core.sessions import SessionStore
 def create_app(session_root: Path | None = None) -> FastAPI:
     app = FastAPI(title="DeviScan-3D B/S", version="0.1.0")
     store = SessionStore(session_root or SESSION_ROOT)
+    app.state.session_store = store
     install_session_support(app, store)
+    app.include_router(artifacts_router)
     return app
 
 
