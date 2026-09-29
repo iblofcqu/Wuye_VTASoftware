@@ -28,6 +28,8 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-yaml
       - id: check-json
+        # 前端 tsconfig 使用 JSONC（允许注释），语法由 tsc/vue-tsc 校验
+        exclude: '(^|/)tsconfig[^/]*\.json$'
       - id: check-toml
       - id: check-added-large-files
         args: [--maxkb=1024]
@@ -46,6 +48,8 @@ repos:
     hooks:
       - id: codespell
         args: [-I, .codespell-ignore]
+        # package-lock.json 为生成文件，base64 完整性哈希会产生误报
+        exclude: '(^|/)package-lock\.json$'
 
   # Markdown 文档统一风格
   - repo: https://github.com/DavidAnson/markdownlint-cli2
