@@ -1,3 +1,3 @@
 # 文件
 
-- [B/S 运行、依赖与部署](runtime-and-deployment.md) - 说明 Linux 裸机上的 uv 后端、Node 前端构建、start.sh、环境变量、data 工作区、TeX/Chromium/离屏渲染/中文字体健康检查，以及 base_software 历史部署方式与边界。
+- [B/S 运行、依赖与部署](runtime-and-deployment.md) - 说明 Linux 主部署路径与 Windows 平台配置：uv/Node、PowerShell、环境变量、防火墙、TeX/Chrome/PyVista 报告工具链和健康检查边界。

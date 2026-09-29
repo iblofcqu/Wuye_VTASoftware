@@ -1,11 +1,11 @@
 ---
 type: operations-guide
 title: B/S 运行、依赖与部署
-description: 说明 Linux 裸机上的 uv 后端、Node 前端构建、start.sh、环境变量、data 工作区、TeX/Chromium/离屏渲染/中文字体健康检查，以及 base_software 历史部署方式与边界。
-tags: [operations, deployment, dependencies, uv, linux, health]
+description: 说明 Linux 主部署路径与 Windows 平台配置：uv/Node、PowerShell、环境变量、防火墙、TeX/Chrome/PyVista 报告工具链和健康检查边界。
+tags: [operations, deployment, dependencies, uv, linux, windows, health]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-29T03:28:02.619Z
+    at: 2026-09-29T04:24:41.336Z
 sources:
   - id: openwiki-source-4d1645cb6317345817452838
     resource: repo://.pre-commit-config.yaml
@@ -39,14 +39,18 @@ sources:
     resource: repo://base_software/pyproject.toml
   - id: openwiki-source-5f29572408b9e8962311ba6a
     resource: repo://base_software/README.md
-generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
+  - id: openwiki-source-1047363cf615000e4c9bb694
+    resource: repo://frontend/package.json
+  - id: openwiki-source-cd5b53dfb8d9f30e726f98f4
+    resource: repo://openspec/changes/archive/2026-09-29-document-windows-backend-setup/tasks.md
+generated: { by: "codex", at: "2026-09-29T04:24:41.336Z" }
 ---
 
 # B/S 运行、依赖与部署
 
-## 当前部署路径
+## 当前主部署路径
 
-B/S 版本在 Linux 裸机上运行，不依赖 Docker。部署链路是：
+生产部署以 Linux 裸机 + uv 为主，不依赖 Docker：
 
 ```bash
 # 1) 构建前端
@@ -69,11 +73,49 @@ PORT=8000 scripts/start.sh
 
 后端启动后，浏览器访问 `http://<服务器IP>:8000/`，FastAPI 同源托管 `frontend/dist`；API 文档默认位于 `/docs`。如果前端未构建，API 仍可启动，但 SPA 无法使用。
 
+## Windows 平台配置
+
+`backend/README.md` 增加了 Windows 10/11 + PowerShell 的完整配置章节。其核心步骤是：
+
+1. 安装 uv，并用 `uv python install 3.10.18`/`uv sync --frozen` 准备 Python 环境。
+2. 安装 Node.js 22.18+ 或 >=24.12.0，构建前端：
+
+   ```powershell
+   cd frontend
+   npm ci
+   npm run build
+   Test-Path .\dist\index.html
+   ```
+
+3. 在 PowerShell 中启动后端：
+
+   ```powershell
+   cd backend
+   uv sync --frozen
+   $env:PORT = "8000"
+   $env:WUYE_DATA_DIR = "D:\wuye-data"
+   uv run uvicorn app.main:app --host 0.0.0.0 --port $env:PORT
+   ```
+
+4. 需要局域网访问时，在管理员 PowerShell 中添加私网入站规则，例如：
+
+   ```powershell
+   New-NetFirewallRule -DisplayName "DeviScan-3D B/S (TCP 8000)" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 8000 -Profile Private
+   ```
+
+`backend/scripts/start.sh` 是 Bash 脚本，PowerShell 不能直接执行；Windows 上推荐直接运行 uvicorn，或使用 Git Bash/WSL 运行 `PORT=8000 backend/scripts/start.sh`。
+
+Windows 报告工具链可以选择 TeX Live 或 MiKTeX，并需要 `latexmk`、`xelatex`、`kpsewhich`、ctex 和 Fandol 字体。TinyTeX 的 Unix shell 安装脚本不是原生 Windows 步骤；如果使用 TinyTeX，需要通过 Git Bash/WSL 安装并加入 PATH。
+
+Chrome/Chromium 用于 Kaleido 导出图片。Kaleido/choreographer 可能能从 Windows 注册表或常见安装位置发现 Chrome，但当前 `/api/health` 的 `chromium` 检查只搜索特定可执行名称，可能无法识别标准 `chrome.exe`。因此 Windows 上应把报告任务的实际结果和 health check 结合判断，不能把“后端能启动”当成“报告链路可用”。
+
+本次 Windows 文档补充只做了静态文档审查、命令与源码对照、`git diff --check` 和 OpenSpec validation；当前仓库没有 Windows/PowerShell 实机环境，未执行 Windows 实验性验证，这一点记录在归档任务的验证备注中。
+
 ## 运行时版本与依赖
 
 B/S 后端使用 Python 3.10.18，由 uv 按 `.python-version` 管理；`backend/pyproject.toml` 固定 `open3d==0.16.0` 和 `numpy~=1.26.4`。这里的 NumPy 降级是运行约束，不是算法改动：Open3D 0.16 与 NumPy 2.x ABI 不兼容，配准/ICP 路径在 Linux 上可能直接崩溃。
 
-前端构建使用仓库声明的 Node 引擎。构建产物不包含 Python 运行时，生产环境只需要 FastAPI 提供静态文件。
+前端构建要求与 `frontend/package.json` 的 engines 对齐：Node.js 22.18+ 或 >=24.12.0，不再按旧文档中的 Node 20+ 执行。构建产物不包含 Python 运行时，生产环境只需要 FastAPI 提供静态文件。
 
 ## 环境变量
 
@@ -86,9 +128,9 @@ B/S 后端使用 Python 3.10.18，由 uv 按 `.python-version` 管理；`backend
 | `WUYE_MAX_UPLOAD_BYTES` | 5 GiB | 单文件上传大小上限 |
 | `WUYE_UPLOAD_CHUNK_SIZE` | 8 MiB | 默认分片大小 |
 | `WUYE_UPLOAD_TTL_SECONDS` | 24 小时 | 未完成上传保留时间 |
-| `PORT` | 8000 | 启动脚本监听端口 |
+| `PORT` | 8000 | 服务监听端口 |
 
-`data/` 必须对运行用户可写。服务重启会扫描会话清单，把遗留的 queued/running 任务标记为 interrupted；运行中任务的中间文件和工作目录不会自动恢复执行。
+`data/` 必须对运行用户可写。服务重启会扫描会话清单，把遗留的 queued/running 任务标记为 interrupted；运行中任务的中间文件和工作目录不会自动恢复执行。Windows 下可用 `$env:NAME = "value"` 设置当前会话变量，或用 `[Environment]::SetEnvironmentVariable(..., "User")` 持久化。
 
 ## 报告与浏览器依赖
 
@@ -96,14 +138,16 @@ B/S 后端使用 Python 3.10.18，由 uv 按 `.python-version` 管理；`backend
 
 - TeX Live 或 TinyTeX，包含 `latexmk`、`xelatex`、`ctex` 和 Fandol 字体；
 - Chrome/Chromium，供 Kaleido 导出直方图图片；
-- PyVista 离屏截图环境（DISPLAY、EGL/OSMesa 或 xvfb）；
+- PyVista 离屏截图环境（Linux 使用 DISPLAY、EGL/OSMesa 或 xvfb；Windows 依赖可用的 OpenGL/显卡驱动）；
 - 中文字体与宏包，确保中文 PDF 可编译。
 
-`backend/docs/report-toolchain.md` 提供了用户级 TinyTeX 安装步骤。当前实现相对 base_software 的报告适配是：
+`backend/docs/report-toolchain.md` 提供了 Linux 用户级 TinyTeX 安装步骤。当前实现相对 base_software 的报告适配是：
 
 - 使用 `latexmk -xelatex`，不再让 PyLaTeX 默认调用 pdflatex；
 - 把基线中的非法单位 `360px` 显式写成 `360pt`；
 - 增加圈号字形到中文字体的映射。
+
+未配置 TeX、Chrome 或离屏渲染时，基础 API、上传、任务、点云预览和产物下载仍可使用；PDF 报告任务会失败，并通过 `/api/health` 或任务错误显式报告。
 
 ## 健康检查
 
@@ -116,7 +160,7 @@ B/S 后端使用 Python 3.10.18，由 uv 按 `.python-version` 管理；`backend
 | `offscreen_rendering` | PyVista 能生成非空离屏截图 |
 | `chinese_fonts` | `kpsewhich` 能定位 ctex/Fandol 字体文件 |
 
-只有全部通过时状态才是 `ok`；否则返回 `degraded` 和每项具体原因。部署后应先运行：
+只有全部通过时状态才是 `ok`；否则返回 `degraded` 和每项具体原因。Linux 部署后执行：
 
 ```bash
 curl http://<host>:<port>/api/health

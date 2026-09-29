@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:56bba1ded0cf135005c16eb03401ed21418fc8c8ff6ddedeb6f3146909b70e65",
+  "pageVersion": "sha256:5de8986b49358b51dede8b2ad750b1e5a5622dc70ba3f93307d7a43bad796484",
   "claims": [
     {
       "id": "claim_c4659260801449a3a8fb53722412b838",
@@ -48,7 +48,7 @@
       "evidence": [
         {
           "resource": "repo://backend/README.md#L3-L14",
-          "version": "repo-lines-v1:sha256:a2c08d2e91d4438adcfa2e11627a7926183040eb60f66270e6c4b6ed6feb4c83:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkZDMwZjkyNjQ5MGNiYTU3YmVjNWEzMGQ1YjVlNmM5NWM3MjdlMjc0MGYwYzk0YWNkZTNlZWY1ZDY4MmU5MjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhOTczOTQzNjRmOGRlZWEwNTRjNjRjNGE1NjcxZjkxOTA3NWE4OWQxMDU0ZGM1NTlhMzliMGUxNmIwNGNjMGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlMjRjYjY1Y2M0MGYwMTI3NzM0MjVmYjFmZmU1NmMyZmZiYWY1OWIyZjYwNWFjOGIxNTA5ZTVmYmNhYjRhMTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJjN2NiY2UyYzM1MjVmMmEyNWYzMzcxODFiOWRiNDZhYjE2YzMxMzdmNTEzMjU5NmYyNTM1MzMxMDI1ODhlZGYifQ"
+          "version": "repo-lines-v1:sha256:f55ffaaa9819ef0646b7244c6f0ad479c211e96c73fe3cf877a60b52621f869f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkZDMwZjkyNjQ5MGNiYTU3YmVjNWEzMGQ1YjVlNmM5NWM3MjdlMjc0MGYwYzk0YWNkZTNlZWY1ZDY4MmU5MjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBhOTczOTQzNjRmOGRlZWEwNTRjNjRjNGE1NjcxZjkxOTA3NWE4OWQxMDU0ZGM1NTlhMzliMGUxNmIwNGNjMGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVlMjRjYjY1Y2M0MGYwMTI3NzM0MjVmYjFmZmU1NmMyZmZiYWY1OWIyZjYwNWFjOGIxNTA5ZTVmYmNhYjRhMTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJjN2NiY2UyYzM1MjVmMmEyNWYzMzcxODFiOWRiNDZhYjE2YzMxMzdmNTEzMjU5NmYyNTM1MzMxMDI1ODhlZGYifQ"
         },
         {
           "resource": "repo://backend/docs/report-toolchain.md#L1-L28",
@@ -195,10 +195,34 @@
           "version": "repo-lines-v1:sha256:ff37044aa9b6c834b700bbe65d6816e994ae6267305cab568b997aa2b8aecf1d:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTdjZTg2ZjM5MDBkMjAzM2Y5MmRlZmNjZTg5ODgxODQwMTkyNWMxYjE5Y2VhZTQyMDg2MDFjZDY5YzlkM2RhYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZjQ1MzI5OGM2MDhmM2I2M2IxMGQ0NTMzYTk3MzI4ODE0ZTEwMzMzZjEyMzU5M2JjZDM1OGVkMDRkYTNmMjY3ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTdmOWFiZDRjYjY2ODhhOTlmOGNiZDllYjVkMDllODNhMDc5NmY2MTZlNTZlZjE1MzExOThhMDYyZWQxMDYwOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWIzMjYxYjJiNmJkODdkOWY1ZTU4OGJmZTQ5ZWM3NDQzYzg3NTc2ZDZhMjQ1Y2QzYThkYTRiYzY0ZTVmYTQ4MyJ9"
         }
       ]
+    },
+    {
+      "id": "claim_a19ec3d3e12d48f589a97006d52ea3f9",
+      "statement": "Windows 快速路径使用 PowerShell 直接运行 uv sync 和 uvicorn，并补充了 Node 22.18+ 或 >=24.12.0 的前端构建、环境变量、防火墙和报告工具链指引。",
+      "evidence": [
+        {
+          "resource": "repo://backend/README.md#L28-L160",
+          "version": "repo-lines-v1:sha256:eea2d4ec26095d269d67c38ea2ac494e18f0e95a1262f0bb44a8142d7622d440:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjMmQ3NGQxZDAyODhmMWY1YzU3MTM3NjQ2N2M1Y2JkMWUyYTY3MTI4MTdmMDA0NjU0YTI5MmY4ZmFhYmExMjFmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIzZDU2NDk5OGJlYzJjYWQyNDNjMDJiNzVlZWExYzNlYzA5YmMyNWVhNWFlZjRkZTBiMjdkYzRmOWVkZjU2NTQyIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJhM2QwNTA5OWRhYzU3OGY3MmExYjY1MDc5YjE5ZTMxYTA4YWMyNWZkYTk1NmJkNWU4MGQzZDAzNzlhYjFhNzRkIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI2ODZiMzg4NDdmZjRmODM1ZGU2ZTU2MDEyNjZiZmYwNDE2ZTc0NWU3MGI5M2E4ODY5ZGJjNWY1YzRjZjFhNzZlIn0"
+        },
+        {
+          "resource": "repo://frontend/package.json#L48-L50",
+          "version": "repo-lines-v1:sha256:2bc4f3f76f8051d14959ed344d73238af2e2b3c11212a35e2a11c0ae34930a98:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWY2MDE1NTQxMjJlZmU4NTVkNTZlMTBjYzliYWYyMDMxY2EzZjRhYjExY2RiYTIyZjFlYmM1ZDM5YTc1NTgyNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMjdlNTc4OGQ1ZDlkNzNkMjRhODFkYmMwYTVhNzRiZmE4MmM5YzNiM2FmOTllNTJhZjc5NmU5MGI0NjhhOGEzZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjA3ZTQ0MGUzYjhjN2NmMGJiN2Q3YWVjZjFjOWUyMjFkM2Y0NzA1MzI3MDFhZTcwMWE2NGQ5Nzc5YmEyY2ViYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f1d2d51dea0c43658c67c673e2c8a208",
+      "statement": "Windows 文档只完成静态审查、命令与源码对照、git diff 检查和 OpenSpec 校验；当前仓库明确记录没有 Windows/PowerShell 实机验证，不声称实际执行过 Windows 命令。",
+      "evidence": [
+        {
+          "resource": "repo://openspec/changes/archive/2026-09-29-document-windows-backend-setup/tasks.md#L3-L4",
+          "version": "repo-lines-v1:sha256:3308a4c2aad536135250406f950a5b8fa01f9b2f6a488991b6ab4c4e6a63bbe9:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzYzY2JjZDc4NjM4Y2Q1YjAxMDE3OTZlNWZmOGQ0MWMyODhlYmI4NzQwYjkzYzlhN2M0Mzg5ZWJlODIyYWQwYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDQwNjRkMjJhYTNhZmY4ZDZjNjhhYjE3ZmM1YTM4ZmQyZDM1NDhjZjQwOTcxZDAxOTY0OTc5NGExYTFmN2M4OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjIsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMWMzYWYzZjdmODRmNWJkOTI0MWQ2M2I0MmRkZDVjMmEyNjBhMDY2MmRjMzU2YTYyNDQ0OTMyYjE2ZWYyZTQ3OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGY1N2VjOWU2YmQ0MjgzOTY4OGI1NjMyNTljMjRhMGNiZmQxZGEzODBiMWE2YjQzMzU3MTcyOTM1NDU5Mzk0MiJ9"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.5.1",
-    "at": "2026-09-29T03:28:02.619Z"
+    "at": "2026-09-29T04:24:41.336Z"
   }
 }

@@ -3,9 +3,6 @@ type: quickstart
 title: 快速开始
 description: 面向首次接触仓库的读者，说明当前 B/S 版本、启动路径、预处理与质量评估流程、部署依赖、关键限制，以及 base_software 历史基线的定位。
 tags: [quickstart, browser-server, point-cloud, quality-assessment, deployment]
-verified:
-  - by: openwiki/0.5.1
-    at: 2026-09-29T03:28:02.619Z
 sources:
   - id: openwiki-source-4d1645cb6317345817452838
     resource: repo://.pre-commit-config.yaml
@@ -49,7 +46,12 @@ sources:
     resource: repo://frontend/src/components/PointCloudViewer.vue
   - id: openwiki-source-77c413f182fc2eead5535edb
     resource: repo://frontend/src/router/index.ts
-generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
+  - id: openwiki-source-cd5b53dfb8d9f30e726f98f4
+    resource: repo://openspec/changes/archive/2026-09-29-document-windows-backend-setup/tasks.md
+generated: { by: "codex", at: "2026-09-29T04:24:41.336Z" }
+verified:
+  - by: openwiki/0.5.1
+    at: 2026-09-29T04:24:41.336Z
 ---
 
 # 快速开始
@@ -92,12 +94,22 @@ curl http://<服务器IP>:8000/api/health
 
 `start.sh` 会把 `~/.local/bin` 加入 PATH，检查前端 dist，执行 `uv sync --frozen`，然后用 uvicorn 启动服务。Dockerfile 尚未实现，当前路径是 Linux 裸机 + uv。
 
+### Windows 快速路径
+
+Windows 10/11 用户请参考 [B/S 运行、依赖与部署](operations/runtime-and-deployment.md) 和 `backend/README.md` 的“Windows 平台配置”章节。核心差异是：
+
+- 使用 PowerShell 直接执行 `uv sync --frozen` 和 `uv run uvicorn app.main:app --host 0.0.0.0 --port $env:PORT`；
+- `backend/scripts/start.sh` 是 Bash 脚本，PowerShell 不能直接运行，需使用 Git Bash/WSL 或跳过该脚本；
+- 构建前端需要 Node.js 22.18+ 或 >=24.12.0；
+- Windows 报告链路需要另外配置 TeX Live/MiKTeX、Chrome、PyVista 离屏渲染和字体，当前 `/api/health` 对 Chrome 的识别在 Windows 上可能有限制；
+- 本次 Windows 文档只完成静态审查和源码对照，尚未在 Windows/PowerShell 实机环境走查。
+
 ## 运行前依赖
 
 B/S 运行需要：
 
 - Python 3.10.18（由 uv 按 `.python-version` 管理）。
-- Node.js 与 npm（构建前端）。
+- Node.js 22.18+ 或 >=24.12.0（与 `frontend/package.json` engines 一致），以及对应 npm，用于构建前端。
 - TeX Live/TinyTeX（`latexmk`、`xelatex`、ctex、Fandol），用于 PDF 报告。
 - Chrome/Chromium，用于 Kaleido 导出报告图片。
 - PyVista 离屏渲染环境（DISPLAY、EGL/OSMesa 或 xvfb）。
