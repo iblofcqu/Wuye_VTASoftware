@@ -42,9 +42,9 @@
 
 ### D3 数值一致性：同版本依赖 + 原样搬运 + golden 测试
 
-- 选择：`backend/app/algos/` 从 `base_software/functions/` 原样复制（仅调整 import、剥离 streamlit/stpyvista 耦合），不重命名、不重构、不修缺陷；后端 Python 与关键依赖版本对齐基线（Python 3.10.18、open3d==0.16.0、numpy~=2.2.6 等）。
-- 理由：同版本 + 同代码是"同输入同输出"的最强保证；golden 测试提供可验证证据。
-- 备选与否决：借搬迁顺手重构（会让数值差异难以归因）→ 否决。
+- 选择：`backend/app/algos/` 从 `base_software/functions/` 原样复制（仅调整 import、剥离 streamlit/stpyvista 耦合），不重命名、不重构、不修缺陷；后端 Python 3.10.18、open3d==0.16.0 与基线一致；**numpy 例外：固定 `~=1.26.4`**——实测 open3d 0.16 与 numpy 2.x ABI 不兼容，registration/ICP 路径直接 segfault，numpy 1.26.4 下 ICP/RANSAC 实测正常。
+- 理由：同代码 + 同算法库版本是"同输入同输出"的最强保证；numpy 只影响数组桥接层；golden 测试提供可验证证据（ICP/FPFH 已实测逐点一致）。
+- 备选与否决：借搬迁顺手重构（会让数值差异难以归因）→ 否决；升级 open3d 到 ≥0.19（支持 numpy 2）会改变算法实现 → 与"严格保持原样"冲突，否决；保留 numpy 2 的 workaround 不可靠（RANSAC 等路径同样崩溃）→ 否决。
 - 细节：`services/` 只做用例编排（参数校验、输入输出路径、进度回调）；golden 测试用合成小样例对比基线函数与新实现（容差 0 或显式声明）。
 
 ### D4 会话与存储：单实例 + 会话 JSON + 产物 id 存储
@@ -155,6 +155,7 @@
 - [大文件磁盘占用] → 分片 TTL 清理、可取消、文件大小上限可配。
 - [轮询非实时] → 1 秒间隔满足演示；实时需求出现时再升级传输方式。
 - [JSON 清单并发写] → 单 Web 实例 + 进程内锁 + 原子替换写。
+- [numpy 2.x 与 open3d 0.16 不兼容（配准/ICP/RANSAC segfault）] → backend 固定 numpy 1.26.4；`base_software` 的锁定组合同样受影响（Linux 下配准/质量评估不可用），按约定本次不动 `base_software/`，作为后续独立变更处理。
 - [算法缺陷保留] → golden 锁定现状，修复一律留待独立变更。
 
 ## Migration Plan

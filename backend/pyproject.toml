@@ -7,7 +7,8 @@ dependencies = [
   "fastapi>=0.115,<1.0",
   "kaleido~=1.0.0",
   "matplotlib~=3.10.3",
-  "numpy~=2.2.6",
+  # open3d 0.16 与 numpy 2.x ABI 不兼容（registration/ICP 路径会 segfault），固定 numpy 1.26
+  "numpy~=1.26.4",
   "open3d==0.16.0",
   "pandas~=2.3.1",
   "pillow~=11.3.0",
