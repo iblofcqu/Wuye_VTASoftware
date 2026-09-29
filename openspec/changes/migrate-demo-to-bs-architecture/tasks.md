@@ -13,7 +13,7 @@
 - [x] 2.1 搬迁纯算法到 `backend/app/algos/`（load_data、Poisson_Disk_Sampling、down_samples、FPFH、Registration、knn，仅调整 import）；验证：各模块可导入且抽样函数对固定输入的输出与基线一致。
 - [x] 2.2 拆出报告模块（报告用截图函数与 show_clum 进入 backend，剥离 streamlit/stpyvista；PDF.py 去除耦合）；验证：无 streamlit 依赖下可生成样例图片与 LaTeX 源。
 - [x] 2.3 建立 golden 基线（合成小样例 fixtures + 基线输出）；验证：离散/缩放/体素/均匀/FPFH/ICP/两种误差计算全部对比通过（容差 0 或显式声明）。
-- [ ] 2.4 实现 services：grid-discretize、scale、downsample-voxel、downsample-uniform（参数校验、输入输出、进度回调）；验证：单测覆盖正常与非法参数。
+- [x] 2.4 实现 services：grid-discretize、scale、downsample-voxel、downsample-uniform（参数校验、输入输出、进度回调）；验证：单测覆盖正常与非法参数。
 - [ ] 2.5 实现 services：register-fpfh、register-icp（含输出命名与交接语义所需信息）；验证：单测覆盖正常与非法参数，输出命名与基线一致。
 - [ ] 2.6 实现 quality-assess service（偏差计算、四项统计、直方图 figure JSON、报告产物生成）；验证：单测对比基线数值与报告命名规则。
 - [ ] 2.7 在目标 Linux 环境实测报告链路依赖（pyvista 离屏渲染 EGL/OSMesa 或 xvfb、kaleido/Chromium、pylatex/ctex）并记录选定方案；验证：样例截图与 PDF 均生成成功。
