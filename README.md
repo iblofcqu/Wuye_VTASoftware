@@ -13,7 +13,21 @@
 | `openspec/` | OpenSpec 变更管理与能力规范 |
 | `openwiki/` | 仓库知识库（生成物） |
 
-## 当前状态
+## B/S 版本使用（当前）
 
-B/S 版本正在实施中，变更计划见 `openspec/changes/migrate-demo-to-bs-architecture/`（proposal / specs / design / tasks）。
-部署与启动说明将在功能完成后补充到本文件与 `backend/README.md`。
+前后端分离版本位于 `frontend/`（Vue 3）与 `backend/`（FastAPI），浏览器通过页面按钮或直接访问均可使用；
+`base_software/` 的原 Streamlit 演示保留为行为基线。
+
+```bash
+# 1) 构建前端（首次或前端变更后）
+cd frontend && npm ci && npm run build
+
+# 2) 启动后端（同源托管 frontend/dist，默认端口 8000）
+PORT=8000 backend/scripts/start.sh
+```
+
+浏览器访问 `http://<服务器IP>:8000/`；依赖自检：`curl http://<服务器IP>:8000/api/health`。
+
+- 服务器依赖安装清单与配置项：见 [`backend/README.md`](backend/README.md)
+- 报告链路（TeX/Chromium/离屏渲染/中文字体）细节：见 [`backend/docs/report-toolchain.md`](backend/docs/report-toolchain.md)
+- 变更计划与规范：见 `openspec/changes/migrate-demo-to-bs-architecture/`
