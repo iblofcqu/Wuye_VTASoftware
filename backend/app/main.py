@@ -4,6 +4,8 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.api.artifacts import router as artifacts_router
 from app.api.health import router as health_router
@@ -11,7 +13,7 @@ from app.api.jobs import router as jobs_router
 from app.api.preview import router as preview_router
 from app.api.session import install_session_support
 from app.api.uploads import router as uploads_router
-from app.config import SESSION_ROOT
+from app.config import BASE_DIR, SESSION_ROOT
 from app.core.sessions import SessionStore
 from app.jobs import store as job_store
 from app.jobs.runner import JobRunner
@@ -40,6 +42,22 @@ def create_app(
     app.include_router(jobs_router)
     app.include_router(preview_router)
     app.include_router(health_router)
+
+    frontend_dist = BASE_DIR / "frontend" / "dist"
+    if frontend_dist.is_dir():
+        assets_dir = frontend_dist / "assets"
+        if assets_dir.is_dir():
+            app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+
+        @app.get("/{path:path}", include_in_schema=False)
+        async def spa(path: str):
+            if path.startswith("api/"):
+                return FileResponse(frontend_dist / "index.html", status_code=404)
+            target = frontend_dist / path
+            if path and target.is_file():
+                return FileResponse(target)
+            return FileResponse(frontend_dist / "index.html")
+
     return app
 
 
