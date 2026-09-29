@@ -11,36 +11,21 @@ from app.algos.Poisson_Disk_Sampling import Mesh_to_PCD
 from app.algos.down_samples import uniform_downsample, voxel_downsample
 from app.algos.load_data import data_load
 from app.algos.units import UNIT_TO_METER, scale_points
-from app.services.common import ProgressCallback, ToolResult, baseline_stem, noop_progress
-
-
-def _require_positive_number(value, name: str) -> float:
-    try:
-        number = float(value)
-    except (TypeError, ValueError):
-        raise ValueError(f"{name}必须是数值") from None
-    if not np.isfinite(number) or number <= 0:
-        raise ValueError(f"{name}必须为正数")
-    return number
-
-
-def _require_positive_int(value, name: str) -> int:
-    try:
-        number = float(value)
-    except (TypeError, ValueError):
-        raise ValueError(f"{name}必须是整数") from None
-    if not number.is_integer():
-        raise ValueError(f"{name}必须是整数")
-    if number <= 0:
-        raise ValueError(f"{name}必须为正整数")
-    return int(number)
+from app.services.common import (
+    ProgressCallback,
+    ToolResult,
+    baseline_stem,
+    noop_progress,
+    require_positive_int,
+    require_positive_number,
+)
 
 
 def grid_discretize(
     input_path, output_dir, *, distance_points, progress: ProgressCallback | None = None
 ) -> ToolResult:
     progress = progress or noop_progress
-    distance = _require_positive_number(distance_points, "点云间距")
+    distance = require_positive_number(distance_points, "点云间距")
     input_path, output_dir = Path(input_path), Path(output_dir)
 
     progress("读取网格并离散", 1, 2)
@@ -91,7 +76,7 @@ def downsample_voxel(
     input_path, output_dir, *, voxel_size, progress: ProgressCallback | None = None
 ) -> ToolResult:
     progress = progress or noop_progress
-    voxel_size = _require_positive_number(voxel_size, "体素尺寸")
+    voxel_size = require_positive_number(voxel_size, "体素尺寸")
     input_path, output_dir = Path(input_path), Path(output_dir)
 
     progress("读取点云", 1, 3)
@@ -114,7 +99,7 @@ def downsample_uniform(
     input_path, output_dir, *, every_k, progress: ProgressCallback | None = None
 ) -> ToolResult:
     progress = progress or noop_progress
-    every_k = _require_positive_int(every_k, "采样间隔")
+    every_k = require_positive_int(every_k, "采样间隔")
     input_path, output_dir = Path(input_path), Path(output_dir)
 
     progress("读取点云", 1, 3)
