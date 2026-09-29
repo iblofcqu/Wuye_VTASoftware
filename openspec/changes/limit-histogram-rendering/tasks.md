@@ -14,7 +14,7 @@
 
 ## 3. Integration Verification
 
-- [ ] 3.1 运行前端相关测试，验证 `cd frontend && npm run test:unit` 通过，且新的 figure 选择测试通过。
-- [ ] 3.2 运行后端完整测试，验证 `cd backend && PATH="$HOME/.local/bin:$PATH" uv run pytest -q` 通过。
-- [ ] 3.3 生成一次产生约 5347.33 mm 误差的 Point2Point 结果，在浏览器中确认页面完成渲染且保持响应；同时确认 `ui_figure` 不超过 256 个柱和 20 个刻度，PDF 仍使用原始报告图。
-- [ ] 3.4 运行 `openspec validate limit-histogram-rendering --strict` 和 `git diff --check`，验证规划有效且不包含无关改动。
+- [x] 3.1 运行前端相关测试，验证 `cd frontend && npm run test:unit` 通过，且新的 figure 选择测试通过。
+- [x] 3.2 运行后端完整测试，验证 `cd backend && PATH="$HOME/.local/bin:$PATH" uv run pytest -q` 通过。
+- [x] 3.3 生成一次产生约 5347.33 mm 误差的 Point2Point 结果，在浏览器中确认页面完成渲染且保持响应；同时确认 `ui_figure` 不超过 256 个柱和 20 个刻度，PDF 仍使用原始报告图。
+- [x] 3.4 运行 `openspec validate limit-histogram-rendering --strict` 和 `git diff --check`，验证规划有效且不包含无关改动。
