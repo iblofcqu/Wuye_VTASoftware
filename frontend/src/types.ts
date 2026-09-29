@@ -53,3 +53,8 @@ export interface SessionSnapshot {
   jobs: Job[]
   uploads: UploadRecord[]
 }
+
+export interface ViewerLayer {
+  url: string
+  color?: string
+}
