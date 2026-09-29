@@ -101,6 +101,11 @@ def assess(
     figure = figures.show_clum(error_sorted, step=1, ratio=ratio_value, cut_line=line, IS=4)
     figure.write_image(cache_dir / "Error_Analysis.jpg", format="png", scale=2)
 
+    ui_step, ui_tick_stride = figures.ui_histogram_params(error_sorted)
+    ui_figure = figures.show_clum(
+        error_sorted, step=ui_step, ratio=ratio_value, cut_line=line, IS=ui_tick_stride
+    )
+
     mean_val = float(np.mean(error_sorted))
     max_val = float(np.max(error_sorted))
     summary = {
@@ -114,6 +119,7 @@ def assess(
         "ratio": ratio_value,
         "input_point_counts": {"scan": int(len(pcd_scene)), "bim": int(len(pcd_bim))},
         "figure": json.loads(figure.to_json()),
+        "ui_figure": json.loads(ui_figure.to_json()),
     }
     basic_information = {
         "PCD_name": str(name),

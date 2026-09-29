@@ -1,5 +1,6 @@
 """任务 2.6：质量评估服务的数值一致性、报告命名与产物完整性。"""
 
+import json
 import time
 from pathlib import Path
 from unittest import mock
@@ -11,6 +12,7 @@ from pylatex import Document
 from app.algos import load_data
 from app.algos.down_samples import voxel_downsample
 from app.algos.knn import Error_caculate_Point2Plane, Error_caculate_Point2Point, find_k, find_r
+from app.report import figures
 from app.services import quality
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
@@ -69,6 +71,11 @@ def test_assess_matches_baseline_and_report_naming(tmp_path: Path, method: str) 
     assert result.summary["error_mean"] == float(f"{np.mean(error_sorted):.2f}")
     assert result.summary["method"] == method
     assert result.summary["figure"]["data"], "histogram figure 数据缺失"
+    ui_figure = result.summary["ui_figure"]
+    assert ui_figure["data"], "browser histogram figure 数据缺失"
+    assert len(ui_figure["data"][0]["x"]) <= figures.UI_HISTOGRAM_MAX_BARS
+    assert len(ui_figure["layout"]["xaxis"].get("tickvals", [])) <= figures.UI_HISTOGRAM_MAX_TICKS
+    assert ui_figure["layout"]["shapes"][0]["x0"] == pytest.approx(line)
 
     t = time.localtime()
     expected_stem = f"sample_scene几何质量评估报告{t[0]}{t[1]}{t[2]}"
@@ -107,3 +114,37 @@ def test_assess_rejects_bad_params(tmp_path: Path, kwargs: dict) -> None:
     out_dir.mkdir()
     with pytest.raises(ValueError):
         quality.assess(SCENE, BIM, out_dir, cache_dir, **kwargs)
+
+
+def _figure_counts(payload: dict) -> tuple[int, int]:
+    return len(payload["data"][0]["x"]), len(payload["layout"]["xaxis"].get("tickvals", []))
+
+
+def test_ui_histogram_bounds_large_range_and_preserves_statistics() -> None:
+    error_sorted = sorted(np.linspace(0, 5347.33, 940), reverse=True)
+    line = float(error_sorted[int(len(error_sorted) * 0.05)])
+    step, tick_stride = figures.ui_histogram_params(error_sorted)
+    figure = figures.show_clum(
+        error_sorted, step=step, ratio=0.05, cut_line=line, IS=tick_stride
+    )
+    payload = json.loads(figure.to_json())
+
+    bars, ticks = _figure_counts(payload)
+    assert bars <= figures.UI_HISTOGRAM_MAX_BARS
+    assert ticks <= figures.UI_HISTOGRAM_MAX_TICKS
+    assert payload["layout"]["shapes"][0]["x0"] == pytest.approx(line)
+    annotation = payload["layout"]["annotations"][-1]["text"]
+    assert f"最大值: {max(error_sorted):.2f}" in annotation
+    assert f"平均值: {np.mean(error_sorted):.2f}" in annotation
+
+
+def test_ui_histogram_handles_zero_error_result() -> None:
+    error_sorted = [0.0] * 940
+    step, tick_stride = figures.ui_histogram_params(error_sorted)
+    figure = figures.show_clum(
+        error_sorted, step=step, ratio=0.05, cut_line=0.0, IS=tick_stride
+    )
+    payload = json.loads(figure.to_json())
+
+    bars, ticks = _figure_counts(payload)
+    assert (bars, ticks) == (0, 0)

@@ -4,6 +4,22 @@ import pyvista as pv
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 
+UI_HISTOGRAM_MAX_BARS = 256
+UI_HISTOGRAM_MAX_TICKS = 20
+
+
+def ui_histogram_params(data):
+    """返回浏览器展示直方图的自适应 bin 宽度和刻度间隔。"""
+    values = np.asarray(data)
+    if values.size == 0:
+        return 1, 1
+    max_ceil = np.ceil(float(np.max(values)))
+    step = max(1, int(np.ceil(max_ceil / UI_HISTOGRAM_MAX_BARS))) if max_ceil > 0 else 1
+    bins = np.arange(0, max_ceil + step, step)
+    bin_count = max(0, len(bins) - 1)
+    tick_stride = max(1, int(np.ceil(bin_count / UI_HISTOGRAM_MAX_TICKS))) if bin_count else 1
+    return step, tick_stride
+
 
 def draw1(save_path, point_array,size=1,color='red'):
     # 通过添加mesh的方法绘图

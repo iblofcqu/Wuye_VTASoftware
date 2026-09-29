@@ -2,9 +2,9 @@
 
 ## 1. Backend UI Histogram
 
-- [ ] 1.1 在 `backend/app/report/figures.py` 增加 UI 直方图上限常量（最多 256 个柱、最多 20 个刻度）和自适应参数计算，验证合成大范围误差数据生成的 UI 参数满足上限。
-- [ ] 1.2 在 `backend/app/services/quality.py` 保留现有原始 `figure` 和 PDF 生成顺序，新增基于同一 `error_sorted` 与 `line` 的 `summary.ui_figure`，验证原始 `figure` 结构不变且 `ui_figure` 柱/刻度受限。
-- [ ] 1.3 补充 `backend/tests/test_services_quality.py`：覆盖 Point2Point 大范围数据、Point2Plane 空结果、统计指标与剔除线一致，验证 `cd backend && PATH="$HOME/.local/bin:$PATH" uv run pytest -q tests/test_services_quality.py` 通过。
+- [x] 1.1 在 `backend/app/report/figures.py` 增加 UI 直方图上限常量（最多 256 个柱、最多 20 个刻度）和自适应参数计算，验证合成大范围误差数据生成的 UI 参数满足上限。
+- [x] 1.2 在 `backend/app/services/quality.py` 保留现有原始 `figure` 和 PDF 生成顺序，新增基于同一 `error_sorted` 与 `line` 的 `summary.ui_figure`，验证原始 `figure` 结构不变且 `ui_figure` 柱/刻度受限。
+- [x] 1.3 补充 `backend/tests/test_services_quality.py`：覆盖 Point2Point 大范围数据、Point2Plane 空结果、统计指标与剔除线一致，验证 `cd backend && PATH="$HOME/.local/bin:$PATH" uv run pytest -q tests/test_services_quality.py` 通过。
 
 ## 2. Frontend Display
 
