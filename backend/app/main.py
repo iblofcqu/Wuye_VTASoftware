@@ -14,6 +14,7 @@ from app.api.preview import router as preview_router
 from app.api.session import install_session_support
 from app.api.uploads import router as uploads_router
 from app.config import BASE_DIR, SESSION_ROOT
+from app.core.session_cleanup import SessionCleanupManager
 from app.core.sessions import SessionStore
 from app.jobs import store as job_store
 from app.jobs.runner import JobRunner
@@ -26,16 +27,19 @@ def create_app(
 ) -> FastAPI:
     store = SessionStore(session_root or SESSION_ROOT)
     runner = JobRunner(store, registry=tool_registry, pool_size=job_pool_size)
+    cleanup = SessionCleanupManager()
 
     @asynccontextmanager
     async def lifespan(_: FastAPI):
         job_store.interrupt_leftover_jobs(store)
         yield
+        cleanup.shutdown()
         runner.shutdown()
 
     app = FastAPI(title="DeviScan-3D B/S", version="0.1.0", lifespan=lifespan)
     app.state.session_store = store
     app.state.job_runner = runner
+    app.state.session_cleanup = cleanup
     install_session_support(app, store)
     app.include_router(artifacts_router)
     app.include_router(uploads_router)
