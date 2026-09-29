@@ -4,6 +4,8 @@
 - 确定性函数：逐点完全一致（容差 0）。
 - 泊松圆盘采样：Open3D 内部随机采样，无法逐点一致；此处显式声明容差，
   比较点数、质心、包围盒与平均最近邻间距。
+- FPFH-RANSAC：随机全局配准，重复运行偶尔落到不同局部最优；按"配准质量"
+  （到固定点云的平均最近邻距离）声明容差对比。
 - 已知边界行为（Point2Plane 邻域不足记 0、find_r 空结果抛错）按原样保留并断言。
 """
 
@@ -78,12 +80,25 @@ def test_mesh_to_pcd_declared_tolerance() -> None:
     assert abs(mean_nn_distance(new_pts) - mean_nn_distance(base_pts)) < spacing * 0.1
 
 
-def test_fpfh_registration_parity() -> None:
+def _mean_nn_to_reference(points: np.ndarray, reference: np.ndarray) -> float:
+    distances, _ = KDTree(reference).query(points, k=1)
+    return float(distances.mean())
+
+
+def test_fpfh_registration_parity_declared_quality_tolerance() -> None:
+    """FPFH-RANSAC 是随机算法，逐点对比不成立，按"配准质量"声明容差。
+
+    实测基线重复运行：多数结果一致，偶尔落到不同局部最优（质心差最大 ~0.054，
+    逐点差最大 ~1.62），但到固定点云的平均最近邻距离稳定在 0.06718±0.0002。
+    因此声明容差 2mm（远大于实测波动，远小于配准质量本身 0.067）。
+    """
     base_pts = base_fpfh(str(SCENE), str(BIM), 0.2)
     new_pts = new_fpfh(str(SCENE), str(BIM), 0.2)
-    # 显式声明容差：Open3D 并行归约导致末位噪声（基线自身重跑差异 ~2.2e-16），
-    # 1e-12 远大于实测噪声、又远小于任何有意义的几何差异。
-    assert np.allclose(new_pts, base_pts, rtol=1e-12, atol=1e-12)
+    assert base_pts.shape == new_pts.shape
+
+    bim = base_load.data_load(str(BIM))
+    quality_diff = abs(_mean_nn_to_reference(new_pts, bim) - _mean_nn_to_reference(base_pts, bim))
+    assert quality_diff < 0.002
 
 
 def test_icp_parity() -> None:

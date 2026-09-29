@@ -6,7 +6,6 @@ import numpy as np
 import pytest
 
 from app.algos import load_data
-from app.algos.FPFH import FPFH_Registration
 from app.algos.Registration import Open3d_ICP
 from app.services import registration
 
@@ -15,15 +14,18 @@ SCENE = FIXTURES / "sample_scene.xyz"
 BIM = FIXTURES / "sample_bim.xyz"
 
 
-def test_register_fpfh_output_and_parity(tmp_path: Path) -> None:
+def test_register_fpfh_outputs_algorithm_result(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """服务编排测试：屏蔽随机的 FPFH-RANSAC（算法一致性由 golden 测试覆盖）。"""
+    fake = np.array([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
+    monkeypatch.setattr(registration, "FPFH_Registration", lambda *args, **kwargs: fake)
+
     events: list[tuple] = []
     result = registration.register_fpfh(
         SCENE, BIM, tmp_path, voxel_size=0.2, progress=lambda *args: events.append(args)
     )
     assert result.output_path.name == "sample_scene_FPFH.xyz"
-    expected = FPFH_Registration(str(SCENE), str(BIM), 0.2)
-    assert np.allclose(np.loadtxt(result.output_path), expected, rtol=1e-12, atol=1e-12)
-    assert result.summary["point_count"] == len(expected)
+    assert np.array_equal(np.loadtxt(result.output_path), fake)
+    assert result.summary["point_count"] == 2
     assert [(e[1], e[2]) for e in events] == [(1, 2), (2, 2)]
 
 
