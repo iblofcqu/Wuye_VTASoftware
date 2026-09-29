@@ -43,6 +43,7 @@ def assess(
     method,
     distance,
     ratio,
+    scan_name: str | None = None,
     progress: ProgressCallback | None = None,
 ) -> ToolResult:
     progress = progress or noop_progress
@@ -56,7 +57,7 @@ def assess(
     scene_path, bim_path = Path(scene_path), Path(bim_path)
     output_dir, cache_dir = Path(output_dir), Path(cache_dir)
     cache_dir.mkdir(parents=True, exist_ok=True)  # 基线的 get_cache_path() 会自动创建缓存目录
-    name = baseline_stem(scene_path)
+    name = baseline_stem(scan_name or scene_path)
 
     progress("第1/4步 文件读取", 1, 4)
     pcd_scene = data_load(str(scene_path))

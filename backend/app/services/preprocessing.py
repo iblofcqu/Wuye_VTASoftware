@@ -22,7 +22,12 @@ from app.services.common import (
 
 
 def grid_discretize(
-    input_path, output_dir, *, distance_points, progress: ProgressCallback | None = None
+    input_path,
+    output_dir,
+    *,
+    distance_points,
+    input_name: str | None = None,
+    progress: ProgressCallback | None = None,
 ) -> ToolResult:
     progress = progress or noop_progress
     distance = require_positive_number(distance_points, "点云间距")
@@ -32,7 +37,7 @@ def grid_discretize(
     points = Mesh_to_PCD(str(input_path), distance)
 
     progress("保存结果", 2, 2)
-    output_path = output_dir / f"{baseline_stem(input_path)}.xyz"
+    output_path = output_dir / f"{baseline_stem(input_name or input_path)}.xyz"
     np.savetxt(output_path, points)
     return ToolResult(
         output_path=output_path,
@@ -47,6 +52,7 @@ def scale(
     *,
     origin_unit: str,
     target_unit: str,
+    input_name: str | None = None,
     progress: ProgressCallback | None = None,
 ) -> ToolResult:
     progress = progress or noop_progress
@@ -63,7 +69,7 @@ def scale(
     scaled = scale_points(points, origin_unit, target_unit)
 
     progress("保存结果", 3, 3)
-    output_path = output_dir / f"{baseline_stem(input_path)}_{target_unit}.xyz"
+    output_path = output_dir / f"{baseline_stem(input_name or input_path)}_{target_unit}.xyz"
     np.savetxt(output_path, scaled)
     return ToolResult(
         output_path=output_path,
@@ -73,7 +79,12 @@ def scale(
 
 
 def downsample_voxel(
-    input_path, output_dir, *, voxel_size, progress: ProgressCallback | None = None
+    input_path,
+    output_dir,
+    *,
+    voxel_size,
+    input_name: str | None = None,
+    progress: ProgressCallback | None = None,
 ) -> ToolResult:
     progress = progress or noop_progress
     voxel_size = require_positive_number(voxel_size, "体素尺寸")
@@ -86,7 +97,7 @@ def downsample_voxel(
     downsampled = voxel_downsample(points, voxel_size)
 
     progress("保存结果", 3, 3)
-    output_path = output_dir / f"{baseline_stem(input_path)}_VD.xyz"
+    output_path = output_dir / f"{baseline_stem(input_name or input_path)}_VD.xyz"
     np.savetxt(output_path, downsampled)
     return ToolResult(
         output_path=output_path,
@@ -96,7 +107,12 @@ def downsample_voxel(
 
 
 def downsample_uniform(
-    input_path, output_dir, *, every_k, progress: ProgressCallback | None = None
+    input_path,
+    output_dir,
+    *,
+    every_k,
+    input_name: str | None = None,
+    progress: ProgressCallback | None = None,
 ) -> ToolResult:
     progress = progress or noop_progress
     every_k = require_positive_int(every_k, "采样间隔")
@@ -109,7 +125,7 @@ def downsample_uniform(
     downsampled = uniform_downsample(points, every_k)
 
     progress("保存结果", 3, 3)
-    output_path = output_dir / f"{baseline_stem(input_path)}_UD.xyz"
+    output_path = output_dir / f"{baseline_stem(input_name or input_path)}_UD.xyz"
     np.savetxt(output_path, downsampled)
     return ToolResult(
         output_path=output_path,

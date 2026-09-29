@@ -28,6 +28,7 @@ def submit_job(tool: str, payload: JobSubmitRequest, request: Request) -> dict:
         raise HTTPException(status_code=400, detail=f"缺少输入: {missing}")
 
     input_paths: dict[str, str] = {}
+    input_names: dict[str, str] = {}
     for key, artifact_id in payload.inputs.items():
         artifact = get_artifact(store, session_id, artifact_id)
         if artifact is None:
@@ -36,8 +37,9 @@ def submit_job(tool: str, payload: JobSubmitRequest, request: Request) -> dict:
         if not path.is_file():
             raise HTTPException(status_code=404, detail=f"输入产物文件缺失: {key}")
         input_paths[key] = str(path)
+        input_names[key] = artifact.name
 
-    return runner.submit(session_id, tool, payload.params, input_paths)
+    return runner.submit(session_id, tool, payload.params, input_paths, input_names)
 
 
 @router.get("/api/jobs/{job_id}")

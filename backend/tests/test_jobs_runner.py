@@ -10,7 +10,7 @@ from app.jobs.runner import JobRunner
 from app.main import create_app
 
 
-def fast_tool(params, inputs, work_dir, progress):
+def fast_tool(params, inputs, input_names, work_dir, progress):
     output = Path(work_dir) / "out.xyz"
     output.write_text("data", encoding="utf-8")
     return {
@@ -20,9 +20,9 @@ def fast_tool(params, inputs, work_dir, progress):
     }
 
 
-def slow_tool(params, inputs, work_dir, progress):
+def slow_tool(params, inputs, input_names, work_dir, progress):
     time.sleep(float(params.get("seconds", 1.0)))
-    return fast_tool(params, inputs, work_dir, progress)
+    return fast_tool(params, inputs, input_names, work_dir, progress)
 
 
 def _wait_for(runner: JobRunner, session_id: str, job_id: str, predicate, timeout: float = 20.0) -> dict:

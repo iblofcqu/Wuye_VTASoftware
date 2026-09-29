@@ -13,7 +13,7 @@ from app.jobs.runner import JobRunner
 from app.main import create_app
 
 
-def failing_tool(params, inputs, work_dir, progress):
+def failing_tool(params, inputs, input_names, work_dir, progress):
     raise ValueError("参数坏掉了")
 
 

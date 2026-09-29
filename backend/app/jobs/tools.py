@@ -23,62 +23,65 @@ def _payload(result, *, kind: str) -> dict:
     }
 
 
-def run_mesh_discretize(params, inputs, work_dir, progress):
+def run_mesh_discretize(params, inputs, input_names, work_dir, progress):
     result = preprocessing.grid_discretize(
-        inputs["input"], work_dir, distance_points=params.get("distance_points"), progress=progress
+        inputs["input"], work_dir, distance_points=params.get("distance_points"), input_name=input_names.get("input"), progress=progress
     )
     return _payload(result, kind="pointcloud")
 
 
-def run_scale(params, inputs, work_dir, progress):
+def run_scale(params, inputs, input_names, work_dir, progress):
     result = preprocessing.scale(
         inputs["input"],
         work_dir,
         origin_unit=params.get("origin_unit"),
         target_unit=params.get("target_unit"),
+        input_name=input_names.get("input"),
         progress=progress,
     )
     return _payload(result, kind="pointcloud")
 
 
-def run_downsample_voxel(params, inputs, work_dir, progress):
+def run_downsample_voxel(params, inputs, input_names, work_dir, progress):
     result = preprocessing.downsample_voxel(
-        inputs["input"], work_dir, voxel_size=params.get("voxel_size"), progress=progress
+        inputs["input"], work_dir, voxel_size=params.get("voxel_size"), input_name=input_names.get("input"), progress=progress
     )
     return _payload(result, kind="pointcloud")
 
 
-def run_downsample_uniform(params, inputs, work_dir, progress):
+def run_downsample_uniform(params, inputs, input_names, work_dir, progress):
     result = preprocessing.downsample_uniform(
-        inputs["input"], work_dir, every_k=params.get("every_k"), progress=progress
+        inputs["input"], work_dir, every_k=params.get("every_k"), input_name=input_names.get("input"), progress=progress
     )
     return _payload(result, kind="pointcloud")
 
 
-def run_register_fpfh(params, inputs, work_dir, progress):
+def run_register_fpfh(params, inputs, input_names, work_dir, progress):
     result = registration.register_fpfh(
         inputs["moving"],
         inputs["fixed"],
         work_dir,
         voxel_size=params.get("voxel_size"),
+        input_name=input_names.get("moving"),
         progress=progress,
     )
     return _payload(result, kind="pointcloud")
 
 
-def run_register_icp(params, inputs, work_dir, progress):
+def run_register_icp(params, inputs, input_names, work_dir, progress):
     thresholds = params.get("thresholds", registration.ICP_DEFAULT_THRESHOLDS)
     result = registration.register_icp(
         inputs["moving"],
         inputs["fixed"],
         work_dir,
         thresholds=thresholds,
+        input_name=input_names.get("moving"),
         progress=progress,
     )
     return _payload(result, kind="pointcloud")
 
 
-def run_quality_assess(params, inputs, work_dir, progress):
+def run_quality_assess(params, inputs, input_names, work_dir, progress):
     result = quality.assess(
         inputs["scan"],
         inputs["bim"],
@@ -88,6 +91,7 @@ def run_quality_assess(params, inputs, work_dir, progress):
         method=params.get("method"),
         distance=params.get("distance"),
         ratio=params.get("ratio"),
+        scan_name=input_names.get("scan"),
         progress=progress,
     )
     return _payload(result, kind="report")

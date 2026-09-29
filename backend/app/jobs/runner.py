@@ -21,7 +21,7 @@ def _atomic_write_json(path: Path, data: dict) -> None:
     os.replace(tmp, path)
 
 
-def _worker_entry(worker_fn, params: dict, input_paths: dict, work_dir: str) -> dict:
+def _worker_entry(worker_fn, params: dict, input_paths: dict, input_names: dict, work_dir: str) -> dict:
     """在子进程中执行工具：state.json 标记 running，progress.json 记录阶段进度。"""
     work_path = Path(work_dir)
     work_path.mkdir(parents=True, exist_ok=True)
@@ -33,7 +33,7 @@ def _worker_entry(worker_fn, params: dict, input_paths: dict, work_dir: str) -> 
             {"stage": stage, "done": int(done), "total": int(total), "updated_at": utc_now_iso()},
         )
 
-    return worker_fn(params=params, inputs=input_paths, work_dir=work_path, progress=progress)
+    return worker_fn(params=params, inputs=input_paths, input_names=input_names, work_dir=work_path, progress=progress)
 
 
 class JobRunner:
@@ -53,7 +53,7 @@ class JobRunner:
     def work_dir(self, session_id: str, job_id: str) -> Path:
         return self.store.session_dir(session_id) / config.JOB_WORK_DIR / job_id
 
-    def submit(self, session_id: str, tool: str, params: dict, input_paths: dict) -> dict:
+    def submit(self, session_id: str, tool: str, params: dict, input_paths: dict, input_names: dict | None = None) -> dict:
         if tool not in self.registry:
             raise ValueError(f"未知工具: {tool}")
         job = new_job(tool)
@@ -62,7 +62,12 @@ class JobRunner:
         work_dir.mkdir(parents=True, exist_ok=True)
 
         future = self._get_executor().submit(
-            _worker_entry, self.registry[tool], dict(params), dict(input_paths), str(work_dir)
+            _worker_entry,
+            self.registry[tool],
+            dict(params),
+            dict(input_paths),
+            dict(input_names or {}),
+            str(work_dir),
         )
         future.add_done_callback(lambda done: self._finish(session_id, job.id, done))
         return job_store.get_job(self.store, session_id, job.id)

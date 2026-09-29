@@ -19,7 +19,13 @@ ICP_DEFAULT_THRESHOLDS = (0.05, 0.03, 0.005)  # 基线页面精配准默认阈�
 
 
 def register_fpfh(
-    moving_path, fixed_path, output_dir, *, voxel_size, progress: ProgressCallback | None = None
+    moving_path,
+    fixed_path,
+    output_dir,
+    *,
+    voxel_size,
+    input_name: str | None = None,
+    progress: ProgressCallback | None = None,
 ) -> ToolResult:
     progress = progress or noop_progress
     voxel_size = require_positive_number(voxel_size, "体素大小")
@@ -29,7 +35,7 @@ def register_fpfh(
     points = FPFH_Registration(str(moving_path), str(fixed_path), voxel_size)
 
     progress("保存结果", 2, 2)
-    output_path = output_dir / f"{baseline_stem(moving_path)}_FPFH.xyz"
+    output_path = output_dir / f"{baseline_stem(input_name or moving_path)}_FPFH.xyz"
     np.savetxt(output_path, points)
     return ToolResult(
         output_path=output_path,
@@ -44,6 +50,7 @@ def register_icp(
     output_dir,
     *,
     thresholds=ICP_DEFAULT_THRESHOLDS,
+    input_name: str | None = None,
     progress: ProgressCallback | None = None,
 ) -> ToolResult:
     progress = progress or noop_progress
@@ -67,7 +74,7 @@ def register_icp(
         progress(f"第{index}/3次 ICP（阈值 {threshold}）", 1 + index, 5)
 
     progress("保存结果", 5, 5)
-    output_path = output_dir / f"{baseline_stem(moving_path)}_ICP.xyz"
+    output_path = output_dir / f"{baseline_stem(input_name or moving_path)}_ICP.xyz"
     np.savetxt(output_path, points)
     return ToolResult(
         output_path=output_path,

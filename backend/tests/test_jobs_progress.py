@@ -18,7 +18,7 @@ requires_tex = pytest.mark.skipif(
 )
 
 
-def progress_tool(params, inputs, work_dir, progress):
+def progress_tool(params, inputs, input_names, work_dir, progress):
     total = 4
     for step in range(1, total + 1):
         progress(f"第 {step}/{total} 步 处理", step, total)
@@ -103,3 +103,4 @@ def test_quality_assess_job_reports_four_steps(tmp_path: Path) -> None:
         assert final["result"]["summary"]["check_num"] > 0
         assert final["result"]["summary"]["figure"]["data"]
         assert final["result"]["artifacts"][0]["kind"] == "report"
+        assert final["result"]["artifacts"][0]["name"].startswith("scan几何质量评估报告")
