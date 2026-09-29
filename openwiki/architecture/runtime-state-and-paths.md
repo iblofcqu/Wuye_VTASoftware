@@ -1,11 +1,11 @@
 ---
 type: runtime-architecture
 title: 运行时状态、会话与路径
-description: 说明 data/sessions 工作区、session.json、artifacts/uploads/previews/work 子目录、锁与原子写，以及 base_software cache 文本状态协议的历史差异。
+description: 说明 data/sessions 工作区、session.json、artifacts/uploads/previews/work 子目录、质量评估报告子进程状态文件、锁与原子写，以及 base_software cache 文本状态协议的历史差异。
 tags: [architecture, state, persistence, sessions, filesystem]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-29T03:28:02.619Z
+    at: 2026-09-29T08:08:46.977Z
 sources:
   - id: openwiki-source-d3cb6830ecaa081440b96d80
     resource: repo://backend/app/api/session.py
@@ -23,6 +23,10 @@ sources:
     resource: repo://backend/app/jobs/runner.py
   - id: openwiki-source-24a943f3d4ce3be6822a4891
     resource: repo://backend/app/jobs/store.py
+  - id: openwiki-source-fecf2f8a5b5c8cf503ca5e77
+    resource: repo://backend/app/jobs/tools.py
+  - id: openwiki-source-181ec9b9e03c27becdc02fe8
+    resource: repo://backend/app/report/supervisor.py
   - id: openwiki-source-b735a19d109c0dd7887674e9
     resource: repo://base_software/functions/PDF.py
   - id: openwiki-source-d69beca5a040440e55fef3c1
@@ -33,7 +37,7 @@ sources:
     resource: repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py
   - id: openwiki-source-f62fb78e9932aaca3ecc6806
     resource: repo://base_software/path_utils.py
-generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
+generated: { by: "codex", at: "2026-09-29T08:08:46.977Z" }
 ---
 
 # 运行时状态、会话与路径
@@ -70,6 +74,10 @@ data/sessions/<session_id>/
     <job_id>/
       state.json
       progress.json
+      report_payload.pkl
+      report_state.json
+      report_result.json
+      report_process.log
       cache/...
 ```
 
@@ -78,7 +86,7 @@ data/sessions/<session_id>/
 - `artifacts/`：成功产物的内部存储，文件名使用 artifact id，下载时恢复会话清单中的显示名称。
 - `uploads/`：未完成上传的临时目录；完成后合并并登记产物，然后删除该上传目录。
 - `previews/`：按 artifact 或 job id 缓存的 WYPV 预览；缓存命中时不再读取全量点云。
-- `work/`：单个任务的工作目录，保存运行状态、阶段进度和算法中间文件。
+- `work/`：单个任务的工作目录，保存运行状态、阶段进度、算法中间文件和报告 supervisor 的输入/结果/日志。
 
 ## 产物与路径安全
 
@@ -109,6 +117,17 @@ data/sessions/<session_id>/
 查询任务时，`view_job()` 把会话记录、`state.json` 和 `progress.json` 合并成 API 视图。服务启动时 `interrupt_leftover_jobs()` 扫描所有会话，把遗留的 `queued`/`running` 任务显式标记为 `interrupted`，而不是继续等待不存在的进程。
 
 任务成功后，完成回调会把输出路径登记为 artifact，并把结果摘要和内部输出写回任务记录；任务失败则保留简洁错误文本，不把半成品登记为成功产物。
+
+## 质量评估报告子进程状态
+
+质量评估不是直接在普通 worker 中执行报告，而是由 supervisor 在 `work/<job_id>/` 中维护一组报告专用文件：
+
+- `report_payload.pkl`：父 worker 写入的目标函数、参数和工作目录，供 `python -m app.report.worker` 加载；
+- `report_state.json`：报告阶段已开始及最后进入的子阶段，包含 `report_started`、`stage`、`updated_at`；
+- `report_result.json`：报告 worker 的成功结果或结构化异常；
+- `report_process.log`：报告子进程的 stdout/stderr 日志。
+
+普通 `progress.json` 在第 4/4 步之后仍由报告 worker 更新；`report_state.json` 负责细分 PyVista、Kaleido 和 LaTeX 阶段。supervisor 在默认 300 秒后终止报告进程树，保留这些中间文件用于诊断，但不会登记 PDF artifact。
 
 ## 会话 API 的去敏边界
 

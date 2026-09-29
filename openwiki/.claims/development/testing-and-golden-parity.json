@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:b7d1d6b834e83b9cb5861c788d3dd1780a19d58e2befd0e221aff6002fac1dca",
+  "pageVersion": "sha256:489c520e7ea1729f8e68708e91c68822df8b3264ee6488c54ff993b70d3518c7",
   "claims": [
     {
       "id": "claim_74777051f7c84871be019efdcf3ce6d0",
@@ -91,10 +91,34 @@
           "version": "repo-lines-v1:sha256:989f6eb745225820b30d17446898d737999bc2c9586f9c5ee4d01b6ae32656d3:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdmMmEzMzkzNTUxYzRiNGVmN2E0MWE5YjFlNzM1OGQ1MjEwY2VmMjEwOWFkMjMxMzg4NzNkOGRlNDgwNWFhZmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE1NWNlNjA4MmI0MmJhODhhMjE2ZWMwN2I2MjdkOWRhMDA2NjQxY2ZiOGIwOWJhNmU1MGJmNjk4NDAzMTdlMzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImRmNjljNDA0MGQ4NDZhZWEzODhlYTU2NGIzYjI3NTAzMGU1OTg3MTMwMDE1YzUzOTg5MDM4MGNjNDNjODI0YmQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
+    },
+    {
+      "id": "claim_9b03c602144344c085d69e4bc76c8197",
+      "statement": "后端测试包含报告超时默认值与边界、最后阶段错误、跨平台进程树清理、真实质量评估超时任务失败且无 PDF 产物，以及超时后 worker 可继续执行下一任务。",
+      "evidence": [
+        {
+          "resource": "repo://backend/tests/test_report_timeout.py#L178-L221",
+          "version": "repo-lines-v1:sha256:64c597ff03ff086254160ddc3e8e511b5de6d40b75d65fc8bd1e1412821f147f:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1NzJjODc5MWYwNzQ1OTU0MmMyNjUzMTM4NmMyNGIwM2U4OWExNTdlMjJiNjE0NTk5NWM3OWM4OWU2M2ZkMWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlNDQzZjkyZWY2YWE3N2U4ODFmMTUzODYxODU1NmZkNGM2MTU0ZDRiYzllNTgzZWQ4OWQwN2EyMjM3MjUwMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlhODJlYmU5ZWQ0MDdjM2E2YmE0YjAwMzQyOTJiYWE1MmMxMWNlNWFlMjg2MTA3NDAyZGU0NzkyZWVlY2FjZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIyZTdlNWVhYmE2NGE1YTdjMTQwZjk1ZDVkYTcxZDJjNDEwMTc3N2I3NTRjYzVkZTUyNTEzZmY4NTI3N2YzNjYifQ"
+        },
+        {
+          "resource": "repo://backend/tests/test_report_timeout.py#L31-L133",
+          "version": "repo-lines-v1:sha256:57854ee2084988fd691f1ced74d87e7458c37ff691bdb7e4a369e5f0b87a50f4:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJkM2VhMWVkYTQ4N2ZhZDc4ZGFmZWJmNmI5ZWRmNmE3OTRlNWEzOTA3NWE0NmFmY2M1MzFlOTY5NGQ3NTBkYzYwIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJhNWI0YTFmZjdjZmNmOWI1NTYzMDQxNzM0ZmVmYTI0ODNjNThiZDkxZmMyOWQ1YTc2NTQyOTkzNDg3YWJkOTc3IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJjYWY3NWI2MDQ4MzczNGMyMjU0ODk4MGRjM2IzYzY5MGUwNDRjMTNmMWUzZDljZDc2ZTU4NTg1M2M2M2Q3NDQwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI3MTM1N2FjZGVhY2JlYzlmYTI5MjUwNTkxZTQ2Y2UyZTQzNDkxMzlmMDZlNmQzNGU0ODAzOTk4NDUwNzliM2E0In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_345909b16c5b43d880da0dbf83a067d8",
+      "statement": "前端 QA 单测覆盖 ui_figure 选择以及 toPlainFigure 把 Vue 响应式对象转为非响应式普通对象，防止 Plotly 在真实页面卡住 renderer。",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/utils/__tests__/qa.spec.ts#L47-L77",
+          "version": "repo-lines-v1:sha256:911039a4c16a6fb1ab1b2a6b9783601655de3e7ef2f12fe8e62921a73535a7e6:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1ODBiNzY1MThkYWU5NzlmYWViZDAyMzY3YTI5MjkyYTUwZDk3NjA5MjI1MWEzOGE2Y2UzMDg4MGJhNDI4MjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIyMzUyNTg5YzM0ZDNjNjA2ODU5MzFiNmVjYzRkNTA5OTFhN2M1NmM4ZmJhMjg5NDExNDY1NzY5MDI3MmNhYzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ4ODU5YmY3OTQ0MTBhNTc2NWRkYjMwMjAyNzM1Y2E3OTMxNmEwNDRiY2NhNmZhNDczYzk2YWE5YmEzNjM1MzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg1ODBiNzY1MThkYWU5NzlmYWViZDAyMzY3YTI5MjkyYTUwZDk3NjA5MjI1MWEzOGE2Y2UzMDg4MGJhNDI4MjUifQ"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.5.1",
-    "at": "2026-09-29T03:28:02.619Z"
+    "at": "2026-09-29T08:08:46.977Z"
   }
 }

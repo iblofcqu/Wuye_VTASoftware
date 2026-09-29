@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:14b13fa42bfece7515f44f89d9032205cf36c5972a287a4e6743fe311ba6ff32",
+  "pageVersion": "sha256:47f62a46a0eebd41b7a86c635e4819a5e9efd5d49d1195cfa7a288de1479210c",
   "claims": [
     {
       "id": "claim_f6808c86d2e043a8bab2d692ffb78ebb",
@@ -147,16 +147,6 @@
       ]
     },
     {
-      "id": "claim_a63422ec59f64f32b7e578b128709cd0",
-      "statement": "Point2Plane 用 plane_model[3]/plane_model[2] 构造平面上点；当局部平面法向量的 z 分量为零时会产生非有限值或 NaN，并可能使后续偏差统计失败。",
-      "evidence": [
-        {
-          "resource": "repo://backend/app/algos/knn.py#L124-L143",
-          "version": "repo-lines-v1:sha256:b891be37c06966a6ce68951841557f05b71c30eb4d9d915ee7d442459ed4f570:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkOWZhYTk2ZDU2N2Q5YjliOTIyNGUyOTJhODFiYzNjZDkwMmM1MWM5YTdhNGE2NjRhNDQ5Y2Y4ZTVkYWRjMTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkMjEwZjlhYmFhZDEyZDczZjE0YTZmZGE3MDUyNjIxN2Q3MTMxMDc3YTgzNjUyNDM0Y2MwZmYyMTMwNmYxMGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA3N2E3Zjk5YzM3ZjQ0ZDRiN2IwODIwODJjMTQ1N2Q3Y2U3ZDcwYjU3NWUxNmI0MDQ0NTQ0MDk0ODY0OGMzNGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
-        }
-      ]
-    },
-    {
       "id": "claim_9646dda29e0c440ba2f7500817c8a6e0",
       "statement": "find_r 只保留半径邻点数大于 10 的查询点，找不到满足条件的邻域时会在 np.hstack 处因空结果抛错；该行为由 golden 边界测试显式保留。",
       "evidence": [
@@ -169,10 +159,40 @@
           "version": "repo-lines-v1:sha256:19cc1a28880c33bf1e38e963c31eaec54383286503e1349e4a34f4bb50831ef3:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYTdjYjU2OGZmZDRhMGZhNzQxNWQ4NmNiNGQ3M2FkYjlhNDg0M2JkNzFkOTJhN2ZjODY1YjEwNzk0OTFiN2MwOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDNlYmVhOGM0ODg5ODc4NTU4NDFiMmM4YmE1YmZjYTIxMWNmMTRmZGE0MGQ4YzAwMmJlN2U5NjVjMjM4Y2Q1MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzZmYjYwM2Q4M2NlYTcyNTUzODUzYTljMWIzODQyNWQ1ZTk3NmRkNTg2NDg1N2QxYTYzZmNlM2MxODllYjhmOCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
         }
       ]
+    },
+    {
+      "id": "claim_9ddce0e9602c475981c76e88bd6c380b",
+      "statement": "fit_plane() 对去中心化点云做 SVD，返回平面参数和拟合点质心；当最小奇异值相对第一奇异值过小时判定点近似共线/平面退化并返回 None。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/algos/knn.py#L5-L28",
+          "version": "repo-lines-v1:sha256:52d23318ba29f67042443b3aaa7933ed7bbd10ed92ab5c0594ee732b724fc2fc:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVjZDdjMTFmNmM4NWM5NzcxZmFkZDM1MGE5YjA3MmY2YjdiZDFhM2FlZjY5ZmRhYWIyMDY0MjUyZGQzYzgyODAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjZTAyMzZjNjExMzg3NTI1NjYyMTJmYjIxYTZkMGQwMzEwMzllMDI5MTlmMWYyZjk5N2E1YmQ1YzE4NTRiYWYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlkZDNmODgyNjlhNmIyYWFjODUwZTY4NmVlNDQxNTQ0NmViOWEzNTMwY2MwN2U4ODc5MzljNTE4ZDhjOWZmM2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFmY2Y2YTg1MGNkMTU0YzYzODczYWMxYzI5MmE4OTU0MGE5YjYwMmQ5YWJmMGQ3MDE4MDMyZDQzZWI4YjFhMmYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_304b6fe6a22b4c3482ed119d8d2fa703",
+      "statement": "Error_caculate_Point2Plane() 用拟合质心作为平面上已知点做投影，并对退化平面、无效法向量和非有限误差回退为 0，避免旧的 z 分量除法产生 NaN/Inf。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/algos/knn.py#L107-L149",
+          "version": "repo-lines-v1:sha256:8bdbeca6e3b6dbcc2bf799a2d26a6571ad4eef834d10a6bac3cc05f034e26c04:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1ZDE4M2JkNTMxMTI5NWZhMjllMzJmMTQ1NmYzMGQ4ODk1NmI5NjUyZWExMWE1YmJlOGYyNWVjNjk0OTgxM2MiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjOWMxZGE2NWI5NDljYmQ2N2RkMGE2NjJiYzZmOTJmNTgzZDRlMTQ4MDhkNDJkNTE5NjhjMDlkOWM4NzhmYWYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU2YjVlYzA1YmY0YjFlZTg5NDY0YzkzMDBmYTE0ZTU4NTZlNjhlYjY2YmFmNTIzYzJhOGM0ZjkxZDhmZTQzYzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFkMjEwZjlhYmFhZDEyZDczZjE0YTZmZGE3MDUyNjIxN2Q3MTMxMDc3YTgzNjUyNDM0Y2MwZmYyMTMwNmYxMGUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_867715aab6254d4784eec61de2522935",
+      "statement": "正常输入下 Point2Plane 仍按 Golden parity 测试与 base_software 逐点比较；邻域不足的 0 值行为继续保留。",
+      "evidence": [
+        {
+          "resource": "repo://backend/tests/test_golden_parity.py#L143-L157",
+          "version": "repo-lines-v1:sha256:1848f2b09cdc6dab8cbc86421353acfca4c9f725472c66ab03d09a5a48350a5d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhMGY4ZjM5NzkzNzU3MGMwNzJkMWIwZWQxYzAzZjBhZGRiMDdlZjk3NzBiYjBhMmVlYmNlNGQ1Njc0NzNkNWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY5N2EwOWU1OTM0NjNlNDJlOWM2NWVhOTNhZWVhYWM4ZmUxNmVjMjg2MTdmZTdmMGFiMWQwZjkwNGUwYWYwZGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhjYzRhN2QxY2M3OTZhYmEzZTQ2NzIzMzI3ZjUxN2U5ZjgxMTk4MmQyNTBmMDcwMjk4NmU0YjU3NjRhZDk1ODkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc2ZmI2MDNkODNjZWE3MjU1Mzg1M2E5YzFiMzg0MjVkNWU5NzZkZDU4NjQ4NTdkMWE2M2ZjZTNjMTg5ZWI4ZjgifQ"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.5.1",
-    "at": "2026-09-29T03:28:02.619Z"
+    "at": "2026-09-29T08:08:46.977Z"
   }
 }

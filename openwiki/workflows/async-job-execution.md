@@ -1,11 +1,11 @@
 ---
 type: workflow-guide
 title: 异步任务执行与进度
-description: 说明任务提交、工具注册、ProcessPoolExecutor、state.json/progress.json、API 轮询、池容量排队、失败和重启中断的完整生命周期。
+description: 说明任务提交、工具注册、ProcessPoolExecutor、state.json/progress.json、质量评估报告 supervisor 超时、API 轮询、池容量排队、失败和重启中断的完整生命周期。
 tags: [workflow, jobs, process-pool, progress, failure]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-29T03:28:02.619Z
+    at: 2026-09-29T08:08:46.977Z
 sources:
   - id: openwiki-source-1e4906236443e4dd6f7dc409
     resource: repo://backend/app/api/jobs.py
@@ -17,17 +17,23 @@ sources:
     resource: repo://backend/app/jobs/store.py
   - id: openwiki-source-fecf2f8a5b5c8cf503ca5e77
     resource: repo://backend/app/jobs/tools.py
+  - id: openwiki-source-181ec9b9e03c27becdc02fe8
+    resource: repo://backend/app/report/supervisor.py
+  - id: openwiki-source-29449cdcdd8456fbc5b9b089
+    resource: repo://backend/app/services/quality.py
   - id: openwiki-source-eddc463742bcffadfedda8a1
     resource: repo://backend/tests/test_jobs_api.py
   - id: openwiki-source-b90c8ebf4d4e394d1aa824cc
     resource: repo://backend/tests/test_jobs_failure_interrupt.py
   - id: openwiki-source-d5f0261ae78e40f8e9af041b
     resource: repo://backend/tests/test_jobs_runner.py
+  - id: openwiki-source-5378d9b430ed01a79fe9470f
+    resource: repo://backend/tests/test_report_timeout.py
   - id: openwiki-source-4f924e32c75e1a54e0a66e37
     resource: repo://frontend/src/api/jobs.ts
   - id: openwiki-source-d20ee48184829b39dda5f106
     resource: repo://frontend/src/components/JobProgress.vue
-generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
+generated: { by: "codex", at: "2026-09-29T08:08:46.977Z" }
 ---
 
 # 异步任务执行与进度
@@ -70,7 +76,7 @@ POST /api/tools/{tool}/jobs
 - 提交后任务先以 `queued` 写入会话；被 worker 接管后，`state.json` 出现，查询时状态显示为 `running`。
 - 超过池容量的任务保持 `queued`，不会阻塞 Web 请求线程。
 
-任务完成回调由提交时的 future callback 触发，负责登记输出产物和更新最终状态。当前没有任务取消 API，也没有跨进程恢复正在执行任务的机制。
+任务完成回调由提交时的 future callback 触发，负责登记输出产物和更新最终状态。质量评估 worker 不直接执行报告，而是再启动 report supervisor/report worker 子进程；supervisor 负责报告阶段超时和进程树清理，普通任务则直接返回 worker 结果。当前没有任务取消 API，也没有跨进程恢复正在执行任务的机制。
 
 ## Worker 状态与进度
 
@@ -99,6 +105,8 @@ worker 入口在自己的 `<work_dir>` 中写入：
 
 因此页面的百分比是**阶段进度**，不是算法内部精确进度。网格离散的主要计算没有 Open3D 回调，进度条会在“读取网格并离散 1/2”阶段停留到该计算返回。
 
+质量评估在第 4/4 步之后进入嵌套报告阶段。报告 worker 除兼容的 `progress.json` 外，还会更新 `report_state.json`，依次标记输入点云图、环境/检测点图、偏差云图、Kaleido 直方图和 LaTeX/PDF 阶段；这些阶段不再反映为额外的 5/5 进度。
+
 ## 前端轮询与展示
 
 `JobProgress.vue` 观察 `jobId`：
@@ -124,6 +132,7 @@ worker 入口在自己的 `<work_dir>` 中写入：
 - 工具抛出的异常被 runner 捕获并写成 `failed`，错误文本包含异常类型和消息。
 - 参数非法会在 worker 内或提交前失败，页面通过任务错误或 HTTP 4xx 显式展示。
 - `result` 只在成功登记后才写入；失败任务不会返回可误用的产物。
+- 报告阶段超过 `WUYE_REPORT_TIMEOUT_SECONDS`（默认 300 秒）时，supervisor 终止报告进程树并把最后阶段写入错误；worker 因此释放，后续排队任务可继续。
 - 服务重启时 `interrupt_leftover_jobs()` 扫描所有会话，把遗留 `queued`/`running` 任务改为 `interrupted`，错误为“服务重启导致任务中断”。
 - Web 进程不会在重启后重新拾取已中断任务；用户需要重新提交。
 

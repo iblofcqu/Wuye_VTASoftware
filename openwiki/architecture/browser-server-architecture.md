@@ -1,11 +1,11 @@
 ---
 type: architecture-guide
 title: 浏览器—服务端架构
-description: 说明 Vue 前端、FastAPI 同源服务、会话中间件、业务 API 与独立计算进程池之间的运行时关系，以及浏览器请求如何穿过上传、任务、预览和下载边界。
+description: 说明 Vue 前端、FastAPI 同源服务、会话中间件、业务 API、计算进程池与质量评估报告 supervisor 之间的运行时关系，以及浏览器结果渲染边界。
 tags: [architecture, frontend, backend, fastapi, same-origin]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-29T03:28:02.619Z
+    at: 2026-09-29T08:08:46.977Z
 sources:
   - id: openwiki-source-1e4906236443e4dd6f7dc409
     resource: repo://backend/app/api/jobs.py
@@ -13,15 +13,27 @@ sources:
     resource: repo://backend/app/api/session.py
   - id: openwiki-source-5cd8a5b32eb393895819dfdc
     resource: repo://backend/app/jobs/runner.py
+  - id: openwiki-source-fecf2f8a5b5c8cf503ca5e77
+    resource: repo://backend/app/jobs/tools.py
   - id: openwiki-source-55002f5b1d39cf35fd6d60e2
     resource: repo://backend/app/main.py
+  - id: openwiki-source-115bc96dd839c419e53a5004
+    resource: repo://backend/app/report/figures.py
+  - id: openwiki-source-181ec9b9e03c27becdc02fe8
+    resource: repo://backend/app/report/supervisor.py
   - id: openwiki-source-082db4a97118dbe27f557896
     resource: repo://frontend/src/api/http.ts
   - id: openwiki-source-4a11add55cd5e054f02cd8e1
     resource: repo://frontend/src/api/index.ts
   - id: openwiki-source-4f924e32c75e1a54e0a66e37
     resource: repo://frontend/src/api/jobs.ts
-generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
+  - id: openwiki-source-b3865b441eaafc9ac8594650
+    resource: repo://frontend/src/components/DeviationHistogram.vue
+  - id: openwiki-source-c0d31886011163a6c93bffe9
+    resource: repo://frontend/src/utils/qa.ts
+  - id: openwiki-source-d5099a190ac06d937fadf92d
+    resource: repo://frontend/src/views/quality/QualityAssessView.vue
+generated: { by: "codex", at: "2026-09-29T08:08:46.977Z" }
 ---
 
 # 浏览器—服务端架构
@@ -38,9 +50,10 @@ generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
   -> 会话/产物/上传/预览存储
   -> JobRunner 进程池
   -> services -> algos
+       └─ quality-assess -> report supervisor -> report worker
 ```
 
-这种结构让浏览器不需要知道服务器文件路径，也不需要跨域访问。上传、任务提交、状态查询、预览和下载都通过同源 HTTP API 完成。
+这种结构让浏览器不需要知道服务器文件路径，也不需要跨域访问。上传、任务提交、状态查询、预览和下载都通过同源 HTTP API 完成。质量评估的报告阶段位于额外的嵌套子进程中，这样 PyVista、Kaleido 或 LaTeX 的阻塞不会占用 Web 进程。
 
 ## 前端入口与 API 边界
 
@@ -96,6 +109,14 @@ Web 路由不执行点云算法。提交任务时，`JobRunner.submit()` 先写�
 
 worker 在自己的工作目录中写入 `state.json` 和 `progress.json`；Web 层查询任务时再读取这些文件，把运行状态与阶段进度合并到响应。任务完成回调负责把输出文件登记为会话产物。这样即使计算耗时较长，会话查询和其他页面请求仍由 Web 进程独立处理。
 
+质量评估额外通过 `report supervisor` 启动报告 worker。supervisor 读取 `report_state.json` 的当前阶段，默认在 300 秒后调用进程树清理；超时错误包含秒数和最后阶段，报告产物不会登记。Linux 使用独立进程组与 `SIGKILL`，Windows 使用 `taskkill /F /T`。
+
+## 浏览器结果渲染边界
+
+质量评估结果的 `summary.figure` 保留原始报告图，`summary.ui_figure` 是浏览器展示用图：柱数最多 256、x 轴刻度最多 20。前端优先选择 `ui_figure`，并在调用 `Plotly.react()` 前通过 `toPlainFigure()` 克隆为普通 JSON 对象。
+
+这个克隆是实际运行时契约的一部分：Vue 的深层响应式 Proxy 会让 Plotly 遍历代理图时长时间占用 renderer 主线程，即使直方图只有几十个柱。普通 JSON 把渲染边界限制在受限图形数据内。
+
 ## 一条典型请求链
 
 以网格离散为例：
@@ -117,4 +138,6 @@ worker 在自己的工作目录中写入 `state.json` 和 `progress.json`；Web 
 - [运行时状态、会话与路径](runtime-state-and-paths.md)
 - [会话、上传与产物工作流](../workflows/session-upload-and-artifacts.md)
 - [异步任务执行与进度](../workflows/async-job-execution.md)
+- [尺寸质量评估 B/S 工作流](../workflows/dimension-quality-assessment.md)
+- [质量报告生成与工具链](../reporting/quality-report-generation.md)
 - [B/S 运行、依赖与部署](../operations/runtime-and-deployment.md)

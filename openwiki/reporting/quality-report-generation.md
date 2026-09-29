@@ -1,18 +1,22 @@
 ---
 type: reporting-workflow
 title: 质量报告生成与工具链
-description: 说明尺寸质量评估的 PyVista 图片、Plotly/Kaleido 直方图、PyLaTeX 组装、latexmk/xelatex 编译、PDF 命名及相对 base_software 的显式版式适配。
+description: 说明尺寸质量评估的 PyVista 图片、Plotly/Kaleido 直方图、报告 supervisor 超时、PyLaTeX 组装、latexmk/xelatex 编译、PDF 命名及相对 base_software 的显式版式适配。
 tags: [reporting, visualization, pdf, latex, kaleido]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-29T03:28:02.619Z
+    at: 2026-09-29T08:08:46.977Z
 sources:
   - id: openwiki-source-5d593278ee6c8f05c76ca7b5
     resource: repo://backend/app/api/artifacts.py
+  - id: openwiki-source-4188bfee2e15d969d3152477
+    resource: repo://backend/app/config.py
   - id: openwiki-source-115bc96dd839c419e53a5004
     resource: repo://backend/app/report/figures.py
   - id: openwiki-source-7de602f3229bbc366ae0b3b4
     resource: repo://backend/app/report/pdf.py
+  - id: openwiki-source-181ec9b9e03c27becdc02fe8
+    resource: repo://backend/app/report/supervisor.py
   - id: openwiki-source-29449cdcdd8456fbc5b9b089
     resource: repo://backend/app/services/quality.py
   - id: openwiki-source-1771024592351e13dbb973b9
@@ -27,7 +31,9 @@ sources:
     resource: repo://base_software/functions/PDF.py
   - id: openwiki-source-4829642f91ca54c265d248ed
     resource: repo://base_software/pages/2_%F0%9F%96%A5%EF%B8%8F_%E5%B0%BA%E5%AF%B8%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0.py
-generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
+  - id: openwiki-source-b3865b441eaafc9ac8594650
+    resource: repo://frontend/src/components/DeviationHistogram.vue
+generated: { by: "codex", at: "2026-09-29T08:08:46.977Z" }
 ---
 
 # 质量报告生成与工具链
@@ -46,6 +52,8 @@ B/S 质量评估在后台任务中按固定顺序生成图片，再由 PyLaTeX �
 ```
 
 中间图片写在任务工作目录的 `cache/` 中，成功产物由任务完成回调登记到当前会话。报告生成失败时任务状态为 failed，页面显示失败原因，不登记 PDF 产物。
+
+报告阶段由独立 supervisor 子进程执行。父 worker 写入 `report_payload.pkl` 并启动 `python -m app.report.worker`；报告 worker 用 `report_state.json` 标记“渲染输入点云图”“渲染环境/检测点图”“渲染偏差云图”“导出偏差直方图（Plotly/Kaleido）”“编译 PDF（latexmk/xelatex）”等阶段，结果写入 `report_result.json`，stdout/stderr 写入 `report_process.log`。
 
 ## 固定图片
 
@@ -67,7 +75,7 @@ B/S 质量评估在后台任务中按固定顺序生成图片，再由 PyLaTeX �
 
 `figures.draw_error2()` 把偏差按降序排列，并把前 `int(检测点数 × ratio)` 个点的标量显示值置为 0；点本身仍保留在图中。`figures.show_clum()` 以 1 mm 为步长构造直方图区间，在剔除线位置绘制红色虚线，并标注检测点数、剔除线、最大值、平均值和中位数。
 
-质量评估服务先把偏差乘以 `1000` 作为 mm 统计，再把同一组结果传给报告和前端预览。页面指标、直方图 JSON 和 PDF 都来自同一次后台任务，避免不同链路使用不同口径。
+质量评估服务先把偏差乘以 `1000` 作为 mm 统计。PDF 使用原始报告图（`step=1`、`IS=4`）；另外生成浏览器展示专用的 `ui_figure`，其柱数最多 256、x 轴刻度最多 20，并采用自适应 bin 宽度。前端在 Plotly 边界还会把 Vue 响应式 figure 克隆为普通 JSON 对象。页面指标、展示图和 PDF 都来自同一次后台任务，避免不同链路使用不同口径。
 
 ## PDF 结构
 
@@ -98,6 +106,17 @@ Linux 上的报告链路依赖：
 
 这些是报告工具链的平台适配，不是数值算法修复。
 
+## 超时与进程清理
+
+报告 supervisor 从 `report_state.json` 首次出现 `report_started` 开始计时，默认超时为 300 秒，可由 `WUYE_REPORT_TIMEOUT_SECONDS` 覆盖（30~3600 秒）。超时时：
+
+- 终止报告 supervisor 的完整进程树，包含 Chrome/Kaleido 和 latexmk/xelatex 后代；
+- 抛出带超时秒数和最后阶段的 `ReportTimeoutError`；
+- 任务变为 failed，不登记 PDF artifact；
+- `report_state.json`、`report_result.json`、`report_process.log` 等诊断文件留在任务工作目录。
+
+Linux 通过独立进程组发送 `SIGKILL`，Windows 使用 `taskkill /F /T`。报告正常完成时，`report_result.json` 包含输出路径、显示名、summary 和 internal outputs。
+
 ## 命名与清理
 
 报告文件名由以下部分组成：
@@ -115,6 +134,7 @@ Linux 上的报告链路依赖：
 - `/api/health` 报告缺少 TeX、Chromium、离屏渲染或字体依赖。
 - PyVista 截图或 Kaleido 导出失败。
 - LaTeX 编译失败，错误由任务层显式返回。
+- 报告阶段超过 `WUYE_REPORT_TIMEOUT_SECONDS`，supervisor 终止报告进程树并返回最后阶段。
 - 输入点云无法读取、参数非法或计算阶段产生非有限值。
 
 `test_report_module.py` 在无 TeX 环境下验证图片和 LaTeX 源生成；`test_report_toolchain.py` 在 `latexmk`/`xelatex` 可用时编译真实 PDF，确认文件以 `%PDF` 开头、大小超过 20 KB 且 `clean_tex=True` 不留下 `.tex`。缺少 TeX 时该测试会跳过，部署环境仍必须通过 `/api/health` 检查依赖。

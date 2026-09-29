@@ -1,8 +1,11 @@
 ---
 type: quickstart
 title: 快速开始
-description: 面向首次接触仓库的读者，说明当前 B/S 版本、启动路径、预处理与质量评估流程、部署依赖、关键限制，以及 base_software 历史基线的定位。
+description: 面向首次接触仓库的读者，说明当前 B/S 版本、启动路径、预处理与质量评估流程、报告超时与直方图限制、部署依赖，以及 base_software 历史基线的定位。
 tags: [quickstart, browser-server, point-cloud, quality-assessment, deployment]
+verified:
+  - by: openwiki/0.5.1
+    at: 2026-09-29T08:08:46.977Z
 sources:
   - id: openwiki-source-4d1645cb6317345817452838
     resource: repo://.pre-commit-config.yaml
@@ -18,6 +21,10 @@ sources:
     resource: repo://backend/app/jobs/tools.py
   - id: openwiki-source-115bc96dd839c419e53a5004
     resource: repo://backend/app/report/figures.py
+  - id: openwiki-source-181ec9b9e03c27becdc02fe8
+    resource: repo://backend/app/report/supervisor.py
+  - id: openwiki-source-29449cdcdd8456fbc5b9b089
+    resource: repo://backend/app/services/quality.py
   - id: openwiki-source-6b45f4b822f7d3826e57be75
     resource: repo://backend/docs/e2e-checklist.md
   - id: openwiki-source-1771024592351e13dbb973b9
@@ -42,16 +49,15 @@ sources:
     resource: repo://frontend/package.json
   - id: openwiki-source-56949fc5b7c8934cd12beebd
     resource: repo://frontend/src/api/uploader.ts
+  - id: openwiki-source-b3865b441eaafc9ac8594650
+    resource: repo://frontend/src/components/DeviationHistogram.vue
   - id: openwiki-source-62c1462ca643d265eb668123
     resource: repo://frontend/src/components/PointCloudViewer.vue
   - id: openwiki-source-77c413f182fc2eead5535edb
     resource: repo://frontend/src/router/index.ts
   - id: openwiki-source-cd5b53dfb8d9f30e726f98f4
     resource: repo://openspec/changes/archive/2026-09-29-document-windows-backend-setup/tasks.md
-generated: { by: "codex", at: "2026-09-29T04:24:41.336Z" }
-verified:
-  - by: openwiki/0.5.1
-    at: 2026-09-29T04:24:41.336Z
+generated: { by: "codex", at: "2026-09-29T08:08:46.977Z" }
 ---
 
 # 快速开始
@@ -142,7 +148,7 @@ B/S 运行需要：
 1. 勾选四个前置确认：已有离散点云、已下采样或忽略、单位一致、已完成匹配。
 2. 选择扫描点云和 BIM 点云。
 3. 设置单位、偏差方法（Point2Point/Point2Plane）、平面邻域大小和剔除比例。
-4. 提交任务，查看阶段进度、四项统计指标、偏差直方图、偏差云预览和 PDF 报告。
+4. 提交任务，查看阶段进度、四项统计指标、受限浏览器直方图、偏差云预览和 PDF 报告；报告阶段默认 300 秒超时。
 
 `distance` 虽然主要服务 Point2Plane 邻域，但也会以 `distance × 10` 参与环境点筛选，因此切换到 Point2Point 后仍会改变检测点集合。
 
@@ -153,7 +159,7 @@ B/S 版本没有浏览器可见的服务器文件对话框：
 - 上传通过浏览器文件控件完成，支持 8 MiB 默认分片、SHA-256 校验、断点续传和 24 小时未完成上传保留。
 - 每个浏览器会话拥有 `data/sessions/<uuid>/` 工作区，上传、任务和产物按会话隔离。
 - 输入与输出通过 artifact id 在页面间复用；下载时恢复原显示文件名。
-- 报告 PDF 在任务成功时登记为 report artifact。
+- 报告 PDF 在任务成功时登记为 report artifact；浏览器展示使用受限 `ui_figure`，原始报告图仍用于 PDF。
 
 如果 HTTP 局域网浏览器没有 Web Crypto，前端会为分片校验回退到纯 JS SHA-256。部分虚拟机或 GPU 黑名单环境无法创建 WebGL2 时，三维预览会显示明确错误，但下载和后续计算仍可使用。
 
@@ -161,7 +167,9 @@ B/S 版本没有浏览器可见的服务器文件对话框：
 
 - 无登录、无权限系统，按内网演示使用。
 - 点云预览依赖浏览器 WebGL2；无 WebGL2 时不能显示三维效果。
-- Point2Plane 在局部平面法向量 z 分量为 0 等退化情况下可能产生 NaN，最终在直方图 `np.arange` 处失败；这是原始算法边界，当前迁移没有自动修复。
+- Point2Plane 已对近共线/退化平面做 0 值回退，并使用拟合质心投影，不再因法向量 z 分量为 0 产生 NaN/Inf。
+- 报告生成默认 300 秒超时（可用 `WUYE_REPORT_TIMEOUT_SECONDS` 调整）；超时任务失败、不登记 PDF，并在错误中报告最后阶段。
+- 浏览器直方图最多 256 个柱和 20 个刻度；Plotly 接收前会复制为普通 JSON，避免 Vue 响应式代理卡住 renderer。
 - 服务重启不会恢复运行中任务，遗留任务会标记为 interrupted。
 - 只支持单 Web 实例的进程内会话锁；没有 Redis/SQLite/分布式锁。
 - Docker、HTTPS、反向代理和外部认证未实现。

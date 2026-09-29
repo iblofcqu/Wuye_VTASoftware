@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:4a76d4bb72a94c3dfd6a811d637d693a35e366506da088a5909eedd09f823eeb",
+  "pageVersion": "sha256:ada5c6bcf0271a19768a26a82b1d262553752731e4b3cae3cc00ccb86e61fee9",
   "claims": [
     {
       "id": "claim_75748ec21d9643c0bc32f94d44ca3214",
@@ -79,10 +79,24 @@
           "version": "repo-lines-v1:sha256:067a60de4bc43abcbccef3d45a8d5d011f43a9d727bfe39a3b94ed2419fac40a:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4ODhjYTA5ZDA1YTRlY2M1OGY1NjZmZDExYTg3MzY4ZGRiNTM4OWNkZDhlODc1MjdhMDQ1M2IwZTZkMzVlYjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjMjVlM2FlYzFiMTNmOTBhMzhjYjJjY2NiZjlkZjgzYmM1ZmU2NjAyODE3OTJlYzczMDc0MjcwMjMwYzcyYjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUxOTBmODQ5MTFlZjI2Y2IxYWU5OTIyYWUwOWQ0MjQ0ZTE0MjA3MjY4MWRiZDlhZTcwZjBkZDVhYzc3MTQyZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1MDU3MWViODk2NzBjOGY5MjJkYzY4ZDlhOTAxNjliYjZlM2I0YmJlZjJmMmRiYTBmMjEyYmVmZjhlZGNmZGYifQ"
         }
       ]
+    },
+    {
+      "id": "claim_baeaebae1f994d3080629925bee6e49f",
+      "statement": "质量评估 worker 通过嵌套的报告 supervisor 子进程执行 PyVista、Kaleido 和 LaTeX 阶段，使长阻塞调用与任务 worker 隔离；超时由 supervisor 终止完整报告进程树。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/jobs/tools.py#L89-L114",
+          "version": "repo-lines-v1:sha256:02b9a8bb11c9e181c24396e45e72e4dd40a77ff9f0c60c1fda2d7577651bb731:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjNmVlOTRjOTU2MDY5ZDc2OTQ1NDAyNmIxNDFkNzcxOWJlODM4NmM4ZWE4NmVmMTMyZDY4ZmExMzI1NjRhMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI5MjA4MjIyMzcyZTNkY2ZiYWVjZWFhMjJmZWNlMmEyODk0ZDczY2YzZWExNWFjNTM4MTY5MGJkNTIyYzJhOTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIyZGQ5MmM1ZTUzNmM2NDgzNWRlMDc5MjQ5ZjMyMDBjYjdlYTM2NjIxM2NmMzBkNjc0MWQyMDQ5NGYyOWQyOGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdhNDE3MDhlZjViYzY2OTE5OTdlNmM1Y2I3MDgwZjVjYTBiMTE4N2JhMDIyZDk0ZmIzYTFkYjU5OTViYWM1ZGMifQ"
+        },
+        {
+          "resource": "repo://backend/app/report/supervisor.py#L129-L205",
+          "version": "repo-lines-v1:sha256:336140a584743ece577bffcfb6d9bf1750aa5b2abfc834b6f78a0251e47bf238:eyJzZWxlY3RlZExpbmVDb3VudCI6NzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1ZDI5MzRhZTdlOWQ1YjEzYzZlMjRjNTlhOGYzNGM5Y2Q0ZDRhYzdjNWEwZDM0NDk3YzA2NmFmZmVkNGY1NjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlZWM1MGM5NjU0NDFlMGUxNWQ3ZjI3ZDc5M2QxZTg0NjhjY2M5MzczMWI5OGJiNDFhOWEwYzY2MDUxMDhjNWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJiMjdhNzc4YWIyMTMyMWY0ZTI3ZDM2ODhlOGYzNWZjZTRmZjIzYTNlZDZkNzlhMWQ3MmEzZmY2MTVlYWVhM2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.5.1",
-    "at": "2026-09-29T03:28:02.619Z"
+    "at": "2026-09-29T08:08:46.977Z"
   }
 }

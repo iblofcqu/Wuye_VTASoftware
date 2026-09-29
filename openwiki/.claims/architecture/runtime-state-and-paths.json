@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:e4c53cfb9d03d946c74d7301fa233a355170f6a8ed92001365d9448f793028eb",
+  "pageVersion": "sha256:92a7019760076bed8751163528b321cd880319cb0516423c56acd3e06d791644",
   "claims": [
     {
       "id": "claim_848512f5b647471a8d584de3e5c90d10",
@@ -243,10 +243,38 @@
           "version": "repo-lines-v1:sha256:99d0e2c3b4ca83964ac055b8993f1dcc067d3753ea0c1b13af483b1e99d12cf3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlMWY4YzMyNjRjOTU3NDQ5MThlMWI5Nzk5YWYyOGFlZjNmMzJjYTkxYjdlNmQ4ODMwN2Q3MDNmZjgxNzAzYzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjMjVlM2FlYzFiMTNmOTBhMzhjYjJjY2NiZjlkZjgzYmM1ZmU2NjAyODE3OTJlYzczMDc0MjcwMjMwYzcyYjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVjMzQxN2E0NDEwYjVmYjMxYjUwYjQxZTE2ZTg2M2JhZmZjOTE2ODdmMmM0Zjg0OGRlODBiY2EyYzk4MjBlYWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE1MDU3MWViODk2NzBjOGY5MjJkYzY4ZDlhOTAxNjliYjZlM2I0YmJlZjJmMmRiYTBmMjEyYmVmZjhlZGNmZGYifQ"
         }
       ]
+    },
+    {
+      "id": "claim_68f32a7f6b634d8eaa3788ef31bc8708",
+      "statement": "质量评估报告 supervisor 在 work/<job_id>/ 维护 report_payload.pkl、report_state.json、report_result.json 和 report_process.log，用于输入、阶段、结果与日志诊断。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/report/supervisor.py#L129-L205",
+          "version": "repo-lines-v1:sha256:336140a584743ece577bffcfb6d9bf1750aa5b2abfc834b6f78a0251e47bf238:eyJzZWxlY3RlZExpbmVDb3VudCI6NzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1ZDI5MzRhZTdlOWQ1YjEzYzZlMjRjNTlhOGYzNGM5Y2Q0ZDRhYzdjNWEwZDM0NDk3YzA2NmFmZmVkNGY1NjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBlZWM1MGM5NjU0NDFlMGUxNWQ3ZjI3ZDc5M2QxZTg0NjhjY2M5MzczMWI5OGJiNDFhOWEwYzY2MDUxMDhjNWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJiMjdhNzc4YWIyMTMyMWY0ZTI3ZDM2ODhlOGYzNWZjZTRmZjIzYTNlZDZkNzlhMWQ3MmEzZmY2MTVlYWVhM2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://backend/app/report/supervisor.py#L14-L17",
+          "version": "repo-lines-v1:sha256:28e16f668bc8686e2ec04347c3c0880edbd3391aadac63cf57b6c8721ced7960:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZDc1YWEzNGZjMWY1OGRlYTQ4YTkwOTAxMTEyN2MwOWIyNjlhMzU4NjAxNzE3YmMyNGMyZmY1OWRkYzhlODgzMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMWNjNDI1OTczNjhiYjQyM2MxMGRmMWI0NWZhMTc3Y2U3YTRiNTQ2ZGQ2Y2QxNmY1OGY0MmI2YjExYjk3Yzc3OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjYyN2RjNjM3Y2JlNDcwYjRlMzRkNGE3YTM5NDYwMzAwNmU5MDZjM2Q5OTEyZDBjNTQzMDBlZDJiOWRiZjIyNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTdhYmExMDQ1ZjBjMmZjZDNlN2I5MDA0MjhlOTQ2N2ExYTJhZmE2NzdjMDViOTU4MDI2OWRlZmViYTQ3OGZmZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ce178bf9e31747f9a2c15dcba6d6baeb",
+      "statement": "report_state.json 记录 report_started、当前最后阶段和更新时间；默认 300 秒超时后保留这些诊断文件，但不登记 PDF artifact。",
+      "evidence": [
+        {
+          "resource": "repo://backend/app/jobs/tools.py#L89-L114",
+          "version": "repo-lines-v1:sha256:02b9a8bb11c9e181c24396e45e72e4dd40a77ff9f0c60c1fda2d7577651bb731:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjNmVlOTRjOTU2MDY5ZDc2OTQ1NDAyNmIxNDFkNzcxOWJlODM4NmM4ZWE4NmVmMTMyZDY4ZmExMzI1NjRhMGUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI5MjA4MjIyMzcyZTNkY2ZiYWVjZWFhMjJmZWNlMmEyODk0ZDczY2YzZWExNWFjNTM4MTY5MGJkNTIyYzJhOTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIyZGQ5MmM1ZTUzNmM2NDgzNWRlMDc5MjQ5ZjMyMDBjYjdlYTM2NjIxM2NmMzBkNjc0MWQyMDQ5NGYyOWQyOGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdhNDE3MDhlZjViYzY2OTE5OTdlNmM1Y2I3MDgwZjVjYTBiMTE4N2JhMDIyZDk0ZmIzYTFkYjU5OTViYWM1ZGMifQ"
+        },
+        {
+          "resource": "repo://backend/app/report/supervisor.py#L44-L60",
+          "version": "repo-lines-v1:sha256:58aec590cd2568287271466a86409ea67e720e8b9667206f56b899b92011f427:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUyY2NlMjY3MTM4MjhiYWM3NTM1YmIxMWY2NDYwMjg3YTc5YTI5NTFhOGM1NDZmMzJmNDA5N2E2MzRlNTk4OTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMwYzFmMTg4ZjE0MmVkN2E4MjQ2ODBiMjA3MTcyYzU1MTliYzYxNGE0OGZkYTdjZjE2N2VkYjhkZGY3OTk1NmMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMwMzI2OTNmZGRiOTU2MzlmODU1NGQzODUwYzBkZDNhMmYzOTQ4NzdmNmNlYTJmNTI4ZjViYThjNjA2OWFmMjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFmMzZhYzIyYzc0MjNlMjc2M2FiNDYyMmJkYzhkM2FkNmVjZjZmOGYyNTY5OGVjZmFiODZlODkxMDhlMzkwNDkifQ"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.5.1",
-    "at": "2026-09-29T03:28:02.619Z"
+    "at": "2026-09-29T08:08:46.977Z"
   }
 }

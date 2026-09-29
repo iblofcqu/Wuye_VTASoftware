@@ -1,11 +1,11 @@
 ---
 type: operations-guide
 title: B/S 运行、依赖与部署
-description: 说明 Linux 主部署路径与 Windows 平台配置：uv/Node、PowerShell、环境变量、防火墙、TeX/Chrome/PyVista 报告工具链和健康检查边界。
+description: 说明 Linux 主部署路径与 Windows 平台配置：uv/Node、PowerShell、环境变量、报告超时、防火墙、TeX/Chrome/PyVista 报告工具链和健康检查边界。
 tags: [operations, deployment, dependencies, uv, linux, windows, health]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-29T04:24:41.336Z
+    at: 2026-09-29T08:08:46.977Z
 sources:
   - id: openwiki-source-4d1645cb6317345817452838
     resource: repo://.pre-commit-config.yaml
@@ -15,6 +15,8 @@ sources:
     resource: repo://backend/app/config.py
   - id: openwiki-source-1d55634d256e9e48fe3ca741
     resource: repo://backend/app/core/health.py
+  - id: openwiki-source-181ec9b9e03c27becdc02fe8
+    resource: repo://backend/app/report/supervisor.py
   - id: openwiki-source-070c6307b3860e1806baf566
     resource: repo://backend/pyproject.toml
   - id: openwiki-source-9025181f12900b1c2ae4adf5
@@ -43,7 +45,7 @@ sources:
     resource: repo://frontend/package.json
   - id: openwiki-source-cd5b53dfb8d9f30e726f98f4
     resource: repo://openspec/changes/archive/2026-09-29-document-windows-backend-setup/tasks.md
-generated: { by: "codex", at: "2026-09-29T04:24:41.336Z" }
+generated: { by: "codex", at: "2026-09-29T08:08:46.977Z" }
 ---
 
 # B/S 运行、依赖与部署
@@ -94,6 +96,7 @@ PORT=8000 scripts/start.sh
    uv sync --frozen
    $env:PORT = "8000"
    $env:WUYE_DATA_DIR = "D:\wuye-data"
+   $env:WUYE_REPORT_TIMEOUT_SECONDS = "300"
    uv run uvicorn app.main:app --host 0.0.0.0 --port $env:PORT
    ```
 
@@ -109,7 +112,7 @@ Windows 报告工具链可以选择 TeX Live 或 MiKTeX，并需要 `latexmk`、
 
 Chrome/Chromium 用于 Kaleido 导出图片。Kaleido/choreographer 可能能从 Windows 注册表或常见安装位置发现 Chrome，但当前 `/api/health` 的 `chromium` 检查只搜索特定可执行名称，可能无法识别标准 `chrome.exe`。因此 Windows 上应把报告任务的实际结果和 health check 结合判断，不能把“后端能启动”当成“报告链路可用”。
 
-本次 Windows 文档补充只做了静态文档审查、命令与源码对照、`git diff --check` 和 OpenSpec validation；当前仓库没有 Windows/PowerShell 实机环境，未执行 Windows 实验性验证，这一点记录在归档任务的验证备注中。
+Windows 上报告超时使用同一 `WUYE_REPORT_TIMEOUT_SECONDS`，超时清理通过 `taskkill /F /T`；Linux 使用独立进程组和 `SIGKILL`。本次 Windows 文档补充只做了静态文档审查、命令与源码对照、`git diff --check` 和 OpenSpec validation；当前仓库没有 Windows/PowerShell 实机环境，未执行 Windows 实验性验证，这一点记录在归档任务的验证备注中。
 
 ## 运行时版本与依赖
 
@@ -125,12 +128,13 @@ B/S 后端使用 Python 3.10.18，由 uv 按 `.python-version` 管理；`backend
 | `WUYE_SESSION_MAX_AGE_SECONDS` | 30 天 | 会话 cookie 有效期 |
 | `WUYE_JOB_POOL_SIZE` | 2 | 计算进程池容量 |
 | `WUYE_PREVIEW_MAX_POINTS` | 1,000,000 | 预览轻量化点数上限 |
+| `WUYE_REPORT_TIMEOUT_SECONDS` | 300 秒 | 报告生成阶段超时，范围 30~3600 秒 |
 | `WUYE_MAX_UPLOAD_BYTES` | 5 GiB | 单文件上传大小上限 |
 | `WUYE_UPLOAD_CHUNK_SIZE` | 8 MiB | 默认分片大小 |
 | `WUYE_UPLOAD_TTL_SECONDS` | 24 小时 | 未完成上传保留时间 |
 | `PORT` | 8000 | 服务监听端口 |
 
-`data/` 必须对运行用户可写。服务重启会扫描会话清单，把遗留的 queued/running 任务标记为 interrupted；运行中任务的中间文件和工作目录不会自动恢复执行。Windows 下可用 `$env:NAME = "value"` 设置当前会话变量，或用 `[Environment]::SetEnvironmentVariable(..., "User")` 持久化。
+`data/` 必须对运行用户可写。报告超时后任务变为 failed、不登记 PDF artifact，并终止报告 supervisor 及其子进程树；中间文件保留用于诊断。服务重启会扫描会话清单，把遗留的 queued/running 任务标记为 interrupted；运行中任务的中间文件和工作目录不会自动恢复执行。Windows 下可用 `$env:NAME = "value"` 设置当前会话变量，或用 `[Environment]::SetEnvironmentVariable(..., "User")` 持久化。
 
 ## 报告与浏览器依赖
 
@@ -191,7 +195,7 @@ npm run lint
 npm run build
 ```
 
-当前后端 pytest 为 121 passed，前端单测为 6 个文件、18 个用例；报告链路测试在缺少 TeX 时会跳过，不能把跳过当成通过。
+当前后端 pytest 为 134 passed，前端单测为 6 个文件、22 个用例；报告链路测试在缺少 TeX 时会跳过，不能把跳过当成通过。
 
 ## 历史 base_software 部署
 

@@ -5,7 +5,7 @@ description: 说明 monorepo 中 frontend、backend、base_software、docs、ope
 tags: [architecture, monorepo, browser-server, legacy]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-29T03:28:02.619Z
+    at: 2026-09-29T08:08:46.977Z
 sources:
   - id: openwiki-source-d3cb6830ecaa081440b96d80
     resource: repo://backend/app/api/session.py
@@ -15,6 +15,8 @@ sources:
     resource: repo://backend/app/jobs/tools.py
   - id: openwiki-source-55002f5b1d39cf35fd6d60e2
     resource: repo://backend/app/main.py
+  - id: openwiki-source-181ec9b9e03c27becdc02fe8
+    resource: repo://backend/app/report/supervisor.py
   - id: openwiki-source-69b522f10ffdb79d601b4fcf
     resource: repo://frontend/src/main.ts
   - id: openwiki-source-77c413f182fc2eead5535edb
@@ -23,7 +25,7 @@ sources:
     resource: repo://frontend/src/stores/workspace.ts
   - id: openwiki-source-23775c3de52f3ab95a13cb8b
     resource: repo://README.md
-generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
+generated: { by: "codex", at: "2026-09-29T08:08:46.977Z" }
 ---
 
 # 仓库与应用架构总览
@@ -60,9 +62,10 @@ B/S 版本的基本调用关系是：
   -> 会话/产物/上传/预览存储
   -> JobRunner（进程池）
   -> backend/app/services -> backend/app/algos
+       └─ quality-assess -> report supervisor 子进程 -> report worker
 ```
 
-FastAPI 负责 Web 请求、会话 cookie、静态资源兜底和任务状态查询；真正耗时的点云计算由独立计算进程执行。浏览器端不直接访问服务器文件系统，输入文件通过浏览器上传，结果通过会话产物和下载接口获取。
+FastAPI 负责 Web 请求、会话 cookie、静态资源兜底和任务状态查询；真正耗时的点云计算由独立计算进程执行。质量评估的 worker 还会为报告阶段再启动一个 supervisor 子进程，从而把 PyVista、Kaleido 和 LaTeX 的长时间或阻塞调用与任务 worker 隔离。浏览器端不直接访问服务器文件系统，输入文件通过浏览器上传，结果通过会话产物和下载接口获取。
 
 ## 前端职责
 
@@ -84,7 +87,7 @@ FastAPI 负责 Web 请求、会话 cookie、静态资源兜底和任务状态查
 - `jobs/`：任务模型、存储、进程池 runner 与工具注册表。
 - `services/`：把算法包装成带参数校验和阶段进度的工具服务。
 - `algos/`：从 base_software 迁移或适配的数值算法。
-- `report/`：报告图片与 PDF 生成。
+- `report/`：报告 supervisor、报告 worker、报告图片、直方图和 PDF 生成。
 
 这种分层让 Web 层不直接编排算法细节，计算进程也不直接修改会话清单；任务完成后由 runner 统一登记产物。
 
@@ -99,7 +102,8 @@ FastAPI 负责 Web 请求、会话 cookie、静态资源兜底和任务状态查
 - 无登录、仅面向内网演示；浏览器通过同源地址访问。
 - 前端构建产物由 FastAPI 同源托管，避免生产环境额外配置 CORS 和静态服务器。
 - Web 进程与计算进程分离；计算容量由 `WUYE_JOB_POOL_SIZE` 控制。
-- 算法行为以 base_software 为基线；未获批准的算法修复不随架构迁移混入。
+- 算法行为以 base_software 为基线；经批准的缺陷修复单独记录，不随架构迁移混入。
+- 质量评估的报告生成使用嵌套 supervisor 子进程，超时后终止完整报告进程树并把失败写回任务。
 - Docker 尚未实现；当前部署路径是 Linux 裸机 + uv，详见运行与部署页面。
 
 ## 相关页面

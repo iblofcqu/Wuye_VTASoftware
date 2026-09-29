@@ -1,11 +1,11 @@
 ---
 type: development-guide
 title: 测试、Golden 基线与端到端验收
-description: 说明 backend pytest、golden parity、上传/任务/预览测试、frontend Vitest、lint/build 与端到端演示清单如何验证 B/S 迁移后的行为。
+description: 说明 backend pytest、golden parity、报告超时、直方图上限、上传/任务/预览测试、frontend Vitest、lint/build 与端到端演示清单如何验证 B/S 迁移后的行为。
 tags: [testing, golden, parity, pytest, vitest, e2e]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-29T03:28:02.619Z
+    at: 2026-09-29T08:08:46.977Z
 sources:
   - id: openwiki-source-1d55634d256e9e48fe3ca741
     resource: repo://backend/app/core/health.py
@@ -21,6 +21,8 @@ sources:
     resource: repo://backend/tests/test_jobs_failure_interrupt.py
   - id: openwiki-source-ed437f83ef97dbc72fd4755f
     resource: repo://backend/tests/test_preview_api.py
+  - id: openwiki-source-5378d9b430ed01a79fe9470f
+    resource: repo://backend/tests/test_report_timeout.py
   - id: openwiki-source-1261108d77ca574ba4899ab8
     resource: repo://backend/tests/test_report_toolchain.py
   - id: openwiki-source-d626fc2da0c4248b1c11029c
@@ -33,9 +35,11 @@ sources:
     resource: repo://frontend/src/api/__tests__/jobs.spec.ts
   - id: openwiki-source-346a50eb1552973c66fc3a45
     resource: repo://frontend/src/api/__tests__/uploaderResume.spec.ts
+  - id: openwiki-source-8e9bee8aa076ddc66a8bd88f
+    resource: repo://frontend/src/utils/__tests__/qa.spec.ts
   - id: openwiki-source-a95e976d37ac85bc78f2bcd3
     resource: repo://frontend/src/utils/__tests__/wypv.spec.ts
-generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
+generated: { by: "codex", at: "2026-09-29T08:08:46.977Z" }
 ---
 
 # 测试、Golden 基线与端到端验收
@@ -70,6 +74,7 @@ FPFH/RANSAC 是随机算法，不能把“单次坐标完全相同”作为可�
 `backend/tests/` 当前分为以下主题：
 
 - `test_golden_parity.py`：算法迁移一致性。
+- `test_report_timeout.py`、`report_timeout_helpers.py`：报告超时默认值/边界、最后阶段错误、进程树清理、超时后 worker 释放和无 PDF 登记。
 - `test_services_*`：离散、缩放、下采样、FPFH、ICP 和质量评估服务的输出命名、数值和非法参数。
 - `test_sessions.py`、`test_artifacts.py`：会话持久化、并发写保护、产物登记、下载命名、跨会话隔离和路径穿越拒绝。
 - `test_uploads_*`：分片幂等、哈希/长度校验、取消、TTL、完成后的整体校验和中断后续传。
@@ -77,6 +82,7 @@ FPFH/RANSAC 是随机算法，不能把“单次坐标完全相同”作为可�
 - `test_preview_core.py`、`test_preview_api.py`：WYPV 编码、点数上限、缓存、标量对齐、偏差云置零和 API 失败边界。
 - `test_health.py`：TeX、Chromium、离屏渲染和字体自检结构及失败上报。
 - `test_report_module.py`、`test_report_toolchain.py`：报告图片/LaTeX 源生成、无 Streamlit 依赖和真实 PDF 编译。
+- `test_services_quality.py`：质量评估正常路径、Point2Plane 空结果、`ui_figure` 柱/刻度上限和统计/剔除线一致性。
 
 本次验证运行：
 
@@ -85,7 +91,7 @@ cd backend
 PATH="$HOME/.local/bin:$PATH" uv run pytest -q
 ```
 
-结果为 `121 passed`，并在真实报告链路测试中生成 PDF；测试同时报告 FastAPI/Starlette、Matplotlib 和 Kaleido 的弃用警告，这些是依赖升级提示，不是当前断言失败。
+结果为 `134 passed`，并在真实报告链路测试中生成 PDF；测试同时报告 FastAPI/Starlette、Matplotlib 和 Kaleido 的弃用警告，这些是依赖升级提示，不是当前断言失败。
 
 ## 前端测试范围
 
@@ -95,7 +101,7 @@ PATH="$HOME/.local/bin:$PATH" uv run pytest -q
 - `uploadFile`：分片上传、多文件独立失败、并发限制、非安全上下文 SHA-256、回退后的断点恢复和重试。
 - workspace store：会话快照加载、产物查询和错误状态。
 - WYPV：坐标与标量解析、非法数据拒绝；颜色模块验证命名色、十六进制和 seismic 端点。
-- QA 工具：四项指标格式化和报告产物提取。
+- QA 工具：四项指标格式化、报告产物提取、`ui_figure` 选择，以及 Vue 响应式 figure 到普通 JSON 的 Plotly 边界测试。
 
 静态与构建门禁为：
 
@@ -106,7 +112,7 @@ npm run lint
 npm run build
 ```
 
-当前单测为 6 个测试文件、18 个用例；lint、type-check 和生产构建均通过。构建仍会报告大 chunk 警告，但不会导致构建失败。
+当前单测为 6 个测试文件、22 个用例；`npm run test:unit`、`npm run type-check` 和生产构建均通过。构建仍会报告大 chunk 警告，但不会导致构建失败。
 
 ## 端到端演示清单
 
@@ -137,7 +143,7 @@ PATH="$HOME/.local/bin:$PATH" uv run python tests/e2e_demo_checklist.py
 
 - 端到端清单和 pytest 主要验证 API 与数值结果；完整 vtk.js 三维交互、鼠标旋转/缩放和 WebGL2 环境需要浏览器实机或 headless Chrome 验证。
 - 真实 PDF 测试在缺少 `latexmk`/`xelatex` 时会跳过；部署环境必须依赖 `/api/health` 显式报告缺项。
-- `Point2Plane` 的退化平面问题当前没有自动修复测试，只通过源码和算法边界文档显式记录。
+- `Point2Plane` 已加入近共线/退化平面的 0 值回退和质心投影修复，但自动测试主要覆盖正常样本与稀疏邻域；更多极端共线几何组合仍可作为后续回归补充。
 - 测试通过不等于算法在所有输入上都正确；质量评估的数值依赖输入尺度、单位、点密度和配准质量。
 
 ## 相关页面

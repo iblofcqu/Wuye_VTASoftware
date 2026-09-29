@@ -1,11 +1,11 @@
 ---
 type: algorithm-reference
 title: 点云处理算法与基线约束
-description: 说明 backend/app/algos 中网格离散、下采样、FPFH/ICP 配准、KDTree 偏差度量和平面拟合的输入输出、参数语义、与 base_software 的迁移一致性及已知数值边界。
+description: 说明 backend/app/algos 中网格离散、下采样、FPFH/ICP 配准、KDTree 偏差度量和平面拟合的输入输出、参数语义、与 base_software 的迁移一致性，以及 Point2Plane 退化平面的当前处理。
 tags: [point-cloud, algorithms, registration, sampling, parity]
 verified:
   - by: openwiki/0.5.1
-    at: 2026-09-29T03:28:02.619Z
+    at: 2026-09-29T08:08:46.977Z
 sources:
   - id: openwiki-source-c578b2dc2526160d08abde24
     resource: repo://backend/app/algos/knn.py
@@ -29,14 +29,14 @@ sources:
     resource: repo://base_software/functions/Registration.py
   - id: openwiki-source-db642bdc773df44d5cdde189
     resource: repo://base_software/pages/1_%F0%9F%9B%A0%EF%B8%8F_%E7%82%B9%E4%BA%91%E9%A2%84%E5%A4%84%E7%90%86.py
-generated: { by: "codex", at: "2026-09-29T03:28:02.619Z" }
+generated: { by: "codex", at: "2026-09-29T08:08:46.977Z" }
 ---
 
 # 点云处理算法与基线约束
 
 ## 实现位置与迁移边界
 
-`base_software/functions/` 是原始 Streamlit 实现，也是行为基线；`backend/app/algos/` 保存迁移后的算法模块。当前 B/S 服务层从后者导入算法，但迁移约束是：同一输入下应尽量保持原实现的数值结果、输出命名和已知缺陷，不在架构迁移中顺手修复算法。
+`base_software/functions/` 是原始 Streamlit 实现，也是行为基线；`backend/app/algos/` 保存迁移后的算法模块。当前 B/S 服务层从后者导入算法，迁移约束是让正常输入尽量保持原实现的数值结果和输出命名。Point2Plane 的退化平面处理后来作为独立缺陷修复：正常平面仍按 SVD 拟合，近共线/退化邻域不再进入旧的零分量除法路径。
 
 `backend/app/services/` 在算法外包了一层参数校验、输出命名和进度回调。服务层对网格离散、缩放、下采样、粗配准和精配准的输入参数做显式检查，算法模块本身大多仍假设调用者提供正确形状的 NumPy 点数组。
 
@@ -94,10 +94,17 @@ Poisson-disk 采样本身带有随机性。迁移回归不要求逐点一致，�
 3. `Error_caculate_Point2Point()` 返回检测点到参考点云的最近点距离。
 4. `Error_caculate_Point2Plane()` 先找最近点，再在半径 `r` 的邻域内用 SVD 拟合平面，最后计算检测点到拟合平面的法向距离。
 
-平面拟合 `fit_plane()` 对去中心化点云做 SVD，取最小奇异值对应的右奇异向量作为法向量，返回 `[A, B, C, D]`。这里有两个已知边界行为：
+平面拟合 `fit_plane()` 对去中心化点云做 SVD：
 
-- 邻域少于 3 个点时，`Error_caculate_Point2Plane()` 直接把该点偏差记为 `0`，而不是标记为不可计算。
-- 构造平面上点时使用 `-(plane_model[3] / plane_model[2])`。当局部拟合平面的法向量 `z` 分量为 `0` 时，除法会产生 `inf`/`NaN`，随后可能导致偏差统计在 `np.arange` 处失败。该行为属于基线实现的一部分，当前迁移没有自动修复。
+- 取最小奇异值对应的右奇异向量作为法向量；
+- 同时返回平面参数 `[A, B, C, D]` 和参与拟合点的质心；
+- 当 `S[2]` 相对 `S[0]` 过小、点近似共线或平面退化时返回 `None`。
+
+`Error_caculate_Point2Plane()` 随后使用质心作为平面上的已知点做投影，避免旧实现对 `plane_model[2]` 直接做除法。当前边界行为是：
+
+- 邻域少于 3 个点、平面退化为 `None`、法向量无效或误差非有限时，该点偏差记为 `0`；
+- 正常平面仍使用局部 SVD 拟合和点到平面距离；
+- 不再因为局部平面的 z 分量为 0 而产生 `inf`/`NaN`，也不会因此让后续直方图统计失败。
 
 ## 基线验证提供了什么
 
@@ -106,7 +113,7 @@ Poisson-disk 采样本身带有随机性。迁移回归不要求逐点一致，�
 - 点云读取、单位缩放和体素/均匀下采样：与基线逐点完全一致。
 - Poisson-disk 网格离散：点数必须一致，位置允许与采样间距相关的显式容差。
 - FPFH：先验证源码逐字一致，再验证单次运行质量显著优于未配准基线。
-- 已知边界：Point2Plane 邻域不足记 0、`find_r` 空结果抛错等行为按原样保留并断言。
+- 已知边界：Point2Plane 邻域不足记 0、`find_r` 空结果抛错等行为按原样保留并断言；近似共线的退化平面现在走显式的 0 值回退路径。
 
 因此，算法页上的“与原实现一致”主要表示行为契约和验证容差，而不是声称所有随机算法在每次运行中产生相同坐标。
 
