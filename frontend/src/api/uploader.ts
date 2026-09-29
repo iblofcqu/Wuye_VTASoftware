@@ -1,4 +1,4 @@
-import { completeUpload, initUpload, putChunk } from '@/api'
+import { completeUpload, getUpload, initUpload, putChunk } from '@/api'
 import type { Artifact } from '@/types'
 
 export type UploadStatus = 'uploading' | 'completing' | 'done' | 'error'
@@ -17,7 +17,87 @@ export interface UploadItemState {
 export interface UploadOptions {
   chunkSize?: number
   concurrency?: number
+  retryAttempts?: number
+  retryDelayMs?: number
+  resume?: boolean
   onUpdate?: (state: UploadItemState) => void
+}
+
+export interface PendingUpload {
+  uploadId: string
+  fingerprint: string
+  name: string
+  size: number
+  lastModified: number
+  createdAt: number
+}
+
+const PENDING_KEY = 'wuye.uploads.v1'
+
+function storageAvailable(): boolean {
+  return typeof localStorage !== 'undefined'
+}
+
+export function fileFingerprint(file: File): string {
+  return `${file.name}|${file.size}|${file.lastModified}`
+}
+
+function readPending(): PendingUpload[] {
+  if (!storageAvailable()) return []
+  try {
+    const raw = localStorage.getItem(PENDING_KEY)
+    const parsed = raw ? JSON.parse(raw) : []
+    return Array.isArray(parsed) ? (parsed as PendingUpload[]) : []
+  } catch {
+    return []
+  }
+}
+
+function writePending(items: PendingUpload[]): void {
+  if (!storageAvailable()) return
+  localStorage.setItem(PENDING_KEY, JSON.stringify(items))
+}
+
+export function rememberPending(file: File, uploadId: string): void {
+  const fingerprint = fileFingerprint(file)
+  const items = readPending().filter((item) => item.fingerprint !== fingerprint)
+  items.push({
+    uploadId,
+    fingerprint,
+    name: file.name,
+    size: file.size,
+    lastModified: file.lastModified,
+    createdAt: Date.now(),
+  })
+  writePending(items)
+}
+
+export function forgetPending(file: File): void {
+  const fingerprint = fileFingerprint(file)
+  writePending(readPending().filter((item) => item.fingerprint !== fingerprint))
+}
+
+export function findPending(file: File): PendingUpload | undefined {
+  const fingerprint = fileFingerprint(file)
+  return readPending().find((item) => item.fingerprint === fingerprint)
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+/** 失败重试（指数退避），用于网络不稳定场景。 */
+export async function withRetry<T>(fn: () => Promise<T>, attempts = 3, baseDelayMs = 200): Promise<T> {
+  let lastError: unknown
+  for (let attempt = 1; attempt <= Math.max(1, attempts); attempt += 1) {
+    try {
+      return await fn()
+    } catch (error) {
+      lastError = error
+      if (attempt < attempts) await sleep(baseDelayMs * 2 ** (attempt - 1))
+    }
+  }
+  throw lastError
 }
 
 export async function sha256Hex(data: ArrayBuffer): Promise<string> {
@@ -62,13 +142,31 @@ export async function uploadFile(file: File, options: UploadOptions = {}): Promi
   notify()
 
   try {
-    const record = await initUpload({
-      filename: file.name,
-      size: file.size,
-      chunk_size: options.chunkSize,
-    })
+    let record = undefined as Awaited<ReturnType<typeof initUpload>> | undefined
+    if (options.resume !== false) {
+      const pending = findPending(file)
+      if (pending) {
+        try {
+          const status = await getUpload(pending.uploadId)
+          if (status.status === 'uploading' || status.status === 'completing' || status.status === 'completed') {
+            record = status
+          }
+        } catch {
+          record = undefined // 上传记录失效（过期/被取消）→ 重新初始化
+        }
+      }
+    }
+    if (!record) {
+      record = await initUpload({
+        filename: file.name,
+        size: file.size,
+        chunk_size: options.chunkSize,
+      })
+    }
+    rememberPending(file, record.upload_id)
     state.uploadId = record.upload_id
     state.totalChunks = record.total_chunks
+    state.uploadedChunks = record.received_indices.length
     notify()
 
     await runWithConcurrency(record.missing_indices, options.concurrency ?? 2, async (index) => {
@@ -76,7 +174,11 @@ export async function uploadFile(file: File, options: UploadOptions = {}): Promi
       const blob = file.slice(start, Math.min(start + record.chunk_size, file.size))
       const buffer = await blob.arrayBuffer()
       const hash = await sha256Hex(buffer)
-      await putChunk(record.upload_id, index, blob, hash)
+      await withRetry(
+        () => putChunk(record.upload_id, index, blob, hash),
+        options.retryAttempts ?? 3,
+        options.retryDelayMs ?? 200,
+      )
       state.uploadedChunks += 1
       state.uploadedBytes += blob.size
       notify()
@@ -85,6 +187,7 @@ export async function uploadFile(file: File, options: UploadOptions = {}): Promi
     state.status = 'completing'
     notify()
     const completed = await completeUpload(record.upload_id)
+    forgetPending(file)
     state.status = 'done'
     state.artifact = completed.artifact
     notify()
