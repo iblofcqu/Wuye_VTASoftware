@@ -14,6 +14,8 @@ def QA_Report(cache_path,output_path,basic_information):
     doc.packages.add(Package('ctex'))
     doc.packages.add(Package('indentfirst'))
     doc.packages.add(Package('float'))
+    # 平台适配：①-⑥ 等圈号映射到中文字体（xeCJK），避免 Latin Modern 缺字形
+    doc.preamble.append(NoEscape(r'\xeCJKDeclareCharClass{CJK}{"2460 -> "24FF}'))
     # 封面
     t = time.localtime()
     doc.change_length("\TPHorizModule", "1mm")
@@ -102,18 +104,18 @@ def QA_Report(cache_path,output_path,basic_information):
             doc.append('读取扫描点云和离散点云如图2所示')
             with doc.create(Figure(position='H')) as fig2:  # 创建一个图片
                 fig2.add_image(os.path.join(cache_path, "fig2.jpg"),
-                               width='360px')  # 图片内容
+                               width='360pt')  # 图片内容
                 fig2.add_caption('输入点云（红：扫描点云；蓝：离散点云）')
         # 2.3检测点获取
         with doc.create(Subsection('检测点获取')):
             doc.append("进行环境点云剔除后，扫描点云如图3所示；进一步获取检测点如图4所示")
             with doc.create(Figure(position='H')) as fig3:  # 创建一个图片
                 fig3.add_image(os.path.join(cache_path, "fig3.jpg"),
-                               width='360px')  # 图片内容
+                               width='360pt')  # 图片内容
                 fig3.add_caption('剔除环境信息后的扫描点云')
             with doc.create(Figure(position='H')) as fig4:  # 创建一个图片
                 fig4.add_image(os.path.join(cache_path, "fig4.jpg"),
-                               width='360px')  # 图片内容
+                               width='360pt')  # 图片内容
                 fig4.add_caption('从离散点云中获取的偏差检测点')
 
     # 3.尺寸评估结果
@@ -122,12 +124,12 @@ def QA_Report(cache_path,output_path,basic_information):
             doc.append('按一定比例剔除最大偏差点后，在离散点云中显示偏差云图如图5所示。')
             with doc.create(Figure(position='H')) as fig5:  # 创建一个图片
                 fig5.add_image(os.path.join(cache_path,"fig5.jpg"),
-                               width='360px')  # 图片内容
+                               width='360pt')  # 图片内容
                 fig5.add_caption('偏差云图')
         with doc.create(Subsection('偏差统计')):
             doc.append('统计检测点偏差在各区间的点数如图6所示，其中保留了所有偏差并标注了剔除线。')
             with doc.create(Figure(position='H')) as fig6:
-                fig6.add_image(os.path.join(cache_path,"Error_Analysis.jpg"),width='360px')
+                fig6.add_image(os.path.join(cache_path,"Error_Analysis.jpg"),width='360pt')
                 fig6.add_caption('偏差柱状图')
             with doc.create(LongTable("l l l l")) as data_table:
                 data_table.add_row(
@@ -146,4 +148,4 @@ def QA_Report(cache_path,output_path,basic_information):
                 data_table.add_hline()
                 data_table.add_hline()
 
-    doc.generate_pdf(os.path.join(output_path,"{}".format(basic_information['PCD_name'])+'几何质量评估报告{}{}{}'.format(t[0], t[1], t[2])), clean_tex=True)
+    doc.generate_pdf(os.path.join(output_path,"{}".format(basic_information['PCD_name'])+'几何质量评估报告{}{}{}'.format(t[0], t[1], t[2])), clean_tex=True, compiler='latexmk', compiler_args=['-xelatex'])

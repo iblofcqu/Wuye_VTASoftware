@@ -70,9 +70,14 @@
 
 ### D7 报告链路：保留原实现与依赖
 
-- 选择：保留 pyvista 离屏截图（报告用图）、Plotly + kaleido（直方图图片）、pylatex + ctex（PDF 编译），环节、命名与版式不变；`/api/health` 启动自检 pdflatex、chromium、离屏渲染与中文字体，缺失时显式告警。
+- 选择：保留 pyvista 离屏截图（报告用图）、Plotly + kaleido（直方图图片）、pylatex + ctex（PDF 编译），环节、命名与版式不变；`/api/health` 启动自检 latexmk/xelatex、chromium、离屏渲染与中文字体，缺失时显式告警。
 - 理由：严格保持原样要求报告版式一致；离线服务器需要预先安装这些系统依赖。
-- 备选与否决：改用 Python 原生 PDF（版式会变）→ 否决。
+- Linux 平台适配（相对基线报告的显式偏差，已实机验证并经确认）：
+  - 编译引擎用 `latexmk + xelatex`：ctex 默认字体集 fandol 在 pdfTeX 下不可用，pdftex 可用的免费字体集不存在；
+  - 基线 `width='360px'`（5 处）是非法 TeX 单位（LaTeX 报错后按 pt 恢复），显式改为 `360pt`，与恢复结果等价并使编译零错误；
+  - ①-⑥ 圈号在 Latin Modern 缺字形，追加 `\xeCJKDeclareCharClass{CJK}{"2460 -> "24FF}` 映射到中文字体；
+  - 安装与验证步骤记录在 `backend/docs/report-toolchain.md`。
+- 备选与否决：改用 Python 原生 PDF（版式会变）→ 否决；pdflatex 路线不可行（见上）。
 
 ### D8 前端：Vue 3 + TypeScript 标准结构
 
@@ -156,6 +161,7 @@
 - [轮询非实时] → 1 秒间隔满足演示；实时需求出现时再升级传输方式。
 - [JSON 清单并发写] → 单 Web 实例 + 进程内锁 + 原子替换写。
 - [numpy 2.x 与 open3d 0.16 不兼容（配准/ICP/RANSAC segfault）] → backend 固定 numpy 1.26.4；`base_software` 的锁定组合同样受影响（Linux 下配准/质量评估不可用），按约定本次不动 `base_software/`，作为后续独立变更处理。
+- [报告点云图偏淡] → 基线 `draw1/draw2` 点尺寸=1 且 1024px 截图缩放到 360pt 后近似不可见；与基线代码行为一致，本次不修，如需改善另开变更。
 - [算法缺陷保留] → golden 锁定现状，修复一律留待独立变更。
 
 ## Migration Plan
