@@ -4,26 +4,28 @@ import open3d as o3d
 
 def fit_plane(points):
     """
-    使用最小二乘法拟合空间平面
+    使用SVD拟合空间平面
     输入：点云数据，形状为(N, 3)的numpy数组
-    输出：平面方程参数A, B, C, D（满足Ax + By + Cz + D = 0）
+    输出：(plane_model, centroid) 或 None
+         plane_model: [A, B, C, D]，满足 Ax + By + Cz + D = 0
+         centroid:    拟合用点的质心（一定在平面上）
+         若点近似共线/退化，返回 None
     """
-    # 计算质心
     centroid = np.mean(points, axis=0)
-
-    # 去中心化
     points_centered = points - centroid
 
-    # 计算奇异值分解
     U, S, Vt = np.linalg.svd(points_centered, full_matrices=False)
-    # 法向量为最小奇异值对应的右奇异向量
-    normal = Vt[2, :]
 
-    # 平面方程参数
+    # S 降序，S[2] 是"垂直于平面"方向的散度
+    # S[2] 太小 → 点近似共线，平面不可信
+    if S[2] < 1e-10 * max(S[0], 1e-30):
+        return None
+
+    normal = Vt[2, :]
     A, B, C = normal
     D = -np.dot(normal, centroid)
 
-    return np.array([A, B, C, D])
+    return np.array([A, B, C, D]), centroid
 
 def knn_find(data, data_orignal, k=10000):
     """
@@ -88,56 +90,62 @@ def Error_caculate_Point2Point(check_pt,pcd,k):
     return pcd_neat_distance
 
 def project_points_to_plane(points, plane_normal, plane_point):
-    """
-    将三维点集投影到指定平面
-
-    参数：
-    points: numpy数组，形状为(N, 3)，表示N个三维点
-    plane_normal: 平面法向量，形如[nx, ny, nz]
-    plane_point: 平面上的一个点，形如[x0, y0, z0]
-
-    返回：
-    projected_points: numpy数组，形状为(N, 3)，投影后的点集
-    """
-    # 转换为numpy数组
     plane_normal = np.asarray(plane_normal, dtype=np.float64)
     plane_point = np.asarray(plane_point, dtype=np.float64)
     points = np.asarray(points, dtype=np.float64)
 
-    # 验证平面法向量非零
     if np.allclose(plane_normal, 0):
         raise ValueError("平面法向量不能为零向量")
 
-    # 计算每个点到平面点的向量与法向量的点积
     vector_to_point = points - plane_point
     dot_products = np.dot(vector_to_point, plane_normal)
-
-    # 计算缩放系数
     t = dot_products / np.dot(plane_normal, plane_normal)
-
-    # 计算投影坐标
     projection_vectors = np.outer(t, plane_normal)
     projected_points = points - projection_vectors
-
     return projected_points
 
-def Error_caculate_Point2Plane(check_pt,pcd,r):
-    tree=KDTree(pcd[:,:3])
-    pcd_neat_distance=[]
+def Error_caculate_Point2Plane(check_pt, pcd, r):
+    tree = KDTree(pcd[:, :3])
+    pcd_neat_distance = []
+
     for i in range(len(check_pt)):
-        pt_plane=[]
         dis, index = tree.query(check_pt[i].reshape(-1, 3), k=1)
-        cp=pcd[index[0],:]
+        cp = pcd[index[0], :]
         index2 = tree.query_radius(cp.reshape(-1, 3), r)
-        if len(index2[0])>2:
-            pt_plane.append(pcd[index2[0],:])
-            pt_plane=np.vstack(pt_plane)
-            plane_model=fit_plane(pt_plane)
-            plane_model /= np.linalg.norm(plane_model[:3])
-            pt_project=project_points_to_plane(check_pt[i],plane_model[:3],[0,0,-(plane_model[3]/plane_model[2])])[0]
-            error=np.linalg.norm(check_pt[i]-pt_project)
+
+        if len(index2[0]) > 2:
+            pt_plane = pcd[index2[0], :]
+
+            result = fit_plane(pt_plane)
+            if result is None:
+                # 点近似共线，平面退化，跳过
+                pcd_neat_distance.append(0.0)
+                continue
+
+            plane_model, plane_centroid = result
+
+            # 归一化法向量（保持原逻辑）
+            norm = np.linalg.norm(plane_model[:3])
+            if norm < 1e-12 or not np.isfinite(norm):
+                pcd_neat_distance.append(0.0)
+                continue
+            normal = plane_model[:3] / norm
+
+            # 用质心当平面上一点，避免 [0,0,-(D/C)] 在 C=0 时出 inf/nan
+            pt_project = project_points_to_plane(
+                check_pt[i], normal, plane_centroid
+            )[0]
+
+            error = np.linalg.norm(check_pt[i] - pt_project)
+
+            # 兜底：万一还有 nan/inf
+            if not np.isfinite(error):
+                error = 0.0
         else:
-            error=0
+            error = 0.0
+
         pcd_neat_distance.append(error)
-    pcd_neat_distance=np.hstack(pcd_neat_distance)
+
+    pcd_neat_distance = np.hstack(pcd_neat_distance)
     return pcd_neat_distance
+
