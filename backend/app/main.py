@@ -5,6 +5,7 @@ from pathlib import Path
 from fastapi import FastAPI
 
 from app.api.artifacts import router as artifacts_router
+from app.api.uploads import router as uploads_router
 from app.api.session import install_session_support
 from app.config import SESSION_ROOT
 from app.core.sessions import SessionStore
@@ -16,6 +17,7 @@ def create_app(session_root: Path | None = None) -> FastAPI:
     app.state.session_store = store
     install_session_support(app, store)
     app.include_router(artifacts_router)
+    app.include_router(uploads_router)
     return app
 
 

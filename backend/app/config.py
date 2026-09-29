@@ -9,3 +9,10 @@ SESSION_ROOT = DATA_DIR / "sessions"
 
 SESSION_COOKIE_NAME = os.environ.get("WUYE_SESSION_COOKIE", "wuye_session")
 SESSION_MAX_AGE_SECONDS = int(os.environ.get("WUYE_SESSION_MAX_AGE_SECONDS", str(30 * 24 * 3600)))
+
+# 断点续传上传
+MAX_UPLOAD_BYTES = int(os.environ.get("WUYE_MAX_UPLOAD_BYTES", str(5 * 1024 ** 3)))
+UPLOAD_CHUNK_SIZE = int(os.environ.get("WUYE_UPLOAD_CHUNK_SIZE", str(8 * 1024 * 1024)))
+UPLOAD_MIN_CHUNK_SIZE = int(os.environ.get("WUYE_UPLOAD_MIN_CHUNK_SIZE", str(1024)))
+UPLOAD_MAX_CHUNK_SIZE = int(os.environ.get("WUYE_UPLOAD_MAX_CHUNK_SIZE", str(64 * 1024 * 1024)))
+UPLOAD_TTL_SECONDS = int(os.environ.get("WUYE_UPLOAD_TTL_SECONDS", str(24 * 3600)))
