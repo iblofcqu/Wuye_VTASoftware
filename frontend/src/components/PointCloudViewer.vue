@@ -112,13 +112,38 @@ async function loadLayers() {
   }
 }
 
+function supportsWebGL2(): boolean {
+  try {
+    return document.createElement('canvas').getContext('webgl2') !== null
+  } catch {
+    return false
+  }
+}
+
+function initializeRenderer(): boolean {
+  if (!container.value) return false
+  if (!supportsWebGL2()) {
+    error.value = '当前浏览器无法创建 WebGL2 上下文，无法显示三维预览。请在 chrome://gpu 检查 WebGL2/硬件加速设置；点云文件仍可下载。'
+    return false
+  }
+
+  try {
+    renderWindow = vtkGenericRenderWindow.newInstance({ background: [1, 1, 1] })
+    renderWindow.setContainer(container.value)
+    renderWindow.resize()
+    renderWindow.getInteractor().setInteractorStyle(vtkInteractorStyleTrackballCamera.newInstance())
+    renderWindow.getRenderWindow().render()
+    return true
+  } catch (reason) {
+    renderWindow?.delete()
+    renderWindow = null
+    error.value = `三维预览初始化失败：${reason instanceof Error ? reason.message : String(reason)}`
+    return false
+  }
+}
+
 onMounted(() => {
-  if (!container.value) return
-  renderWindow = vtkGenericRenderWindow.newInstance({ background: [1, 1, 1] })
-  renderWindow.setContainer(container.value)
-  renderWindow.resize()
-  renderWindow.getInteractor().setInteractorStyle(vtkInteractorStyleTrackballCamera.newInstance())
-  renderWindow.getRenderWindow().render()
+  if (!initializeRenderer() || !container.value) return
 
   resizeObserver = new ResizeObserver(() => {
     renderWindow?.resize()
