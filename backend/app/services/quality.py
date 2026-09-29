@@ -13,9 +13,11 @@ from app.algos.units import UNIT_TO_METER
 from app.report import figures, pdf
 from app.services.common import (
     ProgressCallback,
+    ReportProgressCallback,
     ToolResult,
     baseline_stem,
     noop_progress,
+    noop_report_progress,
     require_positive_number,
 )
 
@@ -45,8 +47,10 @@ def assess(
     ratio,
     scan_name: str | None = None,
     progress: ProgressCallback | None = None,
+    report_progress: ReportProgressCallback | None = None,
 ) -> ToolResult:
     progress = progress or noop_progress
+    report_progress = report_progress or noop_report_progress
     if unit not in UNIT_TO_METER:
         raise ValueError(f"未知单位: {unit}")
     if method not in QA_METHODS:
@@ -61,29 +65,39 @@ def assess(
 
     progress("第1/4步 文件读取", 1, 4)
     pcd_scene = data_load(str(scene_path))
-    figures.draw1(cache_dir / "fig1a.jpg", pcd_scene, 1, "red")
     pcd_bim = data_load(str(bim_path))
-    figures.draw1(cache_dir / "fig1b.jpg", pcd_bim, 1, "blue")
-    figures.draw2(cache_dir / "fig2.jpg", pcd_scene, pcd_bim, 1, 1, "red", "blue")
 
     progress("第2/4步 环境点云及缺失点云剔除", 2, 4)
     pcd_bim_down = voxel_downsample(pcd_bim, QA_BIM_DOWNSAMPLE_VOXEL)
     pcd_scene_clean = find_r(pcd_bim_down, pcd_scene, r=distance * 10)
-    figures.draw1(cache_dir / "fig3.jpg", pcd_scene_clean, 1, "red")
     check_pt = find_k(pcd_scene_clean, pcd_bim, k=1)
-    figures.draw1(cache_dir / "fig4.jpg", check_pt, 1, "blue")
 
     progress(f"第3/4步 偏差计算（{method}）", 3, 4)
     if method == "Point2Point":
         error = Error_caculate_Point2Point(check_pt, pcd_scene_clean, k=1)
     else:
         error = Error_caculate_Point2Plane(check_pt, pcd_scene_clean, r=distance)
-    figures.draw_error2(cache_dir / "fig5.jpg", check_pt, error * 1000, 2, ratio_value)
 
     progress("第4/4步 偏差统计并生成报告", 4, 4)
+
+    # 报告阶段从这里开始计时；上游点云读取、筛选和偏差计算已完成。
+    report_progress("渲染输入点云图")
+    figures.draw1(cache_dir / "fig1a.jpg", pcd_scene, 1, "red")
+    figures.draw1(cache_dir / "fig1b.jpg", pcd_bim, 1, "blue")
+    figures.draw2(cache_dir / "fig2.jpg", pcd_scene, pcd_bim, 1, 1, "red", "blue")
+
+    report_progress("渲染环境/检测点图")
+    figures.draw1(cache_dir / "fig3.jpg", pcd_scene_clean, 1, "red")
+    figures.draw1(cache_dir / "fig4.jpg", check_pt, 1, "blue")
+
+    report_progress("渲染偏差云图")
+    figures.draw_error2(cache_dir / "fig5.jpg", check_pt, error * 1000, 2, ratio_value)
+
     error_sorted = sorted(error * 1000, reverse=True)
     line_number = int(len(error_sorted) * ratio_value)
     line = float(error_sorted[line_number])
+
+    report_progress("导出偏差直方图（Plotly/Kaleido）")
     figure = figures.show_clum(error_sorted, step=1, ratio=ratio_value, cut_line=line, IS=4)
     figure.write_image(cache_dir / "Error_Analysis.jpg", format="png", scale=2)
 
@@ -116,6 +130,8 @@ def assess(
         "error_max": float(f"{max_val:.2f}"),
         "error_mean": float(f"{mean_val:.2f}"),
     }
+
+    report_progress("编译 PDF（latexmk/xelatex）")
     pdf.QA_Report(str(cache_dir), str(output_dir), basic_information)
 
     t = time.localtime()
