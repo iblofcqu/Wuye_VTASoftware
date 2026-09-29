@@ -11,6 +11,7 @@ from app.api.session import install_session_support
 from app.api.uploads import router as uploads_router
 from app.config import SESSION_ROOT
 from app.core.sessions import SessionStore
+from app.jobs import store as job_store
 from app.jobs.runner import JobRunner
 
 
@@ -24,6 +25,7 @@ def create_app(
 
     @asynccontextmanager
     async def lifespan(_: FastAPI):
+        job_store.interrupt_leftover_jobs(store)
         yield
         runner.shutdown()
 
