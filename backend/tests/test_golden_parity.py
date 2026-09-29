@@ -90,11 +90,11 @@ def test_fpfh_registration_parity_declared_quality_tolerance() -> None:
 
     实测同一实现重复 10 次的 fitness 分布为 {0.06718, 0.06736, 0.06969, 0.06996}
     （离散度 0.0028，偶尔落到次优局部最优），因此逐次对比会偶发失败；
-    改为 best-of-4：两实现都应能达到同等最优质量，容差 0.001（远小于次优档 0.0025）。
+    改为 best-of-6：两实现都应能达到同等最优质量，容差 0.001（远小于次优档 0.0025；实测次优概率约 20%，6 次全部落次优的概率约 6e-5）。
     """
     reference = base_load.data_load(str(BIM))
-    base_best, base_shape = _run_fpfh_with(base_fpfh, 4, reference)
-    new_best, new_shape = _run_fpfh_with(new_fpfh, 4, reference)
+    base_best, base_shape = _run_fpfh_with(base_fpfh, 6, reference)
+    new_best, new_shape = _run_fpfh_with(new_fpfh, 6, reference)
     assert base_shape == new_shape
     assert abs(base_best - new_best) < 0.001
 
