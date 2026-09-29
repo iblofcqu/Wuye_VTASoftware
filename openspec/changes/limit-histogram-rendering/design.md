@@ -63,19 +63,26 @@ No frontend charting dependency or new API endpoint is required.
 
 Use fixed constants in the quality/report layer, for example `UI_HISTOGRAM_MAX_BARS = 256` and `UI_HISTOGRAM_MAX_TICKS = 20`. Do not add an environment variable in this change; configuration can be introduced later if a real need appears.
 
+### D6: Convert the Vue reactive figure to plain JSON before Plotly
+
+The real-browser reproduction showed that `Plotly.react()` receives a deeply reactive Vue Proxy for `summary.ui_figure`. Plotly's deep traversal of that proxy can block the renderer indefinitely even for 21 bars. The same figure cloned to a plain JSON object renders in about 121 ms.
+
+Add `toPlainFigure()` at the Plotly boundary and use it in `DeviationHistogram.vue`. The input figure is already a JSON API payload, so `JSON.parse(JSON.stringify(...))` is a simple and faithful boundary conversion. Alternative `markRaw`/`shallowRef` changes were rejected because they affect reactivity across the page and do not guarantee that every nested value passed to Plotly is plain data.
+
 ## Risks / Trade-offs
 
 - [Aggregation hides individual one-mm bins] → Keep the raw `figure` and PDF unchanged; expose the aggregated interval in hover data and preserve all reported statistics.
 - [A future change raises the limits without testing Windows] → Keep the limits explicit constants, assert them in backend tests, and treat a limit increase as a performance-affecting change.
 - [An old result lacks `ui_figure`] → Frontend fallback keeps compatibility; new quality-assessment jobs always include `ui_figure`.
 - [Plotly's typed-array JSON representation differs from plain arrays] → Build the UI figure through the existing Plotly serializer and test the emitted `ui_figure` structure, not a browser-only transformation.
+- [Plotly receives a reactive Proxy] → Clone the figure to a plain JSON object at the Plotly boundary; test the invariant with a reactive source object.
 - [The empty Point2Plane figure has no bars] → Do not special-case it; the bounded UI figure remains empty and renders quickly.
 
 ## Migration Plan
 
 1. Add the UI limit constants and helper in the backend histogram layer.
 2. Build and serialize `ui_figure` after the unchanged report figure is generated.
-3. Switch the quality page to `ui_figure` with a compatibility fallback.
+3. Switch the quality page to `ui_figure` with a compatibility fallback, then clone the selected figure to plain JSON before `Plotly.react`.
 4. Add backend tests for bar/tick limits, numerical metadata, and empty results.
 5. Add frontend tests for figure selection and run a real browser check with a large Point2Point result.
 

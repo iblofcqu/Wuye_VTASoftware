@@ -2,7 +2,7 @@
 import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import Plotly from 'plotly.js-dist-min'
 
-import type { MetricItem } from '@/utils/qa'
+import { toPlainFigure, type MetricItem } from '@/utils/qa'
 
 const props = defineProps<{
   figure: Record<string, unknown> | null
@@ -15,12 +15,13 @@ const chart = ref<HTMLDivElement | null>(null)
 async function renderFigure() {
   await nextTick()
   if (!chart.value || !props.figure) return
-  const data = (props.figure.data ?? []) as unknown[]
+  const figure = toPlainFigure(props.figure)
+  const data = (figure.data ?? []) as unknown[]
   const layout = {
-    ...(props.figure.layout as Record<string, unknown> | undefined),
+    ...(figure.layout as Record<string, unknown> | undefined),
     autosize: true,
     height: props.height ?? 360,
-  }
+  } as Record<string, unknown>
   await Plotly.react(chart.value, data, layout, { displaylogo: false, responsive: true })
 }
 

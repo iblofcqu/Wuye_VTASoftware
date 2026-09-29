@@ -11,6 +11,7 @@ Point2Point 在测试数据上会产生约 5347.33 mm 的偏差，当前页面�
 - 质量评估结果增加浏览器展示专用的 `ui_figure`，从同一次计算的偏差数据生成。
 - 浏览器展示直方图固定限制为最多 256 个柱、最多 20 个 x 轴刻度；超过限制时对连续 bin 做确定性聚合，频率求和，悬停显示聚合后的区间与频数。
 - 前端质量评估页面优先使用 `ui_figure`；现有 `figure` 保留，用于兼容已有结果结构和 PDF 相关逻辑。
+- 前端在交给 Plotly 前必须把 Vue 响应式 figure 转换为普通 JSON 对象，避免 Plotly 遍历 Proxy 时阻塞浏览器 renderer。
 - 原始偏差数组、四项统计指标、PDF 图表、PDF 命名和版式保持不变。
 - 不修改 `base_software`，不改变 Point2Point/Point2Plane 的计算语义。
 

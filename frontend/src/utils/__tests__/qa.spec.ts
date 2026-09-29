@@ -1,6 +1,7 @@
+import { isReactive, reactive } from 'vue'
 import { describe, expect, it } from 'vitest'
 
-import { findReportArtifact, formatDeviationMetrics, selectHistogramFigure } from '../qa'
+import { findReportArtifact, formatDeviationMetrics, selectHistogramFigure, toPlainFigure } from '../qa'
 
 describe('formatDeviationMetrics', () => {
   it('与基线四项指标一致', () => {
@@ -62,5 +63,16 @@ describe('selectHistogramFigure', () => {
   it('无效输入返回 null', () => {
     expect(selectHistogramFigure(null)).toBeNull()
     expect(selectHistogramFigure({ ui_figure: null, figure: 'invalid' })).toBeNull()
+  })
+})
+
+describe('toPlainFigure', () => {
+  it('把响应式 figure 转为普通对象后再交给 Plotly', () => {
+    const source = reactive({ data: [{ x: [1, 2] }], layout: { xaxis: { tickvals: [1] } } })
+    const plain = toPlainFigure(source)
+
+    expect(plain).toEqual(source)
+    expect(plain).not.toBe(source)
+    expect(isReactive(plain)).toBe(false)
   })
 })

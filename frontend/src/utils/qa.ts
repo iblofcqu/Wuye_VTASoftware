@@ -30,6 +30,14 @@ export function selectHistogramFigure(
   return summary.ui_figure
 }
 
+/**
+ * Plotly must receive plain JSON data. Passing Vue reactive proxies can make the
+ * browser renderer spin while it walks the proxy graph, so clone at this boundary.
+ */
+export function toPlainFigure(figure: Record<string, unknown>): Record<string, unknown> {
+  return JSON.parse(JSON.stringify(figure)) as Record<string, unknown>
+}
+
 function isFigure(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
