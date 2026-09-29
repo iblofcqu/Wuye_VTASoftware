@@ -3,7 +3,7 @@
 ## 1. Report Timeout Core
 
 - [x] 1.1 在 `backend/app/config.py` 增加 `WUYE_REPORT_TIMEOUT_SECONDS`，默认 `300`，并验证正值/上下界校验和默认值。
-- [x] 1.2 新增报告 supervisor/超时模块，使用 `spawn` 子进程执行报告阶段，定义 `ReportTimeoutError(timeout_seconds, stage)` 和报告阶段状态文件；验证：阻塞测试 target 在短超时后返回带最后阶段的异常。
+- [x] 1.2 新增报告 supervisor/超时模块，使用独立子进程执行报告阶段，定义 `ReportTimeoutError(timeout_seconds, stage)` 和报告阶段状态文件；验证：阻塞测试 target 在短超时后返回带最后阶段的异常。
 - [x] 1.3 实现跨平台进程树清理：Linux 使用独立进程组，Windows 使用 `taskkill /F /T`；验证：单元测试覆盖两个平台分支，失败清理时仍保留超时失败结果。
 
 ## 2. Report Phase Integration
