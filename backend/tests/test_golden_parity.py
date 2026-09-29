@@ -20,6 +20,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 FIXTURES = Path(__file__).resolve().parent / "fixtures"
 sys.path.insert(0, str(REPO_ROOT / "base_software"))
 
+from functions import FPFH as base_fpfh_module  # noqa: E402
 from functions import down_samples as base_down  # noqa: E402
 from functions import knn as base_knn  # noqa: E402
 from functions import load_data as base_load  # noqa: E402
@@ -27,6 +28,7 @@ from functions.FPFH import FPFH_Registration as base_fpfh  # noqa: E402
 from functions.Poisson_Disk_Sampling import Mesh_to_PCD as base_mesh  # noqa: E402
 from functions.Registration import Open3d_ICP as base_icp  # noqa: E402
 
+from app.algos import FPFH as new_fpfh_module  # noqa: E402
 from app.algos import down_samples as new_down  # noqa: E402
 from app.algos import knn as new_knn  # noqa: E402
 from app.algos import load_data as new_load  # noqa: E402
@@ -85,29 +87,35 @@ def _mean_nn_to_reference(points: np.ndarray, reference: np.ndarray) -> float:
     return float(distances.mean())
 
 
-def test_fpfh_registration_parity_declared_quality_tolerance() -> None:
-    """FPFH-RANSAC 是随机算法，逐次对比不成立，按 best-of-N 的配准质量声明容差。
+def test_fpfh_algorithm_source_identical_to_baseline() -> None:
+    """FPFH-RANSAC 为随机算法（重复运行会落到不同局部最优），无法逐点/逐次对比。
 
-    实测同一实现重复 10 次的 fitness 分布为 {0.06718, 0.06736, 0.06969, 0.06996}
-    （离散度 0.0028，偶尔落到次优局部最优），因此逐次对比会偶发失败；
-    改为 best-of-6：两实现都应能达到同等最优质量，容差 0.001（远小于次优档 0.0025；实测次优概率约 20%，6 次全部落次优的概率约 6e-5）。
+    因此先验证"搬运未改动实现"：与基线相比，三个函数的源码逐字一致。
+    """
+    import inspect
+    import textwrap
+
+    for name in ("preprocess_point_cloud", "execute_global_registration", "FPFH_Registration"):
+        base_src = textwrap.dedent(inspect.getsource(getattr(base_fpfh_module, name)))
+        new_src = textwrap.dedent(inspect.getsource(getattr(new_fpfh_module, name)))
+        assert new_src == base_src, f"{name} 源码与基线不一致"
+
+
+def test_fpfh_registration_quality_contract() -> None:
+    """行为层验证：单次运行应显著优于未配准基线。
+
+    实测（各 20 次）：未配准 fitness=0.07634；基线注册 0.06591~0.06996（均值 0.06764）、
+    新实现 0.06718~0.06996（均值 0.06757），两实现分布统计等价；随机波动使逐次对比不可行，
+    这里以"优于未配准 × 0.98"（阈值 0.0748，实测最差 0.06996 仍有 6.9% 余量）作为质量契约。
     """
     reference = base_load.data_load(str(BIM))
-    base_best, base_shape = _run_fpfh_with(base_fpfh, 6, reference)
-    new_best, new_shape = _run_fpfh_with(new_fpfh, 6, reference)
-    assert base_shape == new_shape
-    assert abs(base_best - new_best) < 0.001
+    unregistered = base_load.data_load(str(SCENE))
+    threshold = _mean_nn_to_reference(unregistered, reference) * 0.98
 
-
-def _run_fpfh_with(fn, runs: int, reference: np.ndarray) -> tuple[float, tuple[int, ...]]:
-    shapes = set()
-    qualities = []
-    for _ in range(runs):
-        points = fn(str(SCENE), str(BIM), 0.2)
-        shapes.add(points.shape)
-        qualities.append(_mean_nn_to_reference(points, reference))
-    assert len(shapes) == 1
-    return min(qualities), shapes.pop()
+    for runner in (base_fpfh, new_fpfh):
+        points = runner(str(SCENE), str(BIM), 0.2)
+        assert points.shape == unregistered.shape
+        assert _mean_nn_to_reference(points, reference) < threshold
 
 
 def test_icp_parity() -> None:
