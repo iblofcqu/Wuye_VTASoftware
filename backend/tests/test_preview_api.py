@@ -98,3 +98,53 @@ def test_job_preview_requires_success_and_known_job(tmp_path: Path) -> None:
 
         assert client.get(f"/api/jobs/{running.id}/preview").status_code == 409
         assert client.get("/api/jobs/00000000-0000-0000-0000-000000000000/preview").status_code == 404
+
+
+def test_corrupt_artifact_preview_fails_explicitly_but_download_works(tmp_path: Path) -> None:
+    app = create_app(tmp_path / "sessions")
+    store = app.state.session_store
+    with TestClient(app) as client:
+        session_id = client.get("/api/session").json()["session_id"]
+        broken = tmp_path / "broken.xyz"
+        broken.write_text("这不是点云数据\n", encoding="utf-8")
+        artifact = register_artifact(store, session_id, broken, name="broken.xyz", kind="pointcloud")
+
+        preview = client.get(f"/api/artifacts/{artifact.id}/preview")
+        assert preview.status_code == 422
+        assert "预览" in preview.json()["detail"]
+
+        download = client.get(f"/api/artifacts/{artifact.id}/download")
+        assert download.status_code == 200
+        assert download.content == broken.read_bytes()
+
+
+def test_missing_artifact_file_preview_reports_reason(tmp_path: Path) -> None:
+    app = create_app(tmp_path / "sessions")
+    store = app.state.session_store
+    with TestClient(app) as client:
+        session_id = client.get("/api/session").json()["session_id"]
+        artifact = register_artifact(
+            store, session_id, FIXTURES / "sample_scene.xyz", name="sample_scene.xyz", kind="pointcloud"
+        )
+        from app.core.artifacts import artifact_path
+
+        artifact_path(store, session_id, artifact).unlink()
+
+        preview = client.get(f"/api/artifacts/{artifact.id}/preview")
+        assert preview.status_code == 422
+        assert "缺失" in preview.json()["detail"]
+
+
+def test_succeeded_job_without_error_cloud_reports_reason(tmp_path: Path) -> None:
+    app = create_app(tmp_path / "sessions")
+    store = app.state.session_store
+    with TestClient(app) as client:
+        session_id = client.get("/api/session").json()["session_id"]
+        job = new_job("scale", {})
+        job.status = "succeeded"
+        job.internal = {"internal_outputs": {}}
+        add_job(store, session_id, job)
+
+        response = client.get(f"/api/jobs/{job.id}/preview")
+        assert response.status_code == 422
+        assert "没有可预览" in response.json()["detail"]
