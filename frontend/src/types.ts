@@ -43,6 +43,7 @@ export interface UploadRecord {
   status: string
   expires_at: string
   artifact_id?: string | null
+  artifact?: Artifact
 }
 
 export interface SessionSnapshot {
